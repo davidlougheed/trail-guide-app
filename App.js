@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import {NavigationContainer} from "@react-navigation/native";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+import AboutView from "./components/AboutView";
+import MapView from "./components/MapView";
+import StationsView from "./components/StationsView";
+
+const Tab = createBottomTabNavigator();
+
+const App = () => (
+    <NavigationContainer>
+        <Tab.Navigator>
+            <Tab.Screen name="Points of Interest" options={{headerShown: false}} component={StationsView} />
+            <Tab.Screen name="Map" component={MapView} />
+            <Tab.Screen name="About" component={AboutView} />
+        </Tab.Navigator>
+    </NavigationContainer>
+);
+
+// noinspection JSUnusedGlobalSymbols
+export default App;

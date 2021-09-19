@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Red Trail",
+    "data": [
+      {
+        "shortTitle": "Climate Monitoring Station",
+        "longTitle": "Our Local Climate - Right Here, Right Now!",
+        "subtitle": "This small point of land is more than just a picnic area; it provides views of Elbow Lake’s satellite-linked climate-monitoring station.",
+        "coordinatesUTM": {
+          "zone": "18M",
+          "east": 386278,
+          "north": 4925717
+        },
+        "content": "Test",
+        "contentAfterFold": null,
+        "quiz": {
+          "type": "guessOption",
+          "question": "To gather climate data, ...",
+          "options": [
+            {
+              "text":  "Solar charger",
+              "answer": "1"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
