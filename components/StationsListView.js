@@ -1,5 +1,5 @@
 import React from  "react";
-import {SafeAreaView, SectionList, Text} from "react-native";
+import {SafeAreaView, SectionList} from "react-native";
 
 import StationsListItem from "./StationsListItem";
 import StationsListSectionHeader from "./StationsListSectionHeader";
@@ -18,8 +18,10 @@ const StationsListView = ({navigation}) => {
     return (
         <SafeAreaView>
             <SectionList sections={stationData}
-                         renderItem={({item, index}) =>
-                             <StationsListItem {...item} onPress={() => onPress(index)} />}
+                         keyExtractor={(item, index) => `${item.title}.${index}`}
+                         renderItem={({item, index, ...props}) => {
+                             return <StationsListItem {...item} trail={"red"} onPress={() => onPress(index)} />;
+                         }}
                          renderSectionHeader={({section: {title}}) => <StationsListSectionHeader title={title} />} />
         </SafeAreaView>
     );

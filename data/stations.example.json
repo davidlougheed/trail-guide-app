@@ -1,9 +1,11 @@
 [
   {
+    "id": "red",
     "title": "Red Trail",
     "data": [
       {
-        "shortTitle": "Climate Monitoring Station",
+        "category": "research",
+        "title": "Climate Monitoring Station",
         "longTitle": "Our Local Climate - Right Here, Right Now!",
         "subtitle": "This small point of land is more than just a picnic area; it provides views of Elbow Lake’s satellite-linked climate-monitoring station.",
         "coordinatesUTM": {
@@ -11,24 +13,50 @@
           "east": 386278,
           "north": 4925717
         },
-        "content": "Test",
-        "contentAfterFold": null,
-        "quiz": {
-          "type": "guessOption",
-          "question": "To gather climate data, ...",
-          "options": [
-            {
-              "text":  "Solar charger",
-              "answer": "1"
-            }
-          ]
-        }
+        "content": [
+          {
+            "type": "html",
+            "contentBeforeFold": "<p>At the north end of the lake, a raft over the deepest part of Elbow Lake (just under 9 m or about 29 ft in depth) supports one of seven climate monitoring stations located across QUBS properties with one additional site within Thousand Islands National Park on the St. Lawrence River.</p> <p><img class=\"fullwidth\" src=\"locations.png\" alt=\"\" /></p> <p><small>Stations are positioned to compare lakes both within the same latitude, as well as lakes across different latitudes. (Credit: SutronWIN)</small></p> <p><img src=\"climateland.jpg\" alt=\"\" />From the raft, the Elbow Lake station monitors ambient air temperature; relative humidity (RH); wind speed, direction and gusts; barometric pressure; and water temperature both near the surface (1.1 m depth) and 2 metres below. In addition to these climate data, the Elbow Lake station gathers water temperature data below the orange buoy at 15 depth intervals ranging from 0.25 m to 9 m, and measures dissolved oxygen at 1 m depth. Land-based gauges monitor precipitation from the adjacent shoreline, and record soil temperature 5 cm and 15 centimetres below the surface.</p> <p><img src=\"winter.jpg\" alt=\"\" />Measurements are collected frequently, enabling researchers to track changes in local climate in real-time over time intervals as short as 15 minutes. Climate data are relayed via satellite to a central server, where they are immediately available online for use by researchers worldwide! In time we will have these data available in real-time on a screen in the lodge. Data from these stations are being used to study changes in local climate and their influence on ecosystems and individual species.</p> <p><img class=\"fullwidth\" src=\"exdata.png\" alt=\"\" /></p> <p><small>Example air temperature data from the Elbow Lake climate station, July 2014.</small></p>",
+            "contentAfterFold": null
+          },
+          {
+            "type": "quiz",
+            "question": "To gather climate data, ...",
+            "options": [
+              {
+                "text":  "Solar charger",
+                "answer": "1"
+              }
+            ]
+          }
+        ]
       },
       {
-        "shortTitle": "Test2",
+        "category": "research",
+        "title": "Test2",
         "longTitle": "Test 2",
         "subtitle": "Something whatever"
       }
     ]
+  },
+  {
+    "id": "blue",
+    "title": "Blue Trail",
+    "data": []
+  },
+  {
+    "id": "orange",
+    "title": "Orange Trail",
+    "data": []
+  },
+  {
+    "id": "green",
+    "title": "Green Trail",
+    "data": []
+  },
+  {
+    "id": "other",
+    "title": "Main Facility and Off the Trails",
+    "data": []
   }
 ]
