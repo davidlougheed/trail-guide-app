@@ -23,6 +23,11 @@
             }
           ]
         }
+      },
+      {
+        "shortTitle": "Test2",
+        "longTitle": "Test 2",
+        "subtitle": "Something whatever"
       }
     ]
   }
