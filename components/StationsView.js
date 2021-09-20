@@ -10,16 +10,18 @@ import stationData from "../data/stations.example.json";
 
 const Stack = createNativeStackNavigator();
 
+const listViewScreenOptions = {
+    gestureEnabled: false,
+    title: "Elbow Lake Trail Guide",
+};
+
 const StationsView = () => {
     // TODO: Tablet view
 
     // TODO: Don't use callback method for stack component, since it's slow
 
     return <Stack.Navigator initialRouteName="screen.station-list">
-        <Stack.Screen name="screen.station-list" options={{
-            gestureEnabled: false,
-            title: "Elbow Lake Trail Guide",
-        }} component={StationsListView} />
+        <Stack.Screen name="screen.station-list" options={listViewScreenOptions} component={StationsListView} />
         {stationData
             .flatMap(t => t.data)
             .map(s => {
