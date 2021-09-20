@@ -1,5 +1,5 @@
-import React from "react";
-import {SafeAreaView, ScrollView, StyleSheet, Text, View, useWindowDimensions} from "react-native";
+import React, {useState} from "react";
+import {Button, SafeAreaView, ScrollView, StyleSheet, Text, View, useWindowDimensions} from "react-native";
 import RenderHTML from "react-native-render-html";
 
 import LocalImageRenderer from "./LocalImageRenderer";
@@ -38,12 +38,31 @@ const styles = StyleSheet.create({
     }
 });
 
+const htmlStyles = {
+    base: {
+        padding: 16,
+        backgroundColor: "white",
+    },
+    tags: {
+        small: {
+            color: "#777777",
+        },
+    },
+};
+
 const renderers = {img: LocalImageRenderer};
 
 const StationsDetailView = ({longTitle, subtitle, coordinatesUTM, content}) => {
     const {east, north, zone} = (coordinatesUTM ?? {});
 
     const {width} = useWindowDimensions();
+
+    const [htmlStates, setHtmlStates] = useState({});
+
+    const readMoreButton = index => {
+        // Toggle
+        setHtmlStates({...htmlStates, [index]: htmlStates[index] ? undefined : true});
+    };
 
     return <SafeAreaView style={styles.container}>
         <ScrollView>
@@ -61,11 +80,31 @@ const StationsDetailView = ({longTitle, subtitle, coordinatesUTM, content}) => {
             {(content ?? []).map((c, i) => {
                 switch (c.type) {
                     case "html":
-                        return <RenderHTML key={i}
-                                           source={{html: c.contentBeforeFold}}
-                                           contentWidth={width}
-                                           baseStyle={{padding: 16}}
-                                           renderers={renderers} />;
+                        return <View>
+                            <RenderHTML key={i}
+                                        source={{html: c.contentBeforeFold}}
+                                        contentWidth={width}
+                                        baseStyle={htmlStyles.base}
+                                        renderers={renderers} />
+                            {c.contentAfterFold
+                                ? (
+                                    <View style={{
+                                        backgroundColor: "white",
+                                        paddingHorizontal: 16,
+                                        paddingBottom: htmlStates[i] ? 0 : 16
+                                    }}>
+                                        <Button title={htmlStates[i] ? "HIDE" : "READ MORE"}
+                                                onPress={() => readMoreButton(i)} />
+                                    </View>
+                                ) : null}
+                            {htmlStates[i]
+                                ? <RenderHTML source={{html: c.contentAfterFold}}
+                                              contentWidth={width}
+                                              baseStyle={htmlStyles.base}
+                                              tagsStyles={htmlStyles.tags}
+                                              renderers={renderers} />
+                                : null}
+                        </View>;
                 }
             })}
         </ScrollView>
