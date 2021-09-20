@@ -30,13 +30,27 @@ const styles = StyleSheet.create({
 });
 
 const STATION_ICONS = {
+    "culture": {
+        "blue": require("../assets/culture-blue.png"),
+        "green": require("../assets/culture-green.png"),
+        "orange": require("../assets/culture-orange.png"),
+        "red": require("../assets/culture-red.png"),
+        "other": require("../assets/culture-other.png"),
+    },
+    "environment": {
+        "blue": require("../assets/environment-blue.png"),
+        "green": require("../assets/environment-green.png"),
+        "orange": require("../assets/environment-orange.png"),
+        "red": require("../assets/environment-red.png"),
+        "other": require("../assets/environment-other.png"),
+    },
     "research": {
         "blue": require("../assets/research-blue.png"),
         "green": require("../assets/research-green.png"),
         "orange": require("../assets/research-orange.png"),
         "red": require("../assets/research-red.png"),
         "other": require("../assets/research-other.png"),
-    }
+    },
 };
 
 const StationsListItem = ({title, subtitle, onPress, trail, category}) => {
