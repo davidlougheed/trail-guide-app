@@ -1,61 +1,92 @@
 import React, {useEffect, useState} from "react";
-import {Platform, SafeAreaView, ScrollView, useWindowDimensions} from "react-native";
+import {Button, Modal, Platform, SafeAreaView, ScrollView, useWindowDimensions, View} from "react-native";
 import {useAssets} from "expo-asset";
 import {readAsStringAsync} from "expo-file-system";
-import RenderHTML from "react-native-render-html";
 
-import htmlRenderers from "../htmlRenderers";
+import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
+import PageHeader from "./PageHeader";
 
-import htmlStyles from "../styles/htmlStyles";
-
-// Cannot use StyleSheet with RenderHTML
-const styles = {
-    ids: {
-        header: {
-            backgroundColor: "#0F7470",
-            color: "white",
-            margin: 0,
-            padding: 16,
-            fontWeight: "normal",
-        },
-        content: {
-            paddingHorizontal: 16,
-            paddingTop: 8,
-            backgroundColor: "white",
-        },
-    },
-};
-
-import aboutHTMLWeb from "../data/about.html";
+import AboutHTMLResources, {loadedWebHTML} from "../data/about/AboutHTMLResources";
+import {pageStyles} from "./lib/sharedStyles";
 
 const AboutView = () => {
     const {width} = useWindowDimensions();
 
-    const [assets, error] = useAssets([require("../data/about.html")]);
+    const resources = Object.entries(AboutHTMLResources)
+        .sort(([k1], [k2]) => k1.localeCompare(k2));
+
+    // noinspection JSCheckFunctionSignatures
+    const [assets, error] = useAssets(resources.map(([_k, v]) => v));
     if (error) console.error(error);
 
-    const [aboutHTML, setAboutHTML] = useState("<div></div>");
+    const [resourcesHTML, setResourcesHTML] = useState(
+        Object.fromEntries(resources.map(([k]) => [k, "<div></div>"])));
+    const [modalsVisible, setModalsVisible] = useState({});
 
     useEffect(() => {
         if (!assets) return;
         if (Platform.OS === "web") {
-            setAboutHTML(aboutHTMLWeb);
+            setResourcesHTML({...resourcesHTML, ...loadedWebHTML});
         } else {
             (async () => {
-                setAboutHTML(await readAsStringAsync(assets[0].localUri));
+                const loadedAssets = await Promise.all(assets.map(a => readAsStringAsync(a.localUri)));
+                setResourcesHTML({
+                    ...resourcesHTML,
+                    ...Object.fromEntries(resources.map((r, i) => [r[0], loadedAssets[i]])),
+                });
             })();
         }
     }, [assets]);
 
-    return <SafeAreaView style={{flex: 1}}>
-        <ScrollView>
-            <RenderHTML source={{html: aboutHTML}}
+    const renderersProps = {
+        a: {
+            onPress: (event, href) => {
+                const hrefSplit = href.split("#");
+                const anchor = hrefSplit[hrefSplit.length - 1];
+
+                if (anchor.startsWith("modal_")) {
+                    console.log(anchor);
+                    setModalsVisible({[anchor]: true});
+                } else {
+                    // TODO: normal link handling
+                }
+            },
+        },
+    };
+
+    console.log(modalsVisible);
+
+
+    return <>
+        <SafeAreaView style={pageStyles.container}>
+            <ScrollView>
+                <PageHeader longTitle="Introduction to the Elbow Lake Interpretive App" />
+                <CustomRenderHTML
+                    source={{html: resourcesHTML["about"]}}
+                    contentWidth={width}
+                    renderersProps={renderersProps}
+                />
+            </ScrollView>
+        </SafeAreaView>
+        {resources.filter(([k]) => k.startsWith("modal_")).map(([k]) => {
+            const closeModal = () => setModalsVisible({...modalsVisible, [k]: undefined});
+            return <Modal key={k}
+                   animationType="slide"
+                   transparent={false}
+                   visible={modalsVisible[k] !== undefined}
+                   onRequestClose={closeModal}>
+                <View style={{flex: 1, padding: 16}}>
+                    <CustomRenderHTML
+                        source={{html: resourcesHTML[k] ?? ""}}
+                        baseStyle={{padding: 0}}
                         contentWidth={width}
-                        idsStyles={styles.ids}
-                        tagsStyles={htmlStyles.tags}
-                        renderers={htmlRenderers} />
-        </ScrollView>
-    </SafeAreaView>;
+                        renderersProps={renderersProps}
+                    />
+                    <Button onPress={closeModal} title="CLOSE" />
+                </View>
+            </Modal>;
+        })}
+    </>;
 }
 
 export default AboutView;

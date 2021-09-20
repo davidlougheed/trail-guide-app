@@ -1,0 +1,230 @@
+<!--<script type="text/javascript">
+    document.createPopup = function (parameters) {
+        var popup = document.createElement('div');
+        popup.className = 'popup hidden';
+
+        var closePopup = document.createElement('a');
+        closePopup.setAttribute('id', 'closePopup');
+        closePopup.appendChild(document.createTextNode('×'));
+        closePopup.addEventListener('click', (function (event) {
+            this.className = 'popup hidden';
+            window.setTimeout((function () {
+                document.body.removeChild(this);
+            }).bind(this), 500);
+        }).bind(popup));
+
+        var popupTitle = document.createElement('h2');
+        popupTitle.appendChild(document.createTextNode(parameters.title));
+
+        var popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        popupContent.innerHTML = parameters.content;
+
+        popup.appendChild(closePopup);
+        popup.appendChild(popupTitle);
+        popup.appendChild(popupContent);
+        document.body.appendChild(popup);
+
+        window.setTimeout((function (popup) {
+            popup.className = 'popup';
+        }).bind(this, popup), 1);
+    };
+
+    window.addEventListener('load', function (event) {
+        var agreeBtn = document.getElementById("agree");
+        var afterAgree = document.getElementById("afterAgree");
+        var closeBtn = document.getElementById("close");
+        var allSections = document.getElementsByClassName("section");
+
+        var environmentTrigger = document.getElementById("environment-trigger");
+        var culturalTrigger = document.getElementById("cultural-trigger");
+        var researchTrigger = document.getElementById("research-trigger");
+
+        // if agreed:
+        // agreeBtn.style.display = 'none';
+        // afterAgree.style.display = 'block';
+
+        if (window.JSInterface) {
+            // TODO: window.JSInterface does not seem to exist...
+            if (window.JSInterface.hasAgreed()) {
+                agreeBtn.style.display = "none";
+                afterAgree.style.display = "block";
+
+                for(var s = 0; s < allSections.length; s++) {
+                    allSections[s].style.display = "block";
+                }
+            }
+        }
+
+        var agreeClicked = function (e) {
+            agreeBtn.style.display = "none";
+            afterAgree.style.display = "block";
+            closeBtn.style.display = "block";
+
+            window.JSInterface.setAgreed();
+
+            // TODO: Update app informing that stuff has been agreed to ???
+        }
+
+        var finishActivity = function (e) {
+            window.JSInterface.finishActivity();
+        }
+
+        agreeBtn.addEventListener("touchend", agreeClicked, false);
+        closeBtn.addEventListener("touchend", finishActivity, false);
+
+        var environmentPopup = function (e) {
+            e.preventDefault();
+
+            document.createPopup({
+                title: "Environment",
+                content: document.getElementById('environment-content').innerHTML
+            });
+        }
+
+        var culturalPopup = function (e) {
+            e.preventDefault();
+
+            document.createPopup({
+                title: "Cultural",
+                content: document.getElementById('cultural-content').innerHTML
+            });
+        }
+
+        var researchPopup = function (e) {
+            e.preventDefault();
+
+            document.createPopup({
+                title: "Research",
+                content: document.getElementById('research-content').innerHTML
+            });
+        }
+
+        environmentTrigger.addEventListener("click", environmentPopup, false);
+        culturalTrigger.addEventListener("click", culturalPopup, false);
+        researchTrigger.addEventListener("click", researchPopup, false);
+    }, false);
+</script>-->
+<p>
+    Welcome to the Elbow Lake Environmental Education Centre and surrounding Elbow Lake property!
+    These lands are managed as a protected nature reserve by our conservation partner, the Nature
+    Conservancy of Canada. Enjoy your visit to the trails, but please abide by the following:
+</p>
+<ul>
+    <li>
+        Register your intent to visit in advance by contacting the ELEEC by
+        <a href="mailto:carolyn.bonta@queensu.ca">e-mail</a> or by phone at 613-353-7968.
+    </li>
+    <li>Do not bring any vehicles onto the property unless authorized to do so.</li>
+    <li>
+        Leash your pet(s) at all times while on the trails, and take responsibility by cleaning up after
+        them. Pets are not allowed on the beach.
+    </li>
+    <li>
+        Absolutely no entry in any buildings unless authorized to do so.
+    </li>
+    <li>
+        Pack-in / pack-out all garbage.
+    </li>
+    <li>
+        Do not intentionally disturb or remove any plant or living creature from the property.
+    </li>
+</ul>
+<!--			<p id="agreeText">Click the “I agree” button to continue.</p>-->
+<!--			<button id="agree">I Agree</button>-->
+<!--			<button id="close">Close Disclaimer</button>-->
+<div id="afterAgree">
+    <p><strong>All photos are &copy; Queen's University Biological Station (QUBS) except where noted.</strong></p>
+    <p>
+        This <em>Elbow Lake Trail Guide</em> interpretive app was developed to introduce self-guiding
+        visitors to a selection of interesting features of the Elbow Lake property, falling within three
+        main themes: <a href="#modal_environmental">Environmental</a>,
+        <a href="#modal_cultural">Cultural</a> and
+        <a href="#modal_research">Research</a>.
+    </p>
+    <p>
+        Each interpretive station is identified in three ways:
+    </p>
+    <ol>
+        <li>
+            By a coloured marker at the station site, stenciled to distinguish Environmental, Cultural and
+            Research-themed stations;
+        </li>
+        <li>
+            Visually overlain on the Trails Map, with a written description of the site in the app text; and
+        </li>
+        <li>
+            Georeferenced, meaning each station is associated by its location in physical space, in this
+            case by UTM coordinates in NAD83. Each station’s coordinates are included with the app text.
+            <!-- , providing an option for geocache enthusiasts to engage in virtual geocaching at ELEEC. -->
+        </li>
+    </ol>
+</div>
+<div class="section">
+    <h2>Virtual Geocaching</h2>
+    <p>
+        Each interpretive station is georeferenced at the top of their respective sections in the app. Input
+        these waypoints into your GPS unit, and use them to navigate precisely to each station. Please
+        respect that the Elbow Lake property is managed as a nature reserve, and remain on designated
+        trails; as well, be mindful of the privacy of other guests registered to the ELEEC.
+    </p>
+    <p>
+        At each station, take the quiz to test your knowledge about each feature of interest. This shouldn’t
+        be too hard if you are at the right location, and have paid close attention and given some thought
+        to the associated interpretive text. Good luck and have fun!
+    </p>
+</div>
+<div class="section">
+    <h2>Acknowledgements</h2>
+    <p>
+        <img src="../img/td_fef_logo_transparent.png"
+             alt="TD Friends of the Environment Foundation"
+             width="222" height="90"
+             style="float: right; margin-left: 15px; margin-bottom: 15px;">
+        The <em>Elbow Lake Trail Guide</em> interpretive app was developed with funding from TD Friends of
+        the Environment Foundation and designed by David Lougheed with text and photos contributed by
+        Queen’s University Biological Station and Nature Conservancy of Canada staff.
+    </p>
+    <p>
+        We also wish to gratefully acknowledge the many other contributors to this project:
+    </p>
+    <ul>
+        <li>
+            Francine Berish, Geospatial Data Librarian, Queen’s University and Cate Jackson, Assistant, Maps
+            &amp; Geospatial Data, Queen’s University Library.
+        </li>
+        <li>Mark Badham, Curator, Miller Museum of Geology.</li>
+        <li>Josh Van Wieren, Ecologist, Parks Canada – Thousand Islands National Park.</li>
+        <li>
+            Karl Montgomery, former Hewlett-Packard Company employee and Manager of the Elbow Lake
+            Recreational Area.
+        </li>
+        <li>
+            Maureen Sly, local botanist and Dr. Paul M. Catling, Curator of the Agriculture and Agri-Food
+            Canada herbarium.
+        </li>
+        <li>Jim Spencer, local landowner and Elbow Lake neighbour.</li>
+        <li>Bill Evans, Old Bird Inc.</li>
+        <li>Shirley French, Citizen Science Volunteer.</li>
+    </ul>
+    <p>
+        All imagery and mapping subject to copyright and used with permission:
+    </p>
+    <ul>
+        <li>Topographical maps reproduced with permission of Natural Resources Canada 2015.</li>
+        <li>
+            Provincial aerial photography under copyright of the Crown, with permission for use granted by
+            Archives of Ontario.
+        </li>
+        <li>
+            Provincial Digital Raster Acquisition Project for the East (DRAPE) satellite imagery provided
+            by the Ontario Ministry of Natural Resources &amp; Forestry, copyright 2008/09 Aero-Photo (1961)
+            Inc. All rights reserved.
+        </li>
+        <li>Federal NR Can out of copyright</li>
+        <li>
+            Historic map of Storrington Township from county atlas: Frontenac – Lennox – Addington 1878,
+            Ontario. J.H. Meacham &amp; Co., 1878
+        </li>
+    </ul>
+</div>
