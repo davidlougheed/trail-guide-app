@@ -22,8 +22,8 @@ const StationsView = () => {
         }} component={StationsListView} />
         {stationData
             .flatMap(t => t.data)
-            .map((s, i) => {
-                return <Stack.Screen key={s.title} name={`screen.station.${i}`} options={{
+            .map(s => {
+                return <Stack.Screen key={s.title} name={`screen.station.${s.title}`} options={{
                     title: s.title,
                 }}>{props => <StationsDetailView {...props} {...s} />}</Stack.Screen>;
             })}
