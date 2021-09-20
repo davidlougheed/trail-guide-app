@@ -9,6 +9,11 @@ import PageHeader from "./PageHeader";
 import AboutHTMLResources, {loadedWebHTML} from "../data/about/AboutHTMLResources";
 import {pageStyles} from "./lib/sharedStyles";
 
+const modalStyles = {
+    container: {flex: 1, padding: 16},
+    htmlBase: {padding: 0},
+};
+
 const AboutView = () => {
     const {width} = useWindowDimensions();
 
@@ -20,7 +25,7 @@ const AboutView = () => {
     if (error) console.error(error);
 
     const [resourcesHTML, setResourcesHTML] = useState(
-        Object.fromEntries(resources.map(([k]) => [k, "<div></div>"])));
+        Object.fromEntries(resources.map(([k]) => [k, ""])));
     const [modalsVisible, setModalsVisible] = useState({});
 
     useEffect(() => {
@@ -54,9 +59,6 @@ const AboutView = () => {
         },
     };
 
-    console.log(modalsVisible);
-
-
     return <>
         <SafeAreaView style={pageStyles.container}>
             <ScrollView>
@@ -75,12 +77,11 @@ const AboutView = () => {
                    transparent={false}
                    visible={modalsVisible[k] !== undefined}
                    onRequestClose={closeModal}>
-                <View style={{flex: 1, padding: 16}}>
+                <View style={modalStyles.container}>
                     <CustomRenderHTML
                         source={{html: resourcesHTML[k] ?? ""}}
-                        baseStyle={{padding: 0}}
+                        baseStyle={modalStyles.htmlBase}
                         contentWidth={width}
-                        renderersProps={renderersProps}
                     />
                     <Button onPress={closeModal} title="CLOSE" />
                 </View>
