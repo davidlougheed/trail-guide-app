@@ -47,6 +47,9 @@ const htmlStyles = {
         small: {
             color: "#777777",
         },
+        p: {
+            fontSize: 16,
+        },
     },
 };
 

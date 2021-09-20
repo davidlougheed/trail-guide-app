@@ -3,8 +3,9 @@ import {StyleSheet, Text, View} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 4,
+        paddingVertical: 4,
         paddingHorizontal: 16,
+        backgroundColor: "rgb(242, 242, 242)",
     },
     text: {
         fontWeight: "bold",
