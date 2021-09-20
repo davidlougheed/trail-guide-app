@@ -80,11 +80,11 @@ const StationsDetailView = ({longTitle, subtitle, coordinatesUTM, content}) => {
             {(content ?? []).map((c, i) => {
                 switch (c.type) {
                     case "html":
-                        return <View>
-                            <RenderHTML key={i}
-                                        source={{html: c.contentBeforeFold}}
+                        return <View key={i}>
+                            <RenderHTML source={{html: c.contentBeforeFold}}
                                         contentWidth={width}
                                         baseStyle={htmlStyles.base}
+                                        tagsStyles={htmlStyles.tags}
                                         renderers={renderers} />
                             {c.contentAfterFold
                                 ? (
