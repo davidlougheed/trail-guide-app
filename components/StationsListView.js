@@ -19,8 +19,7 @@ const StationsListView = ({navigation}) => {
         <SectionList
             sections={stationData}
             keyExtractor={(item, index) => `${item.title}.${index}`}
-            renderItem={({item, section, ...props}) => {
-                 console.log(props);
+            renderItem={({item, section}) => {
                  return <StationsListItem {...item}
                                           trail={section.id}
                                           onPress={() => onPress(item.title)} />;

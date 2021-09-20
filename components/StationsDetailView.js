@@ -1,8 +1,21 @@
 import React, {useState} from "react";
-import {Button, SafeAreaView, ScrollView, StyleSheet, Text, View, useWindowDimensions} from "react-native";
-import RenderHTML from "react-native-render-html";
+import {
+    Button,
+    ImageBackground,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
 
-import LocalImageRenderer from "./LocalImageRenderer";
+    useWindowDimensions,
+} from "react-native";
+import RenderHTML, {HTMLContentModel, HTMLElementModel} from "react-native-render-html";
+
+import LocalImages from "../data/img/LocalImages";
+
+import htmlStyles from "../styles/htmlStyles";
+import htmlRenderers from "../htmlRenderers";
 
 const styles = StyleSheet.create({
     container: {
@@ -11,17 +24,27 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: "#0F7470",
         margin: 0,
+    },
+    headerBackground: {
         padding: 16,
     },
     headerTitle: {
         fontSize: 32,
         marginBottom: 12,
         color: "white",
+
+        textShadowColor: "rgba(0, 0, 0, 0.8)",
+        textShadowOffset: {width: 1, height: 3},
+        textShadowRadius: 3,
     },
     subtitle: {
         fontSize: 14,
         marginBottom: 8,
         color: "white",
+
+        textShadowColor: "rgba(0, 0, 0, 0.8)",
+        textShadowOffset: {width: 1, height: 3},
+        textShadowRadius: 3,
     },
     coordinatesBox: {
         paddingTop: 8,
@@ -31,31 +54,22 @@ const styles = StyleSheet.create({
     coordinatesTitle: {
         color: "white",
         fontWeight: "bold",
+
+        textShadowColor: "rgba(0, 0, 0, 0.8)",
+        textShadowOffset: {width: 1, height: 3},
+        textShadowRadius: 3,
     },
     coordinatesItem: {
         color: "white",
         marginTop: 4,
+
+        textShadowColor: "rgba(0, 0, 0, 0.8)",
+        textShadowOffset: {width: 1, height: 3},
+        textShadowRadius: 3,
     }
 });
 
-const htmlStyles = {
-    base: {
-        padding: 16,
-        backgroundColor: "white",
-    },
-    tags: {
-        small: {
-            color: "#777777",
-        },
-        p: {
-            fontSize: 16,
-        },
-    },
-};
-
-const renderers = {img: LocalImageRenderer};
-
-const StationsDetailView = ({longTitle, subtitle, coordinatesUTM, content}) => {
+const StationsDetailView = ({headerImage, longTitle, subtitle, coordinatesUTM, content}) => {
     const {east, north, zone} = (coordinatesUTM ?? {});
 
     const {width} = useWindowDimensions();
@@ -70,15 +84,17 @@ const StationsDetailView = ({longTitle, subtitle, coordinatesUTM, content}) => {
     return <SafeAreaView style={styles.container}>
         <ScrollView>
             <View style={styles.header}>
-                <Text style={styles.headerTitle}>{longTitle}</Text>
-                <Text style={styles.subtitle}>{subtitle}</Text>
-                <View style={styles.coordinatesBox}>
-                    <Text style={styles.coordinatesTitle}>UTM Coordinates (Zone {zone ?? ""})</Text>
-                    <Text style={styles.coordinatesItem}>
-                        <Text style={{fontWeight: "bold"}}>East:</Text> {east ?? ""}E</Text>
-                    <Text style={styles.coordinatesItem}>
-                        <Text style={{fontWeight: "bold"}}>North:</Text> {north ?? ""}N</Text>
-                </View>
+                <ImageBackground source={LocalImages[headerImage]} resizeMode="cover" style={styles.headerBackground}>
+                    <Text style={styles.headerTitle}>{longTitle}</Text>
+                    <Text style={styles.subtitle}>{subtitle}</Text>
+                    <View style={styles.coordinatesBox}>
+                        <Text style={styles.coordinatesTitle}>UTM Coordinates (Zone {zone ?? ""})</Text>
+                        <Text style={styles.coordinatesItem}>
+                            <Text style={{fontWeight: "bold"}}>East:</Text> {east ?? ""}E</Text>
+                        <Text style={styles.coordinatesItem}>
+                            <Text style={{fontWeight: "bold"}}>North:</Text> {north ?? ""}N</Text>
+                    </View>
+                </ImageBackground>
             </View>
             {(content ?? []).map((c, i) => {
                 switch (c.type) {
@@ -88,7 +104,14 @@ const StationsDetailView = ({longTitle, subtitle, coordinatesUTM, content}) => {
                                         contentWidth={width}
                                         baseStyle={htmlStyles.base}
                                         tagsStyles={htmlStyles.tags}
-                                        renderers={renderers} />
+                                        renderers={htmlRenderers}
+                                        customHTMLElementModels={{
+                                            "video": HTMLElementModel.fromCustomModel({
+                                                tagName: "video",
+                                                contentModel: HTMLContentModel.block,
+                                            }),
+                                        }}
+                            />
                             {c.contentAfterFold
                                 ? (
                                     <View style={{
@@ -105,7 +128,7 @@ const StationsDetailView = ({longTitle, subtitle, coordinatesUTM, content}) => {
                                               contentWidth={width}
                                               baseStyle={htmlStyles.base}
                                               tagsStyles={htmlStyles.tags}
-                                              renderers={renderers} />
+                                              renderers={htmlRenderers} />
                                 : null}
                         </View>;
                 }

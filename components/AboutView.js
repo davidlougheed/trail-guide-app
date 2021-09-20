@@ -4,7 +4,9 @@ import {useAssets} from "expo-asset";
 import {readAsStringAsync} from "expo-file-system";
 import RenderHTML from "react-native-render-html";
 
-import LocalImageRenderer from "./LocalImageRenderer";
+import htmlRenderers from "../htmlRenderers";
+
+import htmlStyles from "../styles/htmlStyles";
 
 // Cannot use StyleSheet with RenderHTML
 const styles = {
@@ -18,13 +20,13 @@ const styles = {
         },
         content: {
             paddingHorizontal: 16,
+            paddingTop: 8,
             backgroundColor: "white",
         },
     },
 };
 
 import aboutHTMLWeb from "../data/about.html";
-const renderers = {img: LocalImageRenderer};
 
 const AboutView = () => {
     const {width} = useWindowDimensions();
@@ -50,7 +52,8 @@ const AboutView = () => {
             <RenderHTML source={{html: aboutHTML}}
                         contentWidth={width}
                         idsStyles={styles.ids}
-                        renderers={renderers} />
+                        tagsStyles={htmlStyles.tags}
+                        renderers={htmlRenderers} />
         </ScrollView>
     </SafeAreaView>;
 }

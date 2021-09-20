@@ -1,7 +1,7 @@
 // Generated automatically
 
 const LocalImages = {
-    [require("./td_fef_logo_transparent.png")]: require("./td_fef_logo_transparent.png"),
+    "header_eastern_white_cedar": require("./header_eastern_white_cedar.jpg"),
     "td_fef_logo_transparent": require("./td_fef_logo_transparent.png"),
 };
 
