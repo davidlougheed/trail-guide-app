@@ -2,7 +2,7 @@ import React from "react";
 import {ImageBackground, StyleSheet, Text, View} from "react-native";
 import {useAssets} from "expo-asset";
 
-import LocalImages from "../data/img/LocalImages";
+import LocalImages from "../data/image/LocalImages";
 
 const textShadow = {
     textShadowColor: "rgba(0, 0, 0, 0.8)",

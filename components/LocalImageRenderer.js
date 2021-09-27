@@ -2,7 +2,7 @@ import React from "react";
 import {Image, View} from "react-native";
 import {useAssets} from "expo-asset";
 
-import LocalImages from "../data/img/LocalImages";
+import LocalImages from "../data/image/LocalImages";
 
 const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, ...props}) => {
     const srcSplit = src.split("/");
