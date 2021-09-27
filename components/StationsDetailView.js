@@ -29,7 +29,7 @@ const StationsDetailView = ({headerImage, longTitle, subtitle, coordinatesUTM, c
                         subtitle={subtitle}
                         coordinatesUTM={coordinatesUTM} />
             {(content ?? []).map((c, i) => {
-                switch (c.type) {
+                switch (c.content_type) {
                     case "html":
                         return <View key={i}>
                             <CustomRenderHTML source={{html: c.contentBeforeFold}} contentWidth={width} />
