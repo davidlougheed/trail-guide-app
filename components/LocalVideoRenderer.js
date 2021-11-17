@@ -1,9 +1,13 @@
+// A web interface to manage a trail guide mobile app's content and data.
+// Copyright (C) 2021  David Lougheed
+// See NOTICE for more information.
+
 import React from "react";
 import {Platform, View} from "react-native";
 import {WebView} from "react-native-webview";
 import {useAssets} from "expo-asset";
 
-import LocalVideos from "../data/video/LocalVideos";
+import LocalVideos from "../data/assets/video/LocalVideos";
 
 const LocalVideoRenderer = ({style, tnode, ...props}) => {
     const {attributes: {width, height}, domNode: {children}} = tnode;

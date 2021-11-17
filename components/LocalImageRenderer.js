@@ -1,8 +1,12 @@
+// A web interface to manage a trail guide mobile app's content and data.
+// Copyright (C) 2021  David Lougheed
+// See NOTICE for more information.
+
 import React from "react";
 import {Image, View} from "react-native";
 import {useAssets} from "expo-asset";
 
-import LocalImages from "../data/image/LocalImages";
+import LocalImages from "../data/assets/image/LocalImages";
 
 const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, ...props}) => {
     const srcSplit = src.split("/");
