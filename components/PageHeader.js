@@ -51,10 +51,11 @@ const styles = StyleSheet.create({
     },
 });
 
-const PageHeader = ({headerImage, longTitle, subtitle, coordinatesUTM}) => {
-    const {east, north, zone} = (coordinatesUTM ?? {});
+const PageHeader = ({station}) => {
+    const {header_image, long_title, subtitle, coordinates_utm} = station;
+    const {east, north, zone} = (coordinates_utm ?? {});
 
-    const assetId = LocalImages[headerImage];
+    const assetId = LocalImages[header_image];
 
     if (assetId) {
         useAssets([assetId]);
@@ -62,9 +63,9 @@ const PageHeader = ({headerImage, longTitle, subtitle, coordinatesUTM}) => {
 
     return <View style={styles.header}>
         <ImageBackground source={assetId} resizeMode="cover" style={styles.headerBackground}>
-            <Text style={styles.headerTitle}>{longTitle}</Text>
+            <Text style={styles.headerTitle}>{long_title}</Text>
             {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
-            {coordinatesUTM ? (
+            {coordinates_utm ? (
                 <View style={styles.coordinatesBox}>
                     <Text style={styles.coordinatesTitle}>UTM Coordinates (Zone {zone ?? ""})</Text>
                     <Text style={styles.coordinatesItem}>

@@ -27,7 +27,7 @@ const StationsView = () => {
             .map(s => {
                 return <Stack.Screen key={s.title} name={`screen.station.${s.title}`} options={{
                     title: s.title,
-                }}>{props => <StationsDetailView {...props} {...s} />}</Stack.Screen>;
+                }}>{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>;
             })}
     </Stack.Navigator>;
 }

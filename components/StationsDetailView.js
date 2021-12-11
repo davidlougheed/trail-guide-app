@@ -10,12 +10,15 @@ import {
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import PageHeader from "./PageHeader";
+import Quiz from "./Quiz";
 
 import {pageStyles as styles} from "./lib/sharedStyles";
 
-const StationsDetailView = ({headerImage, longTitle, subtitle, coordinatesUTM, content}) => {
+const StationsDetailView = ({station}) => {
     const {width} = useWindowDimensions();
     const [htmlStates, setHtmlStates] = useState({});
+
+    const {contents} = station;
 
     const readMoreButton = index => {
         // Toggle
@@ -24,16 +27,14 @@ const StationsDetailView = ({headerImage, longTitle, subtitle, coordinatesUTM, c
 
     return <SafeAreaView style={styles.container}>
         <ScrollView>
-            <PageHeader headerImage={headerImage}
-                        longTitle={longTitle}
-                        subtitle={subtitle}
-                        coordinatesUTM={coordinatesUTM} />
-            {(content ?? []).map((c, i) => {
+            <PageHeader station={station} />
+            {(contents ?? []).map((c, i) => {
+                console.log(c);
                 switch (c.content_type) {
                     case "html":
                         return <View key={i}>
-                            <CustomRenderHTML source={{html: c.contentBeforeFold}} contentWidth={width} />
-                            {c.contentAfterFold
+                            <CustomRenderHTML source={{html: c.content_before_fold}} contentWidth={width} />
+                            {c.content_after_fold
                                 ? (
                                     <View style={{
                                         backgroundColor: "white",
@@ -45,9 +46,15 @@ const StationsDetailView = ({headerImage, longTitle, subtitle, coordinatesUTM, c
                                     </View>
                                 ) : null}
                             {htmlStates[i]
-                                ? <CustomRenderHTML source={{html: c.contentAfterFold}} contentWidth={width} />
+                                ? <CustomRenderHTML source={{html: c.content_after_fold}} contentWidth={width} />
                                 : null}
                         </View>;
+                    case "gallery":
+                        return <View key={i}>
+                            TODO
+                        </View>;
+                    case "quiz":
+                        return <Quiz quiz={c} />;
                 }
             })}
         </ScrollView>
