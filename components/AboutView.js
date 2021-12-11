@@ -62,7 +62,7 @@ const AboutView = () => {
     return <>
         <SafeAreaView style={pageStyles.container}>
             <ScrollView>
-                <PageHeader longTitle="Introduction to the Elbow Lake Interpretive App" />
+                <PageHeader page={{long_title: "Introduction to the Elbow Lake Interpretive App"}} />
                 <CustomRenderHTML
                     source={{html: resourcesHTML["about"]}}
                     contentWidth={width}

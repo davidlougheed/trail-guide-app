@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const PageHeader = ({station}) => {
-    const {header_image, long_title, subtitle, coordinates_utm} = station;
+const PageHeader = ({station, page}) => {
+    const {header_image, long_title, subtitle, coordinates_utm} = station ?? page;
     const {east, north, zone} = (coordinates_utm ?? {});
 
     const assetId = LocalImages[header_image];
