@@ -54,7 +54,7 @@ const StationsDetailView = ({station}) => {
                             TODO
                         </View>;
                     case "quiz":
-                        return <Quiz quiz={c} />;
+                        return <Quiz key={i} quiz={c} />;
                 }
             })}
         </ScrollView>
