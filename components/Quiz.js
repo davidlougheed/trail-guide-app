@@ -96,6 +96,9 @@ const Quiz = ({quiz}) => {
             </> : null}
 
             {quiz_type === "select_all_that_apply" ? <>
+                {options.map((o, i) => <View key={i}>
+                    <Text>{o.label}</Text>
+                </View>)}
                 <Button title="Submit" onPress={() => {
                     setCorrect(options.reduce(
                         (acc, o, i) => acc && (o.answer === selectedOptions.includes(i)), true));
