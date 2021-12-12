@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
 
     optionContainer: {
-        minHeight: 33,
+        minHeight: 36,
         marginTop: 6,
         marginBottom: 6,
         flexDirection: "row",
@@ -121,7 +121,7 @@ const Quiz = ({quiz}) => {
                         <View style={{
                             paddingRight: showAnswer ? 8 : 0,
                             width: showAnswer ? 50 : 0,
-                            lineHeight: 33,
+                            lineHeight: 36,
                         }}>
                             {showAnswer
                                 ? <Text style={{
