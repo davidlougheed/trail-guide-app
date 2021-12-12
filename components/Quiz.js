@@ -10,6 +10,8 @@ import {
     useWindowDimensions,
 } from "react-native";
 
+import Checkbox from "expo-checkbox";
+
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import {Ionicons} from "@expo/vector-icons";
 
@@ -39,9 +41,16 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
     },
 
-    buttonContainerChooseOne: {
+    optionContainerSelectAll: {
+        height: 28,
         marginTop: 4,
         marginBottom: 4,
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    optionContainerChooseOne: {
+        marginTop: 8,
+        marginBottom: 8,
         flexDirection: "row",
     },
 
@@ -64,22 +73,33 @@ const styles = StyleSheet.create({
     },
 });
 
+const getInitialSelectedOptions = ({quiz_type, options}) => {
+    switch (quiz_type) {
+        case "match_values":
+            return [...new Array(options.length)];
+        case "select_all_that_apply":
+            return [...new Array(options.length)].map(() => false);
+        case "choose_one":
+            return [false];
+        default:
+            return [];
+    }
+};
+
+const getIcon = optionCorrect => {
+    const iconPrefix = Platform.OS === "android" ? "md" : "ios";
+    return optionCorrect
+        ? <Ionicons name={`${iconPrefix}-checkmark-circle-outline`} size={28} color="#52c41a" />
+        : <Ionicons name={`${iconPrefix}-close-circle-outline`} size={28} color="#ff4d4f" />;
+};
+
 const Quiz = ({quiz}) => {
     const {quiz_type, title, question, answer, options} = quiz ?? {};
     const {width} = useWindowDimensions();
 
     const [showAnswer, setShowAnswer] = useState(false);
-    const [selectedOptions, setSelectedOptions] = useState(
-        quiz_type === "match_values" ? [...new Array(options.length)] : [],
-    );
+    const [selectedOptions, setSelectedOptions] = useState(getInitialSelectedOptions(quiz));
     const [correct, setCorrect] = useState(false);
-
-    const getIcon = optionCorrect => {
-        const iconPrefix = Platform.OS === "android" ? "md" : "ios";
-        return optionCorrect
-            ? <Ionicons name={`${iconPrefix}-checkmark-circle-outline`} size={28} color="#52c41a" />
-            : <Ionicons name={`${iconPrefix}-close-circle-outline`} size={28} color="#ff4d4f" />;
-    };
 
     // TODO: title styles
     return <View style={styles.quizContainer}>
@@ -96,18 +116,35 @@ const Quiz = ({quiz}) => {
             </> : null}
 
             {quiz_type === "select_all_that_apply" ? <>
-                {options.map((o, i) => <View key={i}>
-                    <Text>{o.label}</Text>
-                </View>)}
-                <Button title="Submit" onPress={() => {
-                    setCorrect(options.reduce(
-                        (acc, o, i) => acc && (o.answer === selectedOptions.includes(i)), true));
-                    setShowAnswer(true);
-                }} />
+                {options.map((o, i) => {
+                    const clickHandler = vNew =>
+                        setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld));
+
+                    return <View key={i} style={styles.optionContainerSelectAll}>
+                        <View style={{paddingRight: showAnswer ? 8 : 0}}>
+                            {showAnswer ? getIcon(o.answer) : null}
+                        </View>
+                        <View style={{paddingRight: 8}}>
+                            <Checkbox value={selectedOptions[i]} onValueChange={clickHandler} />
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text
+                                onPress={() => clickHandler(!selectedOptions[i])}
+                                style={{fontSize: 16}}
+                            >{o.label}</Text>
+                        </View>
+                    </View>;
+                })}
+                <View style={{marginTop: 8}}>
+                    <Button title="Submit" onPress={() => {
+                        setCorrect(options.reduce((acc, o, i) => acc && o.answer === selectedOptions[i], true));
+                        setShowAnswer(true);
+                    }} />
+                </View>
             </> : null}
 
             {quiz_type === "choose_one" ? <>
-                {options.map((o, i) => <View key={i} style={styles.buttonContainerChooseOne}>
+                {options.map((o, i) => <View key={i} style={styles.optionContainerChooseOne}>
                     <View style={{paddingRight: showAnswer ? 8 : 0}}>
                         {showAnswer ? getIcon(o.answer) : null}
                     </View>
