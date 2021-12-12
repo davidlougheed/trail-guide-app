@@ -177,7 +177,7 @@ const Quiz = ({quiz}) => {
                     <View style={{flex: 1}}>
                         <Button
                             style={{marginTop: 8, flex: 1}}
-                            disabled={selectedOptions[0] !== undefined && selectedOptions[0] !== i}
+                            disabled={showAnswer && selectedOptions[0] !== i}
                             title={o.label}
                             type={selectedOptions[0] === i ? "primary" : "default"}
                             danger={showAnswer && !o.answer}
