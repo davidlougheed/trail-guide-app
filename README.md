@@ -26,5 +26,7 @@ location.
 The app functions offline (albeit with GPS connectivity), and thus has to build
 in station data and assets rather than loading them from the internet.
 
-It was originally designed for the 
-[Elbow Lake Environmental Education Centre](https://elbowlakecentre.ca).
+It was originally designed with the 
+[Elbow Lake Environmental Education Centre](https://elbowlakecentre.ca) in mind,
+while simultaneously being a reusable free software solution to making trail 
+guide applications.
