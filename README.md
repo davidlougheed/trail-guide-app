@@ -7,7 +7,15 @@ easy for users to update content and make it accessible for a CI pipeline to
 integrate the content into a binary.
 
 Test data is used with permission from the Queen's University Biological 
-Station.
+Station and is &copy; Queen's University 2016-present.
+
+**Note that the following files are not licensed under the project license,
+and may not be used without permission from the above copyright holder:**
+
+  * `data/stations.example.json`
+  * `data/modals.json`
+  * `data/pages.json`
+  * Everything in `data/assets` except files with the `.js` extension.
 
 ## About
 
