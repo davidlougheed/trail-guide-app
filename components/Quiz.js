@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 const getInitialSelectedOptions = ({quiz_type, options}) => {
     switch (quiz_type) {
         case "match_values":
-            return [...new Array(options.length)];
+            return [...new Array(options.length)].map(() => "");
         case "select_all_that_apply":
             return [...new Array(options.length)].map(() => false);
         case "choose_one":
@@ -124,7 +124,10 @@ const Quiz = ({quiz}) => {
                             textAlign: "right",
                             lineHeight: 33,
                         }}>
-                            {showAnswer ? <Text>{o.answer}</Text> : null}
+                            {showAnswer
+                                ? <Text style={{
+                                    color: selectedOptions[i] === o.answer ? "#52c41a" : "#ff4d4f",
+                                }}>{o.answer}</Text> : null}
                         </View>
                         <View style={{paddingRight: 8}}>
                             <Picker
@@ -132,6 +135,7 @@ const Quiz = ({quiz}) => {
                                 onValueChange={vNew =>
                                     setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld))}
                             >
+                                <Picker.Item label="" value="" />
                                 {allOptionAnswers.map((o2, k) => <Picker.Item key={k} {...o2} />)}
                             </Picker>
                         </View>
