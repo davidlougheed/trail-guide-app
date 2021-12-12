@@ -32,7 +32,7 @@ const StationsDetailView = ({station}) => {
             {(contents ?? []).map((c, i) => {
                 switch (c.content_type) {
                     case "html":
-                        return <View key={i} style={{paddingHorizontal: 16}}>
+                        return <View key={i} style={{backgroundColor: "white", paddingHorizontal: 16}}>
                             <CustomRenderHTML source={{html: c.content_before_fold}} contentWidth={width} />
                             {c.content_after_fold
                                 ? (
