@@ -17,6 +17,8 @@ const POINTS_OF_INTEREST = "Points of Interest";
 const MAP = "Map";
 const ABOUT = "About";
 
+import stationData from "./data/stations.example.json";
+
 const Tab = createBottomTabNavigator();
 
 // noinspection JSUnusedGlobalSymbols
@@ -47,8 +49,27 @@ const getScreenOptions = ({route}) => ({
     tabBarInactiveTintColor: "gray",
 });
 
+const LINKING = {
+    prefixes: ["http://localhost:19006"],
+    config: {
+        screens: {
+            [POINTS_OF_INTEREST]: {
+                screens: {
+                    "screen.station-list": "stations/list",
+                    ...Object.fromEntries(stationData
+                        .flatMap(t => t.data)
+                        .map(s => [`screen.station.${s.title}`, `stations/detail/${s.title}`])
+                    ),
+                },
+            },
+            [MAP]: "map",
+            [ABOUT]: "about",
+        }
+    },
+};
+
 const App = () => (
-    <NavigationContainer>
+    <NavigationContainer linking={LINKING}>
         <Tab.Navigator screenOptions={getScreenOptions}>
             <Tab.Screen name={POINTS_OF_INTEREST} options={{headerShown: false}} component={StationsView} />
             <Tab.Screen name={MAP} component={MapView} />
