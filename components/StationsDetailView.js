@@ -32,13 +32,12 @@ const StationsDetailView = ({station}) => {
             {(contents ?? []).map((c, i) => {
                 switch (c.content_type) {
                     case "html":
-                        return <View key={i}>
+                        return <View key={i} style={{paddingHorizontal: 16}}>
                             <CustomRenderHTML source={{html: c.content_before_fold}} contentWidth={width} />
                             {c.content_after_fold
                                 ? (
                                     <View style={{
                                         backgroundColor: "white",
-                                        paddingHorizontal: 16,
                                         paddingBottom: htmlStates[i] ? 0 : 16
                                     }}>
                                         <Button title={htmlStates[i] ? "HIDE" : "READ MORE"}

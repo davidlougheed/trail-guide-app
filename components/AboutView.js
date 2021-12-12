@@ -63,11 +63,13 @@ const AboutView = () => {
         <SafeAreaView style={pageStyles.container}>
             <ScrollView>
                 <PageHeader page={{long_title: "Introduction to the Elbow Lake Interpretive App"}} />
-                <CustomRenderHTML
-                    source={{html: resourcesHTML["about"]}}
-                    contentWidth={width}
-                    renderersProps={renderersProps}
-                />
+                <View style={{backgroundColor: "white", paddingHorizontal: 16}}>
+                    <CustomRenderHTML
+                        source={{html: resourcesHTML["about"]}}
+                        contentWidth={width}
+                        renderersProps={renderersProps}
+                    />
+                </View>
             </ScrollView>
         </SafeAreaView>
         {resources.filter(([k]) => k.startsWith("modal_")).map(([k]) => {

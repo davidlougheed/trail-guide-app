@@ -1,6 +1,5 @@
 export default {
     base: {
-        paddingHorizontal: 16,
         paddingVertical: 8,
         backgroundColor: "white",
     },
