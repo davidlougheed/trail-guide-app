@@ -6,6 +6,9 @@ I have built corresponding content editor front ends and back ends, to make it
 easy for users to update content and make it accessible for a CI pipeline to
 integrate the content into a binary.
 
+Test data is used with permission from the Queen's University Biological 
+Station.
+
 ## About
 
 This is a flexible React Native + Expo app for creating a trail guide with 

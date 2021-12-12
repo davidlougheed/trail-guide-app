@@ -26,6 +26,33 @@
             "content_after_fold": "<p><img src=\"deerrub.jpg\" alt=\"\" \/>Other evidence of deer using an area are small trees whose bark has been rubbed off by male deer preparing to shed their antlers, as well as large, oval-shaped depressions in the snow where deer have bedded down for the night.<\/p>\r\n<p>While you may not catch a glimpse of any deer, the silence of winter may be broken when you find yourself startled by the loud wingbeats of a Ruffed Grouse (<em>Bonasa umbellus<\/em>) bursting suddenly out of the snow. Grouse will take advantage of the insulating properties of the snow to stay warm on cold winter nights, by burying themselves under fresh snow; doing so also helps hide them from hungry predators. Year-round, listen for the nasal \u201c<em>aaaank\u2026 aaaank\u2026 aaaank<\/em>\u201d call of the Red-breasted Nuthatch (<em>Sitta canadensis<\/em>), or chattering trill of the Red Squirrel (<em>Tamiasciurus hudsonicus<\/em>), both of which call coniferous forests home. Interspersed through this predominantly coniferous patch of forest are some deciduous (leaf-shedding) trees, notably White Oak (<em>Quercus alba<\/em>) on the higher elevations, and several White Birch (<em>Betula papyrifera<\/em>, also called Paper Birch) toward the southern end.<\/p>\r\n<p><small>1. Ontario Ministry of Natural Resources. 1997. Guidelines for Winter Feeding of Deer in Ontario. Queen\u2019s Printer for Ontario. 8 pp.<\/small><\/p>"
           },
           {
+            "content_type": "gallery",
+            "title": "Gallery 1",
+            "description": "<p>Have a look at what our hidden trail camera photographed at this deer yard! (<em>swipe the images to move around in the galleries<\/em>)<\/p>\r\n",
+            "items": [
+              "trailcamera\/deer.jpg",
+              "trailcamera\/twodeer.jpg",
+              "trailcamera\/lepus.jpg",
+              "trailcamera\/porcupine.jpg",
+              "trailcamera\/redsquirrel_annotated.jpg",
+              "trailcamera\/riverotter.jpg",
+              ""
+            ]
+          },
+          {
+            "content_type": "gallery",
+            "title": "Gallery 2",
+            "description": "",
+            "items": [
+              "trailcamera\/deerseq\/1.jpg",
+              "trailcamera\/deerseq\/2.jpg",
+              "trailcamera\/deerseq\/3.jpg",
+              "trailcamera\/deerseq\/4.jpg",
+              "trailcamera\/deerseq\/5.jpg",
+              ""
+            ]
+          },
+          {
             "content_type": "quiz",
             "title": "Quiz",
             "quiz_type": "choose_one",
@@ -350,6 +377,11 @@
             "content_after_fold": "<p>When sailing ships ruled the seas and Great Lakes, the long, tall White Pine was prized for masts, with the cream of the crop reserved for British Navy ships. Logging activity by early European settlers, however, not only removed the largest trees from the landscape but contributed to an overall 50% decline in the number of White Pine growing in southern Ontario forests<sup>1<\/sup>. Today, the wood remains highly valued for furniture and house construction. White Pine also provides shelter and food for many animal species, including winter finches and squirrels.<\/p>\r\n<p><small>1. Thompson, I.D., Simard, J.H. and Titman, R.D. 2006. Historical Changes in White Pine (Pinus strobus) <em>Density in Algonquin Park, Ontario, During the 19th Century<\/em>. Natural Areas Journal, 26(1): 61-71.<\/small><\/p>\r\n<p>\u00a0<\/p>"
           },
           {
+            "content_type": "html",
+            "content_before_fold": "<p>Not only can Eastern White Pine tower above the other trees in the forest, its trunk can reach sizeable thickness as well. While large specimens can measure 3-5 metres around, a typical mature tree that is 20-35 metres tall will have a circumference (girth) of 2-4\u00bd metres. One nearby Eastern White Pine has a measuring tape attached at chest height (approximately 4.5 ft or 1.3 m): What is its girth, and how might the other Eastern White Pine around you compare?<\/p>",
+            "content_after_fold": null
+          },
+          {
             "content_type": "quiz",
             "title": "Quiz",
             "quiz_type": "choose_one",
@@ -656,6 +688,17 @@
             "content_after_fold": "<p><img src=\"1878.jpg\" alt=\"\" \/>The Hewlett-Packard-constructed dam wasn\u2019t the first man-made dam to impact water levels in Elbow Lake. A close look at mapping for Storrington Township, circa 1878, shows a road allowance (narrow strip of undeeded land) bisecting the southern tip of the original Elbow Lake. For current reference, the ELEEC\u2019s Day Lodge building sits on the road allowance \u2013 with the existing lake now stretching further south beyond this point. Aerial imagery from the late 1950s suggests Elbow Lake was only about two thirds its current size.<\/p>\r\n<p><img class=\"fullwidth\" src=\"aerialovertime\/1953.png\" alt=\"1953\" \/><\/p>\r\n<p><img src=\"1972_dams.jpg\" alt=\"\" \/>Sometime in the late 1960s a dam was constructed further downstream along the outlet creek, holding back water and flooding the wetland and low areas south of Elbow Lake. The purpose of this historic dam is unknown; no evidence of its existence remains.<\/p>\r\n<p>Natural water level fluctuations contribute to healthy, productive riparian areas \u2013 that narrow band of shoreline that isn\u2019t fully terrestrial and isn\u2019t fully aquatic, but is incredibly important for the life that relies on both of these habitats to complete their life cycle. Constructed dams and active water level management do not promote natural fluctuations in water level. One action item in the Nature Conservancy of Canada\u2019s Property Management Plan for Elbow Lake is to study how the dam\u2019s control of water level affects the lake ecosystem; this will help determine the feasibility of removing the dam and returning a healthy, natural ecological balance to the Elbow Lake.<\/p>\r\n<p><img src=\"bathymetry.png\" alt=\"\" \/> <small>Depth map of Elbow Lake. Ontario Base Map (OBM) digital basedata provided by Government of Ontario at 1:10,000 scale. \u00a9 Her Majesty the Queen in Right of Canada. Reproduced with permission. Data compiled by Queen's University Biological Station at varying scales (current to 2012). Prepared by Kellie Heney<\/small><\/p>"
           },
           {
+            "content_type": "gallery",
+            "title": "Gallery 1",
+            "description": "<p>A collection of aerial snapshots of the lake over time, from 1953 to 1962 to 1978. (<em>swipe the images to move around in the gallery<\/em>)<\/p>\r\n",
+            "items": [
+              "aerialovertime\/1953.png\r\n<div>1953<\/div>",
+              "aerialovertime\/1962.png\r\n<div>1962<\/div>",
+              "aerialovertime\/1978.png\r\n<div>1978<\/div>",
+              ""
+            ]
+          },
+          {
             "content_type": "quiz",
             "title": "Quiz",
             "quiz_type": "choose_one",
@@ -711,6 +754,11 @@
             "content_after_fold": "<p>ELEEC is currently the most northern site within a regional network of recording stations tracking bird migration patterns. Initially confined to New York State, recording stations now form an acoustic monitoring transect across eastern North America and increasingly beyond. The data recorded at ELEEC will be integrated into this network, contributing to a bigger picture of bird migration throughout our region. Over the longer term, changes in migration patterns and abundances of individual bird species may be detected.<\/p>\r\n<p>At this stage of the Old Bird project, flight call data are being gathered and stored in a temporary archive of sound files. As the number of recording stations has grown, the current volume of raw data has become more than one researcher can manage and analyze, and efforts are now focused on automating the process. This will make it easier for partners to participate in the project, and will also enable studies comparing migration data both within and across monitoring sites.<\/p>\r\n<p>Following automation, the flight call data will be made available to high school students to enhance teaching and learning opportunity at ELEEC, as well as for the listening pleasure of visitors curious to know what species of birds are migrating overhead at the time of their visit.<\/p>"
           },
           {
+            "content_type": "html",
+            "content_before_fold": "<p><strong>Overnight Flight Calls on October 11-12, 2014<\/strong><\/p>\r\n<p>On the night of October 11, 2014, the Old Bird microphone recorded 52 night flight calls.<\/p>\r\n<p>Approximately six hours after the evening\u2019s recording started (i.e., 1:00 am in the early morning hours of Saturday, October 12), a few Swainson\u2019s Thrush calls were recorded, along with some weak Hermit Thrush calls in the background. Listen closely: Do you hear a \u201chonk\u201d sound toward the end of that clip? That was a juvenile Great-horned Owl!<\/p>\r\n<p><strong>Swainson\u2019s Thrush<\/strong><\/p>\r\n<p><audio preload=\"auto\" controls=\"controls\"><source src=\"SWTH.mp3\" type=\"audio\/mp3\" \/><\/audio><\/p>\r\n<p class=\"androidOnly\"><a href=\"SWTH.mp3\">(click here to play if the above file does not work)<\/a><\/p>\r\n<p>The audio recordings from the Old Bird microphone are analyzed by matching the graphical representations of calls (sonograms) to known calls of specific thrush, sparrow and warbler species. Other species detected migrating overhead in the early morning hours of October 12 included White-Throated Sparrow at approximately 3:00 am, and Gray-cheeked Thrush about a half hour later.<\/p>\r\n<p><strong>White-Throated Sparrow<\/strong><\/p>\r\n<p><img class=\"fullwidth\" src=\"WTSP.jpg\" alt=\"\" \/><\/p>\r\n<p><audio preload=\"auto\" controls=\"controls\"><source src=\"WTSP.mp3\" type=\"audio\/mp3\" \/><\/audio><\/p>\r\n<p class=\"androidOnly\"><a href=\"WTSP.mp3\">(click here to play if the above file does not work)<\/a><\/p>\r\n<p><strong>Gray-cheeked Thrush<\/strong><\/p>\r\n<p><img class=\"fullwidth\" src=\"GCTH.jpg\" alt=\"\" \/><\/p>\r\n<p><audio preload=\"auto\" controls=\"controls\"><source src=\"GCTH.mp3\" type=\"audio\/mp3\" \/><\/audio><\/p>\r\n<p class=\"androidOnly\"><a href=\"GCTH.mp3\">(click here to play if the above file does not work)<\/a><\/p>\r\n<hr \/>\r\n<p>After a night of flying, migrating birds will descend from flying altitude to land for a rest; in the case of thrushes, they call during descent. Shortly before the sun began to rise around 6:45 am on this particular Saturday morning, a Hermit Thrush can be heard beginning its descent over the Elbow Lake Environmental Education Centre.<\/p>\r\n<p><strong>Hermit Thrush Descent<\/strong><\/p>\r\n<p><audio preload=\"auto\" controls=\"controls\"><source src=\"HETHdescent.mp3\" type=\"audio\/mp3\" \/><\/audio><\/p>\r\n<p class=\"androidOnly\"><a href=\"HETHdescent.mp3\">(click here to play if the above file does not work)<\/a><\/p>\r\n<p><img class=\"fullwidth\" src=\"hermitthrush.jpg\" alt=\"\" \/><\/p>\r\n<p><small>Photo: Hermit Thrush. (Credit: M. Conboy, QUBS)<\/small><\/p>",
+            "content_after_fold": null
+          },
+          {
             "content_type": "quiz",
             "title": "Quiz",
             "quiz_type": "choose_one",
@@ -754,6 +802,11 @@
             "content_type": "html",
             "content_before_fold": "<p>This bird feeding area was registered as a count site for Project FeederWatch in fall 2013. Part of a North America-wide Citizen Science initiative, this project documents the birds that visit our feeders through the winter months, ultimately contributing to greater overall knowledge of the health and population distributions of wild birds, and monitoring broad-scale trends in abundance of individual species.<\/p>\r\n<p>November through March, the most common bird species visiting the Elbow Lake feeders are Black-capped Chickadee (Poecile atricapillus), White-breasted Nuthatch (Sitta carolinensis), Blue Jay (Cyanocitta cristata), Downy Woodpecker (Picoides pubescens), Hairy Woodpecker (Picoides villosus), American Goldfinch (Spinus tristis), Purple Finch (Haemorhous purpureus) and Dark-eyed Junco (Junco hyemalis). <a href=\"http:\/\/feederwatch.org\/learn\/identifying-birds\/download-feederwatch-posters\/\">This poster<\/a>\u00a0can help guide your identification of common winter feeder birds in our area.<\/p>\r\n<p>Project Feederwatch will continue at Elbow Lake for the long term. Over the years, students from visiting school groups will be able to explore our Count Site\u2019s data from an on-line repository, potentially using it for further study and analysis.<\/p>",
             "content_after_fold": "<p>The following videos were taken in early spring at our Project FeederWatch count site. This particular feeder is stocked with black-oil sunflower, a favourite food of our avian visitors. Compare the \u201cgrab and go\u201d feeding style of the Black-capped Chickadee with the \u201cstay and eat\u201d feeding style of the finches. Note, too, the emerging bright yellow feathers on the American Goldfinches feeding alongside the Purple Finch. In this particular video, the red feathers of the Purple Finch indicate that this individual is a male.<\/p>\r\n<p><strong>Black-Capped Chickadee (<em>Poecile atricapillus<\/em>)<\/strong><br \/><video poster=\"chickadeePoster.png\" controls=\"controls\" width=\"300\" height=\"150\"><source src=\"chickadee.mp4\" \/><\/video><\/p>\r\n<p class=\"androidOnly\"><a href=\"chickadee.mp4\">(click here to play if the above file does not work)<\/a><\/p>\r\n<p><strong>American Goldfinch (<em>Carduelis tristis<\/em>)<\/strong><br \/><video poster=\"goldfinchPoster.png\" controls=\"controls\" width=\"300\" height=\"150\"><source src=\"goldfinch.mp4\" \/><\/video><\/p>\r\n<p class=\"androidOnly\"><a href=\"goldfinch.mp4\">(click here to play if the above file does not work)<\/a><\/p>\r\n<p><strong>Purple Finch (<em>Haemorhous purpureus<\/em>)<\/strong><br \/><video poster=\"purplefinchPoster.png\" controls=\"controls\" width=\"300\" height=\"150\"><source src=\"purplefinch.mp4\" \/><\/video><\/p>\r\n<p class=\"androidOnly\"><a href=\"purplefinch.mp4\">(click here to play if the above file does not work)<\/a><\/p>\r\n<p>Want to learn more about winter feeder birds? <a href=\"..\/programs\/\">Contact the ELEEC<\/a> for programming options!<\/p>"
+          },
+          {
+            "content_type": "html",
+            "content_before_fold": "<p>Project FeederWatch asks participants to document the maximum number of birds of a species that visit the feeder area during a designated count period. Try sitting quietly and watching the feeders for 10 minutes. Use this <a href=\"tallysheet.pdf\">modified <em>Project FeederWatch<\/em> tally sheet<\/a>\u00a0to help document your count. What is your final tally of birds?<\/p>",
+            "content_after_fold": null
           },
           {
             "content_type": "quiz",
