@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 import Checkbox from "expo-checkbox";
+import {Picker} from "@react-native-picker/picker";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import {Ionicons} from "@expo/vector-icons";
@@ -41,17 +42,15 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
     },
 
-    optionContainerSelectAll: {
-        height: 28,
-        marginTop: 4,
-        marginBottom: 4,
+    optionContainer: {
+        height: 33,
+        marginTop: 6,
+        marginBottom: 6,
         flexDirection: "row",
         alignItems: "center",
     },
-    optionContainerChooseOne: {
+    submitButtonContainer: {
         marginTop: 8,
-        marginBottom: 8,
-        flexDirection: "row",
     },
 
     answerContainer: {
@@ -109,10 +108,37 @@ const Quiz = ({quiz}) => {
 
         <View style={styles.quizForm}>
             {quiz_type === "match_values" ? <>
-                <Button title="Submit" onPress={() => {
-                    setCorrect(options.reduce((acc, o, i) => acc && o.answer === selectedOptions[i], true));
-                    setShowAnswer(true);
-                }} />
+                {options.map((o, i) => {
+                    // const clickHandler = vNew =>
+                    //     setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld));
+
+                    return <View key={i} style={styles.optionContainer}>
+                        <View style={{
+                            paddingRight: showAnswer ? 8 : 0,
+                            width: showAnswer ? 100 : 0,
+                            textAlign: "right",
+                            lineHeight: 33,
+                        }}>
+                            {showAnswer ? o.answer : null}
+                        </View>
+                        <View style={{paddingRight: 8}}>
+                            <Picker selectedValue={selectedOptions[i]} onValueChange={vNew =>
+                                setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld))
+                            }>
+                                {options.map((o2, k) => <Picker.Item key={k} label={o2.label} value={k} />)}
+                            </Picker>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text style={{fontSize: 16}}>{o.label}</Text>
+                        </View>
+                    </View>;
+                })}
+                <View style={styles.submitButtonContainer}>
+                    <Button title="Submit" onPress={() => {
+                        setCorrect(options.reduce((acc, o, i) => acc && o.answer === selectedOptions[i], true));
+                        setShowAnswer(true);
+                    }} />
+                </View>
             </> : null}
 
             {quiz_type === "select_all_that_apply" ? <>
@@ -120,8 +146,8 @@ const Quiz = ({quiz}) => {
                     const clickHandler = vNew =>
                         setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld));
 
-                    return <View key={i} style={styles.optionContainerSelectAll}>
-                        <View style={{paddingRight: showAnswer ? 8 : 0}}>
+                    return <View key={i} style={styles.optionContainer}>
+                        <View style={{paddingRight: showAnswer ? 8 : 0, paddingTop: 2}}>
                             {showAnswer ? getIcon(o.answer) : null}
                         </View>
                         <View style={{paddingRight: 8}}>
@@ -135,7 +161,7 @@ const Quiz = ({quiz}) => {
                         </View>
                     </View>;
                 })}
-                <View style={{marginTop: 8}}>
+                <View style={styles.submitButtonContainer}>
                     <Button title="Submit" onPress={() => {
                         setCorrect(options.reduce((acc, o, i) => acc && o.answer === selectedOptions[i], true));
                         setShowAnswer(true);
@@ -144,8 +170,8 @@ const Quiz = ({quiz}) => {
             </> : null}
 
             {quiz_type === "choose_one" ? <>
-                {options.map((o, i) => <View key={i} style={styles.optionContainerChooseOne}>
-                    <View style={{paddingRight: showAnswer ? 8 : 0}}>
+                {options.map((o, i) => <View key={i} style={styles.optionContainer}>
+                    <View style={{paddingRight: showAnswer ? 8 : 0, paddingTop: 2}}>
                         {showAnswer ? getIcon(o.answer) : null}
                     </View>
                     <View style={{flex: 1}}>
