@@ -30,8 +30,6 @@ const Gallery = ({gallery}) => {
     return <View style={styles.galleryContainer}>
         {gallery.title ? <Text style={styles.galleryTitle}>{title}</Text> : null}
         <CustomRenderHTML source={{html: description}} contentWidth={width} />
-
-        {JSON.stringify(items)}
     </View>;
 };
 

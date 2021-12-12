@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import Checkbox from "expo-checkbox";
-import {Picker} from "@react-native-picker/picker";
+import RNPickerSelect from "react-native-picker-select";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import {Ionicons} from "@expo/vector-icons";
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
 
     optionContainer: {
-        height: 33,
+        minHeight: 33,
         marginTop: 6,
         marginBottom: 6,
         flexDirection: "row",
@@ -120,12 +120,12 @@ const Quiz = ({quiz}) => {
                     return <View key={i} style={styles.optionContainer}>
                         <View style={{
                             paddingRight: showAnswer ? 8 : 0,
-                            width: showAnswer ? 80 : 0,
-                            textAlign: "right",
+                            width: showAnswer ? 50 : 0,
                             lineHeight: 33,
                         }}>
                             {showAnswer
                                 ? <Text style={{
+                                    textAlign: "right",
                                     color: selectedOptions[i] === o.answer ? "#52c41a" : "#ff4d4f",
                                 }}>{o.answer}</Text> : null}
                         </View>
