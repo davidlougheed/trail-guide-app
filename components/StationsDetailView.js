@@ -30,7 +30,6 @@ const StationsDetailView = ({station}) => {
         <ScrollView>
             <PageHeader station={station} />
             {(contents ?? []).map((c, i) => {
-                console.log(c);
                 switch (c.content_type) {
                     case "html":
                         return <View key={i}>
