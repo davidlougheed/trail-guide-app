@@ -13,6 +13,7 @@ import PageHeader from "./PageHeader";
 import Quiz from "./Quiz";
 
 import {pageStyles as styles} from "./lib/sharedStyles";
+import Gallery from "./Gallery";
 
 const StationsDetailView = ({station}) => {
     const {width} = useWindowDimensions();
@@ -50,9 +51,7 @@ const StationsDetailView = ({station}) => {
                                 : null}
                         </View>;
                     case "gallery":
-                        return <View key={i}>
-                            TODO
-                        </View>;
+                        return <Gallery key={i} gallery={c} />;
                     case "quiz":
                         return <Quiz key={i} quiz={c} />;
                 }
