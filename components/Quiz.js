@@ -100,7 +100,12 @@ const Quiz = ({quiz}) => {
     const [selectedOptions, setSelectedOptions] = useState(getInitialSelectedOptions(quiz));
     const [correct, setCorrect] = useState(false);
 
-    // TODO: title styles
+    // Used for matching quizzes
+    const allOptionAnswers = options.map(o => ({
+        value: o.answer.toString(),
+        label: o.answer.toString(),
+    })).sort((o1, o2) => o1.label.localeCompare(o2.label));
+
     return <View style={styles.quizContainer}>
         {quiz.title ? <Text style={styles.quizTitle}>{title}</Text> : null}
         <Text style={styles.questionTitle}>Question</Text>
@@ -115,17 +120,19 @@ const Quiz = ({quiz}) => {
                     return <View key={i} style={styles.optionContainer}>
                         <View style={{
                             paddingRight: showAnswer ? 8 : 0,
-                            width: showAnswer ? 100 : 0,
+                            width: showAnswer ? 80 : 0,
                             textAlign: "right",
                             lineHeight: 33,
                         }}>
-                            {showAnswer ? o.answer : null}
+                            {showAnswer ? <Text>{o.answer}</Text> : null}
                         </View>
                         <View style={{paddingRight: 8}}>
-                            <Picker selectedValue={selectedOptions[i]} onValueChange={vNew =>
-                                setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld))
-                            }>
-                                {options.map((o2, k) => <Picker.Item key={k} label={o2.label} value={k} />)}
+                            <Picker
+                                selectedValue={selectedOptions[i]}
+                                onValueChange={vNew =>
+                                    setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld))}
+                            >
+                                {allOptionAnswers.map((o2, k) => <Picker.Item key={k} {...o2} />)}
                             </Picker>
                         </View>
                         <View style={{flex: 1}}>
