@@ -15,6 +15,7 @@ and may not be used without permission from the above copyright holder:**
   * `data/stations.example.json`
   * `data/modals.json`
   * `data/pages.json`
+  * Everything in `data/about` except files with the `.js` extension.
   * Everything in `data/assets` except files with the `.js` extension.
 
 ## About
