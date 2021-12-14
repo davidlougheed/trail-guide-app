@@ -1,7 +1,7 @@
 export default {
-    "name": "trail-guide-app",
-    "slug": "trail-guide-app",
-    "version": "1.0.0",
+    "name": process.env.TCGS_APP_NAME || "trail-guide-app",
+    "slug": process.env.TCGS_APP_SLUG ||"trail-guide-app",
+    "version": process.env.TCGS_APP_VERSION || "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
