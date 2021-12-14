@@ -6,7 +6,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import StationsDetailView from "./StationsDetailView";
 import StationsListView from "./StationsListView";
 
-import stationData from "../data/stations.example.json";
+import stationData from "../data/stations.json";
 
 const Stack = createNativeStackNavigator();
 

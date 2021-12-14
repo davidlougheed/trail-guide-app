@@ -4,7 +4,7 @@ import {SafeAreaView, SectionList} from "react-native";
 import StationsListItem from "./StationsListItem";
 import StationsListSectionHeader from "./StationsListSectionHeader";
 
-import stationData from "../data/stations.example.json";
+import stationData from "../data/stations.json";
 
 
 const StationsListView = ({navigation}) => {

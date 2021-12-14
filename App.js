@@ -17,7 +17,7 @@ const POINTS_OF_INTEREST = "Points of Interest";
 const MAP = "Map";
 const ABOUT = "About";
 
-import stationData from "./data/stations.example.json";
+import stationData from "./data/stations.json";
 
 const Tab = createBottomTabNavigator();
 
