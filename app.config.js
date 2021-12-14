@@ -1,4 +1,5 @@
 export default {
+    "owner": process.env.TCGS_EXPO_OWNER || undefined,
     "name": process.env.TCGS_APP_NAME || "trail-guide-app",
     "slug": process.env.TCGS_APP_SLUG ||"trail-guide-app",
     "version": process.env.TCGS_APP_VERSION || "1.0.0",
