@@ -28,15 +28,36 @@
           {
             "content_type": "gallery",
             "title": "Gallery 1",
-            "description": "<p>Have a look at what our hidden trail camera photographed at this deer yard! (<em>swipe the images to move around in the galleries<\/em>)<\/p>\r\n",
+            "description": "<p>Have a look at what our hidden trail camera photographed at this deer yard! (<em>swipe the images to move around in the galleries<\/em>)<\/p>",
             "items": [
-              "trailcamera\/deer.jpg",
-              "trailcamera\/twodeer.jpg",
-              "trailcamera\/lepus.jpg",
-              "trailcamera\/porcupine.jpg",
-              "trailcamera\/redsquirrel_annotated.jpg",
-              "trailcamera\/riverotter.jpg",
-              ""
+              {
+                "asset": "trailcamera\/deer.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/twodeer.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/lepus.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/porcupine.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/redsquirrel_annotated.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/riverotter.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "",
+                "caption": ""
+              }
             ]
           },
           {
@@ -44,12 +65,26 @@
             "title": "Gallery 2",
             "description": "",
             "items": [
-              "trailcamera\/deerseq\/1.jpg",
-              "trailcamera\/deerseq\/2.jpg",
-              "trailcamera\/deerseq\/3.jpg",
-              "trailcamera\/deerseq\/4.jpg",
-              "trailcamera\/deerseq\/5.jpg",
-              ""
+              {
+                "asset": "trailcamera\/deerseq\/1.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/deerseq\/2.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/deerseq\/3.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/deerseq\/4.jpg",
+                "caption": ""
+              },
+              {
+                "asset": "trailcamera\/deerseq\/5.jpg",
+                "caption": ""
+              }
             ]
           },
           {
@@ -677,12 +712,20 @@
           {
             "content_type": "gallery",
             "title": "Gallery 1",
-            "description": "<p>A collection of aerial snapshots of the lake over time, from 1953 to 1962 to 1978. (<em>swipe the images to move around in the gallery<\/em>)<\/p>\r\n",
+            "description": "<p>A collection of aerial snapshots of the lake over time, from 1953 to 1962 to 1978. (<em>swipe the images to move around in the gallery<\/em>)<\/p>",
             "items": [
-              "aerialovertime\/1953.png\r\n<div>1953<\/div>",
-              "aerialovertime\/1962.png\r\n<div>1962<\/div>",
-              "aerialovertime\/1978.png\r\n<div>1978<\/div>",
-              ""
+              {
+                "asset": "aerialovertime\/1953.png",
+                "caption": "1953"
+              },
+              {
+                "asset": "aerialovertime\/1962.png",
+                "caption": "1962"
+              },
+              {
+                "asset": "aerialovertime\/1978.png",
+                "caption": "1978"
+              }
             ]
           },
           {
