@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Modal, Platform, SafeAreaView, ScrollView, useWindowDimensions, View} from "react-native";
+import {Platform, SafeAreaView, ScrollView, useWindowDimensions, View} from "react-native";
 import {useAssets} from "expo-asset";
 import {readAsStringAsync} from "expo-file-system";
 
@@ -8,11 +8,7 @@ import PageHeader from "./PageHeader";
 
 import AboutHTMLResources, {loadedWebHTML} from "../data/about/AboutHTMLResources";
 import {pageStyles} from "./lib/sharedStyles";
-
-const modalStyles = {
-    container: {flex: 1, padding: 16},
-    htmlBase: {padding: 0},
-};
+import CustomModal from "./CustomModal";
 
 const AboutView = () => {
     const {width} = useWindowDimensions();
@@ -74,20 +70,12 @@ const AboutView = () => {
         </SafeAreaView>
         {resources.filter(([k]) => k.startsWith("modal_")).map(([k]) => {
             const closeModal = () => setModalsVisible({...modalsVisible, [k]: undefined});
-            return <Modal key={k}
-                   animationType="slide"
-                   transparent={false}
-                   visible={modalsVisible[k] !== undefined}
-                   onRequestClose={closeModal}>
-                <View style={modalStyles.container}>
-                    <CustomRenderHTML
-                        source={{html: resourcesHTML[k] ?? ""}}
-                        baseStyle={modalStyles.htmlBase}
-                        contentWidth={width}
-                    />
-                    <Button onPress={closeModal} title="CLOSE" />
-                </View>
-            </Modal>;
+            return <CustomModal
+                key={k}
+                visible={modalsVisible[k] !== undefined}
+                data={{content: resourcesHTML[k]}}
+                onRequestClose={closeModal}
+            />;
         })}
     </>;
 }
