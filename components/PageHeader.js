@@ -6,7 +6,8 @@ import React from "react";
 import {ImageBackground, StyleSheet, Text, View} from "react-native";
 import {useAssets} from "expo-asset";
 
-import LocalImages from "../data/assets/image/LocalImages";
+import assetData from "../data/assets/assets";
+import image from "react-native-web/dist/exports/Image";
 
 const textShadow = {
     textShadowColor: "rgba(0, 0, 0, 0.8)",
@@ -55,14 +56,14 @@ const PageHeader = ({station, page}) => {
     const {header_image, long_title, subtitle, coordinates_utm} = station ?? page;
     const {east, north, zone} = (coordinates_utm ?? {});
 
-    const assetId = LocalImages[header_image];
+    const assetId = assetData["image"][header_image] ?? null;
 
     if (assetId) {
         useAssets([assetId]);
     }
 
     return <View style={styles.header}>
-        <ImageBackground source={assetId} resizeMode="cover" style={styles.headerBackground}>
+        <ImageBackground {...(assetId ? {source: assetId} : {})} resizeMode="cover" style={styles.headerBackground}>
             <Text style={styles.headerTitle}>{long_title}</Text>
             {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
             {coordinates_utm ? (

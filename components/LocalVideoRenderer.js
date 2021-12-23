@@ -7,7 +7,7 @@ import {Platform, View} from "react-native";
 import {WebView} from "react-native-webview";
 import {useAssets} from "expo-asset";
 
-import LocalVideos from "../data/assets/video/LocalVideos";
+import assetData from "../data/assets/assets";
 
 const LocalVideoRenderer = ({style, tnode, ...props}) => {
     const {attributes: {width, height}, domNode: {children}} = tnode;
@@ -24,7 +24,7 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
     const srcSplit = src.split("/");
     const source = srcSplit[srcSplit.length - 1].split(".")[0];
 
-    const assetId = LocalVideos[source];
+    const assetId = assetData["video"][source];
 
     const blankShell = <View {...props} style={{height: heightFinal, width: widthFinal}} />;
 

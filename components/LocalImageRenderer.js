@@ -6,13 +6,13 @@ import React from "react";
 import {Image, View} from "react-native";
 import {useAssets} from "expo-asset";
 
-import LocalImages from "../data/assets/image/LocalImages";
+import assetData from "../data/assets/assets";
 
 const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, ...props}) => {
     const srcSplit = src.split("/");
     const source = srcSplit[srcSplit.length - 1].split(".")[0];
 
-    const assetId = LocalImages[source];
+    const assetId = assetData["image"][source];
 
     if (!assetId) return <View />;
 
