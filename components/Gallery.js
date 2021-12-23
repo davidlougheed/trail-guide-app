@@ -7,10 +7,14 @@ import {
     Text,
     View,
 
-    useWindowDimensions,
+    useWindowDimensions, Platform,
 } from "react-native";
 import {useAssets} from "expo-asset";
-import PagerView from "react-native-pager-view";
+
+const PagerView = Platform.select({
+    native: () => require("react-native-pager-view"),
+    default: () => require("./WebPagerView"),
+})().default;
 
 import assetData from "../data/assets/assets";
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
