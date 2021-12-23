@@ -8,6 +8,7 @@ import {WebView} from "react-native-webview";
 import {useAssets} from "expo-asset";
 
 import assetData from "../data/assets/assets";
+import {getDataFromAssetURI} from "../utils";
 
 const LocalVideoRenderer = ({style, tnode, ...props}) => {
     const {attributes: {width, height}, domNode: {children}} = tnode;
@@ -21,10 +22,14 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
 
     const src = children[0].attribs["src"];
 
+    // Check if source matches an asset URI, i.e. something which works both
+    // as a web resource and as a sigil for loading a local asset.
+    const uriData = getDataFromAssetURI(src);
+
     const srcSplit = src.split("/");
     const source = srcSplit[srcSplit.length - 1].split(".")[0];
 
-    const assetId = assetData["video"][source];
+    const assetId = assetData["video"][uriData ?? source];
 
     const blankShell = <View {...props} style={{height: heightFinal, width: widthFinal}} />;
 
