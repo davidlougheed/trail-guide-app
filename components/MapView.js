@@ -6,8 +6,6 @@ const InnerMapView = Platform.select({
     default: () => require("./WebMapComponent"),
 })().default;
 
-console.log(InnerMapView);
-
 // TODO: Offline maps
 
 const styles = StyleSheet.create({
