@@ -47,6 +47,7 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
     const file = localUri.substring(localUri.lastIndexOf("/") + 1, localUri.length);
 
     // expo-av sucks; for now, use a native video tag for web and a WebView for native
+    // TODO: This has since been fixed in expo 44, so we can revert to it
     return <View {...props} style={{height: heightFinal, width: widthFinal}}>
         {/*<Video source={{uri: assets[0].localUri}}*/}
         {/*       resizeMode="contain"*/}
