@@ -50,8 +50,6 @@ const MobileMapComponent = props => {
                 key={id}
                 geojson={geojson}
                 strokeWidth={3}
-                fillColor={"red"}
-                strokeColor={"green"}
             />
         )}
     </RNMapView>;
