@@ -7,7 +7,6 @@ import {ImageBackground, StyleSheet, Text, View} from "react-native";
 import {useAssets} from "expo-asset";
 
 import assetData from "../data/assets/assets";
-import image from "react-native-web/dist/exports/Image";
 
 const textShadow = {
     textShadowColor: "rgba(0, 0, 0, 0.8)",
