@@ -1,16 +1,13 @@
 import React from "react";
 import RNMapView, {Callout, Geojson, Marker} from "react-native-maps";
-import {useAssets} from "expo-asset";
 
 import layerData from "../data/layers.json";
 import stationData from "../data/stations.json";
 import {transformCoords} from "../gis";
 import {Text, View} from "react-native";
-import Svg, {Circle, Defs, LinearGradient, Stop} from "react-native-svg";
+import Svg, {Circle, Defs, LinearGradient, Stop, Path} from "react-native-svg";
 
-const iconLookup = ["culture", "environment", "research"].flatMap(
-    category => ["red", "blue", "green", "orange", "other"]
-        .map(colour => `${category}-${colour}`));
+import iconSvgPaths from "./lib/iconSvgPaths";
 
 const colourMap = {
     "red": ["rgb(255, 59, 48)", "rgb(255, 45, 85)"],
@@ -21,29 +18,6 @@ const colourMap = {
 };
 
 const MobileMapComponent = ({navigation, ...props}) => {
-    console.log(navigation);
-    const [assets, error] = useAssets([
-        require("../assets/culture-red.png"),
-        require("../assets/culture-blue.png"),
-        require("../assets/culture-green.png"),
-        require("../assets/culture-orange.png"),
-        require("../assets/culture-other.png"),
-        require("../assets/environment-red.png"),
-        require("../assets/environment-blue.png"),
-        require("../assets/environment-green.png"),
-        require("../assets/environment-orange.png"),
-        require("../assets/environment-other.png"),
-        require("../assets/research-red.png"),
-        require("../assets/research-blue.png"),
-        require("../assets/research-green.png"),
-        require("../assets/research-orange.png"),
-        require("../assets/research-other.png"),
-    ]);
-
-    if (error) {
-        console.error(error);
-    }
-
     return <RNMapView {...props} showsUserLocation={true} region={{
         latitude: 44.4727488,
         longitude: -76.4265608,
@@ -55,16 +29,11 @@ const MobileMapComponent = ({navigation, ...props}) => {
                 <Marker
                     key={`${i}.${j}`}
                     coordinate={transformCoords(coordinates_utm)}
-                    // image={{uri: (assets ?? {})[iconLookup.indexOf(`${category}-${id}`)]?.localUri}}
-                    // anchor={{x: 0, y: 0}}
                     calloutAnchor={{x: 0, y: -0.5}}
-                    stopPropagation={true}
                 >
                     <View style={{
                         height: 36,
                         width: 36,
-                        // backgroundColor: colourMap[id][0],
-                        // borderRadius: 18,
                     }}>
                         <Svg height="100%" width="100%" viewBox="0 0 100 100">
                             <Defs>
@@ -75,6 +44,9 @@ const MobileMapComponent = ({navigation, ...props}) => {
                                 </LinearGradient>
                             </Defs>
                             <Circle cx="50" cy="50" r="50" fill="url(#grad)" />
+                            <Svg height="90" width="90" viewBox="-4 -3 29 28">
+                                <Path fill="white" d={iconSvgPaths[category]} />
+                            </Svg>
                         </Svg>
                     </View>
                     <Callout style={{width: 16 + title.length*6.5}} onPress={() => {
