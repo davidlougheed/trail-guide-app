@@ -1,7 +1,14 @@
 import React from "react";
 import {Dimensions, Platform, StyleSheet, View} from "react-native";
 
-const InnerMapView = Platform.select({
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import StationsDetailView from "./StationsDetailView";
+
+import stationData from "../data/stations.json";
+
+const Stack = createNativeStackNavigator();
+
+const MapComponent = Platform.select({
     native: () => require("./MobileMapComponent"),
     default: () => require("./WebMapComponent"),
 })().default;
@@ -21,10 +28,21 @@ const styles = StyleSheet.create({
     },
 });
 
+const InnerMapView = ({navigation}) => <View style={styles.container}>
+    <MapComponent style={styles.map} navigation={navigation} />
+</View>;
+
 const MapView = () => {
-    return <View style={styles.container}>
-        <InnerMapView style={styles.map} />
-    </View>;
+    return <Stack.Navigator>
+        <Stack.Screen name="screen.map.overview" options={{title: "Map"}} component={InnerMapView} />
+        {stationData
+            .flatMap(t => t.data)
+            .map(s => {
+                return <Stack.Screen key={s.title} name={`screen.map.station.${s.title}`} options={{
+                    title: s.title,
+                }}>{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>;
+            })}
+    </Stack.Navigator>;
 };
 
 export default MapView;

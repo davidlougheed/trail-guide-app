@@ -111,7 +111,7 @@ const App = () => {
         <NavigationContainer linking={LINKING}>
             <Tab.Navigator screenOptions={getScreenOptions}>
                 <Tab.Screen name={POINTS_OF_INTEREST} options={{headerShown: false}} component={StationsView} />
-                <Tab.Screen name={MAP} component={MapView} />
+                <Tab.Screen name={MAP} component={MapView} options={{headerShown: false}} />
                 <Tab.Screen name={ABOUT} component={AboutView} />
             </Tab.Navigator>
         </NavigationContainer>

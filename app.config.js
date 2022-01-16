@@ -17,7 +17,10 @@ export default {
         "**/*"
     ],
     "ios": {
-        "supportsTablet": true
+        "supportsTablet": true,
+        "infoPlist": {
+            "NSLocationWhenInUseUsageDescription": "This app uses your location to display on the map."
+        }
     },
     "android": {
         "adaptiveIcon": {
