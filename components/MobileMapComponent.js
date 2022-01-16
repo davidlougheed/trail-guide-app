@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useRef} from "react";
+import {Text, View} from "react-native";
 import RNMapView, {Callout, Geojson, Marker} from "react-native-maps";
+import Svg, {Circle, Defs, LinearGradient, Stop, Path} from "react-native-svg";
 
 import layerData from "../data/layers.json";
 import stationData from "../data/stations.json";
 import {transformCoords} from "../gis";
-import {Text, View} from "react-native";
-import Svg, {Circle, Defs, LinearGradient, Stop, Path} from "react-native-svg";
 
 import iconSvgPaths from "./lib/iconSvgPaths";
+
+const stationCoordinates = stationData.flatMap(({data}) =>
+    data.map(({coordinates_utm}) => transformCoords(coordinates_utm)));
 
 const colourMap = {
     "red": ["rgb(255, 59, 48)", "rgb(255, 45, 85)"],
@@ -18,12 +21,23 @@ const colourMap = {
 };
 
 const MobileMapComponent = ({navigation, ...props}) => {
-    return <RNMapView {...props} showsUserLocation={true} region={{
-        latitude: 44.4727488,
-        longitude: -76.4265608,
-        latitudeDelta: 0.0922/3,
-        longitudeDelta: 0.0421/3,
-    }}>
+    const mapRef = useRef();
+
+    return <RNMapView
+        {...props}
+        showsUserLocation={true}
+        onMapReady={() => {
+            if (mapRef.current) {
+                // noinspection JSUnresolvedFunction
+                mapRef.current.fitToCoordinates(stationCoordinates, {
+                    edgePadding: {
+                        top: 50, left: 50, right: 50, bottom: 50,
+                    },
+                });
+            }
+        }}
+        ref={mapRef}
+    >
         {stationData.flatMap(({id, data}, i) =>
             data.map(({title, category, coordinates_utm}, j) =>
                 <Marker
