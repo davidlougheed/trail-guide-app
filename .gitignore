@@ -11,10 +11,12 @@ web-build/
 
 /data/config.json
 /data/layers.json
-/data/modals.json
-/data/pages.json
-/data/settings.json
-/data/stations.json
+/data/modals.*
+!/data/modals.example.json
+/data/pages.*
+!/data/pages.example.json
+/data/settings.*
+/data/stations.*
 /data/assets/*
 
 # macOS

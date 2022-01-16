@@ -1,43 +1,20 @@
-import React, {useEffect, useState} from "react";
-import {Platform, SafeAreaView, ScrollView, useWindowDimensions, View} from "react-native";
-import {useAssets} from "expo-asset";
-import {readAsStringAsync} from "expo-file-system";
+import React, {useState} from "react";
+import {SafeAreaView, ScrollView, useWindowDimensions, View} from "react-native";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import PageHeader from "./PageHeader";
 
-import AboutHTMLResources, {loadedWebHTML} from "../data/about/AboutHTMLResources";
+import modalData from "../data/modals.json";
+import pageData from "../data/pages.json";
 import {pageStyles} from "./lib/sharedStyles";
 import CustomModal from "./CustomModal";
 
 const AboutView = () => {
     const {width} = useWindowDimensions();
 
-    const resources = Object.entries(AboutHTMLResources)
-        .sort(([k1], [k2]) => k1.localeCompare(k2));
+    const page = pageData[0];
 
-    // noinspection JSCheckFunctionSignatures
-    const [assets, error] = useAssets(resources.map(([_k, v]) => v));
-    if (error) console.error(error);
-
-    const [resourcesHTML, setResourcesHTML] = useState(
-        Object.fromEntries(resources.map(([k]) => [k, ""])));
     const [modalsVisible, setModalsVisible] = useState({});
-
-    useEffect(() => {
-        if (!assets) return;
-        if (Platform.OS === "web") {
-            setResourcesHTML({...resourcesHTML, ...loadedWebHTML});
-        } else {
-            (async () => {
-                const loadedAssets = await Promise.all(assets.map(a => readAsStringAsync(a.localUri)));
-                setResourcesHTML({
-                    ...resourcesHTML,
-                    ...Object.fromEntries(resources.map((r, i) => [r[0], loadedAssets[i]])),
-                });
-            })();
-        }
-    }, [assets]);
 
     const renderersProps = {
         a: {
@@ -46,8 +23,7 @@ const AboutView = () => {
                 const anchor = hrefSplit[hrefSplit.length - 1];
 
                 if (anchor.startsWith("modal_")) {
-                    console.log(anchor);
-                    setModalsVisible({[anchor]: true});
+                    setModalsVisible({[anchor.split("_")[1]]: true});
                 } else {
                     // TODO: normal link handling
                 }
@@ -58,22 +34,22 @@ const AboutView = () => {
     return <>
         <SafeAreaView style={pageStyles.container}>
             <ScrollView>
-                <PageHeader page={{long_title: "Introduction to the Elbow Lake Interpretive App"}} />
+                <PageHeader page={{long_title: page.long_title}} />
                 <View style={{backgroundColor: "white", paddingHorizontal: 16}}>
                     <CustomRenderHTML
-                        source={{html: resourcesHTML["about"]}}
+                        source={{html: page.content}}
                         contentWidth={width}
                         renderersProps={renderersProps}
                     />
                 </View>
             </ScrollView>
         </SafeAreaView>
-        {resources.filter(([k]) => k.startsWith("modal_")).map(([k]) => {
+        {Object.entries(modalData).map(([k, d]) => {
             const closeModal = () => setModalsVisible({...modalsVisible, [k]: undefined});
             return <CustomModal
                 key={k}
                 visible={modalsVisible[k] !== undefined}
-                data={{content: resourcesHTML[k]}}
+                data={{content: d.content}}
                 onRequestClose={closeModal}
             />;
         })}
