@@ -11,18 +11,20 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import AboutView from "./components/AboutView";
+import PageView from "./components/PageView";
 import MapView from "./components/MapView";
 import StationsView from "./components/StationsView";
 
 const POINTS_OF_INTEREST = "Points of Interest";
 const MAP = "Map";
-const ABOUT = "About";
 
 import modalData from "./data/modals.json";
+import pageData from "./data/pages.json"
 import settings from "./data/settings.json";
 import stationData from "./data/stations.json";
 import CustomModal from "./components/CustomModal";
+
+const pagesById = Object.fromEntries(pageData.map(page => [page.id, page]));
 
 const Tab = createBottomTabNavigator();
 
@@ -40,11 +42,9 @@ const getScreenOptions = ({route}) => ({
             case MAP:
                 iconName = `${iconPrefix}-map-outline`;
                 break;
-            case ABOUT:
-                iconName = `${iconPrefix}-help-circle-outline`;
-                break;
             default:
-                iconName = `${iconPrefix}-help-outline`;
+                // Page
+                iconName = `${iconPrefix}-${pagesById[route.name].icon ?? "help-circle-outline"}`;
                 break;
         }
 
@@ -60,15 +60,23 @@ const LINKING = {
         screens: {
             [POINTS_OF_INTEREST]: {
                 screens: {
-                    "screen.station-list": "stations/list",
+                    "screen.station-list.list": "stations/list",
                     ...Object.fromEntries(stationData
                         .flatMap(t => t.data)
-                        .map(s => [`screen.station.${s.title}`, `stations/detail/${s.title}`])
+                        .map(s => [`screen.station-list.station.${s.id}`, `stations/detail/${s.id}`])
                     ),
                 },
             },
-            [MAP]: "map",
-            [ABOUT]: "about",
+            [MAP]: {
+                screens: {
+                    "screen.map.overview": "map/overview",
+                    ...Object.fromEntries(stationData
+                        .flatMap(t => t.data)
+                        .map(s => [`screen.map.station.${s.id}`, `map/detail/${s.id}`])
+                    ),
+                },
+            },
+            ...Object.fromEntries(pageData.map(page => [page.id, `pages/${page.id}`])),
         }
     },
 };
@@ -112,7 +120,15 @@ const App = () => {
             <Tab.Navigator screenOptions={getScreenOptions}>
                 <Tab.Screen name={POINTS_OF_INTEREST} options={{headerShown: false}} component={StationsView} />
                 <Tab.Screen name={MAP} component={MapView} options={{headerShown: false}} />
-                <Tab.Screen name={ABOUT} component={AboutView} />
+                {pageData.map(page =>
+                    <Tab.Screen
+                        key={page.id}
+                        name={page.id}
+                        component={PageView}
+                        options={{title: page.title}}
+                        initialParams={{pageId: page.id}}
+                    />
+                )}
             </Tab.Navigator>
         </NavigationContainer>
     </>;

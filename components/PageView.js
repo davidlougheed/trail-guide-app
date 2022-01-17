@@ -1,29 +1,31 @@
 import React, {useState} from "react";
 import {SafeAreaView, ScrollView, useWindowDimensions, View} from "react-native";
 
+import CustomModal from "./CustomModal";
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import PageHeader from "./PageHeader";
 
 import modalData from "../data/modals.json";
 import pageData from "../data/pages.json";
 import {pageStyles} from "./lib/sharedStyles";
-import CustomModal from "./CustomModal";
+import {getDataFromModalURI} from "../utils";
 
-const AboutView = () => {
+const pagesById = Object.fromEntries(pageData.map(page => [page.id, page]));
+
+const PageView = ({route}) => {
     const {width} = useWindowDimensions();
 
-    const page = pageData[0];
+    const {pageId} = route.params;
+    const page = pagesById[pageId] ?? pageData[0];
 
     const [modalsVisible, setModalsVisible] = useState({});
 
     const renderersProps = {
         a: {
             onPress: (event, href) => {
-                const hrefSplit = href.split("#");
-                const anchor = hrefSplit[hrefSplit.length - 1];
-
-                if (anchor.startsWith("modal_")) {
-                    setModalsVisible({[anchor.split("_")[1]]: true});
+                const modalId = getDataFromModalURI(href);
+                if (modalData.hasOwnProperty(modalId)) {
+                    setModalsVisible({[modalId]: true});
                 } else {
                     // TODO: normal link handling
                 }
@@ -56,4 +58,4 @@ const AboutView = () => {
     </>;
 }
 
-export default AboutView;
+export default PageView;
