@@ -129,11 +129,15 @@ const Quiz = ({quiz}) => {
                                     color: selectedOptions[i] === o.answer ? "#52c41a" : "#ff4d4f",
                                 }}>{o.answer}</Text> : null}
                         </View>
-                        <View style={{paddingRight: 8, width: 120}}>
+                        <View style={{paddingRight: 8, width: 140}}>
                             <RNPickerSelect
+                                placeholder={{
+                                    label: "Select an option…",
+                                    value: "",
+                                }}
                                 onValueChange={vNew =>
                                     setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld))}
-                                items={[{label: "", value: ""}, ...allOptionAnswers]}
+                                items={allOptionAnswers}
                             />
                         </View>
                         <View style={{flex: 1}}>
