@@ -19,12 +19,16 @@ const StationsView = () => {
 
     // TODO: Don't use callback method for stack component, since it's slow
 
-    return <Stack.Navigator initialRouteName="screen.station-list">
-        <Stack.Screen name="screen.station-list" options={listViewScreenOptions} component={StationsListView} />
+    return <Stack.Navigator initialRouteName="screen.station-list.list">
+        <Stack.Screen
+            name="screen.station-list.list"
+            options={listViewScreenOptions}
+            component={StationsListView}
+        />
         {stationData
             .flatMap(t => t.data)
             .map(s => {
-                return <Stack.Screen key={s.title} name={`screen.station.${s.title}`} options={{
+                return <Stack.Screen key={s.title} name={`screen.station-list.station.${s.id}`} options={{
                     title: s.title,
                 }}>{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>;
             })}

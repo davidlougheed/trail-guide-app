@@ -10,9 +10,9 @@ import stationData from "../data/stations.json";
 const StationsListView = ({navigation}) => {
     // TODO: Tablet view
 
-    const onPress = async title => {
+    const onPress = async id => {
         // noinspection JSCheckFunctionSignatures
-        await navigation.navigate("Points of Interest", {screen: `screen.station.${title}`});
+        await navigation.navigate("Points of Interest", {screen: `screen.station-list.station.${id}`});
     };
 
     return <SafeAreaView style={{flex: 1}}>
@@ -22,7 +22,7 @@ const StationsListView = ({navigation}) => {
             renderItem={({item, section}) => {
                  return <StationsListItem {...item}
                                           trail={section.id}
-                                          onPress={() => onPress(item.title)} />;
+                                          onPress={() => onPress(item.id)} />;
              }}
             renderSectionHeader={({section: {title}}) => <StationsListSectionHeader title={title} />} />
     </SafeAreaView>;
