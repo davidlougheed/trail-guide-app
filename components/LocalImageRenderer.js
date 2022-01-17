@@ -2,26 +2,36 @@
 // Copyright (C) 2021  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
-import {Image, View} from "react-native";
+import React, {useState} from "react";
+import {Dimensions, Image, View} from "react-native";
 import {useAssets} from "expo-asset";
 
 import assetData from "../data/assets/assets";
 import {getDataFromAssetURI} from "../utils";
 
 const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, ...props}) => {
-    const srcSplit = src.split("/");
-    const source = srcSplit[srcSplit.length - 1].split(".")[0];
+    const [viewHeight, setViewHeight] = useState(1);
+    const [viewWidth, setViewWidth] = useState(1);
 
     // Check if source matches an asset URI, i.e. something which works both
     // as a web resource and as a sigil for loading a local asset.
-    const uriData = getDataFromAssetURI(source);
+    const serverAssetId = getDataFromAssetURI(src);
 
-    const assetId = assetData["image"][uriData ?? source];
+    const assetId = assetData["image"][serverAssetId ?? src];
 
     if (!assetId) return <View />;
 
-    useAssets([assetId]);
+    const [assets, error] = useAssets([assetId]);
+
+    if (error) console.error(error);
+    if (!assets) return <View />;
+
+    Image.getSize(assets[0].uri, (w, h) => {
+        setViewHeight(h);
+        setViewWidth(w);
+    });
+
+    const targetWidth = Math.min(Dimensions.get("window").width - 16, 400);
 
     const heightInt = parseInt(height, 10);
     const widthInt = parseInt(width, 10);
@@ -30,8 +40,10 @@ const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, .
         source={assetId}
         style={{
             ...style,
-            height: isNaN(heightInt) ? 50 : heightInt,
-            width: isNaN(widthInt) ? 50 : widthInt,
+            marginTop: 8,
+            marginBottom: 8,
+            height: isNaN(heightInt) ? targetWidth * (viewHeight / viewWidth) : heightInt,
+            width: isNaN(widthInt) ? targetWidth : widthInt,
         }}
     />
 };
