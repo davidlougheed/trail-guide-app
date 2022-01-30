@@ -3,13 +3,15 @@
 // See NOTICE for more information.
 
 import React, {useState} from "react";
-import {Dimensions, Image, View} from "react-native";
+import {Image, useWindowDimensions, View} from "react-native";
 import {useAssets} from "expo-asset";
 
 import assetData from "../data/assets/assets";
 import {getDataFromAssetURI} from "../utils";
 
 const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, ...props}) => {
+    const {width: screenWidth} = useWindowDimensions();
+
     const [viewHeight, setViewHeight] = useState(1);
     const [viewWidth, setViewWidth] = useState(1);
 
@@ -31,7 +33,7 @@ const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, .
         setViewWidth(w);
     });
 
-    const targetWidth = Math.min(Dimensions.get("window").width - 16, 400);
+    const targetWidth = Math.min(screenWidth - 16, 400);
 
     const heightInt = parseInt(height, 10);
     const widthInt = parseInt(width, 10);
