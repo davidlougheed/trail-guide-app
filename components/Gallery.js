@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Gallery = ({gallery}) => {
+const Gallery = ({gallery, setModalsVisible}) => {
     const {title, description, items} = gallery;
     const {width} = useWindowDimensions();
 
@@ -69,7 +69,12 @@ const Gallery = ({gallery}) => {
 
     return <View style={styles.galleryContainer}>
         {gallery.title ? <Text style={styles.galleryTitle}>{title}</Text> : null}
-        <CustomRenderHTML source={{html: description}} contentWidth={width} showPageIndicator={true} />
+        <CustomRenderHTML
+            source={{html: description}}
+            contentWidth={width}
+            showPageIndicator={true}
+            setModalsVisible={setModalsVisible}
+        />
         <PagerView style={styles.pager} initialPage={0} pageMargin={16}>
             {items.map(({asset, caption}, i) => <View key={i} style={styles.galleryItemContainer}>
                 <Image style={styles.galleryImage} source={itemAssetsObj[asset]} />

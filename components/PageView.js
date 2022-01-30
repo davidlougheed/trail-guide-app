@@ -1,14 +1,12 @@
 import React, {useState} from "react";
 import {SafeAreaView, ScrollView, useWindowDimensions, View} from "react-native";
 
-import CustomModal from "./CustomModal";
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import PageHeader from "./PageHeader";
+import RenderModals from "./RenderModals";
 
-import modalData from "../data/modals.json";
 import pageData from "../data/pages.json";
 import {pageStyles} from "./lib/sharedStyles";
-import {getDataFromModalURI} from "../utils";
 
 const pagesById = Object.fromEntries(pageData.map(page => [page.id, page]));
 
@@ -20,19 +18,6 @@ const PageView = ({route}) => {
 
     const [modalsVisible, setModalsVisible] = useState({});
 
-    const renderersProps = {
-        a: {
-            onPress: (event, href) => {
-                const modalId = getDataFromModalURI(href);
-                if (modalData.hasOwnProperty(modalId)) {
-                    setModalsVisible({[modalId]: true});
-                } else {
-                    // TODO: normal link handling
-                }
-            },
-        },
-    };
-
     return <>
         <SafeAreaView style={pageStyles.container}>
             <ScrollView>
@@ -41,20 +26,12 @@ const PageView = ({route}) => {
                     <CustomRenderHTML
                         source={{html: page.content}}
                         contentWidth={width}
-                        renderersProps={renderersProps}
+                        setModalsVisible={setModalsVisible}
                     />
                 </View>
             </ScrollView>
         </SafeAreaView>
-        {Object.entries(modalData).map(([k, d]) => {
-            const closeModal = () => setModalsVisible({...modalsVisible, [k]: undefined});
-            return <CustomModal
-                key={k}
-                visible={modalsVisible[k] !== undefined}
-                data={{content: d.content}}
-                onRequestClose={closeModal}
-            />;
-        })}
+        <RenderModals modalsVisible={modalsVisible} setModalsVisible={setModalsVisible} />
     </>;
 }
 

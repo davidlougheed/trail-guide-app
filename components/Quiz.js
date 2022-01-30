@@ -92,7 +92,14 @@ const getIcon = optionCorrect => {
         : <Ionicons name={`${iconPrefix}-close-circle-outline`} size={28} color="#ff4d4f" />;
 };
 
-const Quiz = ({quiz}) => {
+/**
+ *
+ * @param {{quiz_type: string, title: string, question: string, answer: string, options: array}} quiz
+ * @param setModalsVisible
+ * @return {JSX.Element}
+ * @constructor
+ */
+const Quiz = ({quiz, setModalsVisible}) => {
     const {quiz_type, title, question, answer, options} = quiz ?? {};
     const {width} = useWindowDimensions();
 
@@ -109,22 +116,23 @@ const Quiz = ({quiz}) => {
     return <View style={styles.quizContainer}>
         {quiz.title ? <Text style={styles.quizTitle}>{title}</Text> : null}
         <Text style={styles.questionTitle}>Question</Text>
-        <CustomRenderHTML source={{html: question}} contentWidth={width} />
+        <CustomRenderHTML
+            source={{html: question}}
+            contentWidth={width}
+            setModalsVisible={setModalsVisible}
+        />
 
         <View style={styles.quizForm}>
             {quiz_type === "match_values" ? <>
                 {options.map((o, i) => {
-                    // const clickHandler = vNew =>
-                    //     setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld));
-
                     return <View key={i} style={styles.optionContainer}>
                         <View style={{
                             paddingRight: showAnswer ? 8 : 0,
-                            width: showAnswer ? 50 : 0,
-                            lineHeight: 36,
+                            width: showAnswer ? 50 : 0
                         }}>
                             {showAnswer
                                 ? <Text style={{
+                                    lineHeight: 36,
                                     textAlign: "right",
                                     color: selectedOptions[i] === o.answer ? "#52c41a" : "#ff4d4f",
                                 }}>{o.answer}</Text> : null}
@@ -207,7 +215,7 @@ const Quiz = ({quiz}) => {
             <Text style={correct ? styles.textCorrect : styles.textIncorrect}>
                 {correct ? "Correct!" : "Sorry, not quite right."}</Text>
             <Text style={styles.questionTitle}>Answer</Text>
-            <CustomRenderHTML source={{html: answer}} contentWidth={width} />
+            <CustomRenderHTML source={{html: answer}} contentWidth={width} setModalsVisible={setModalsVisible} />
         </View> : null}
     </View>;
 };
