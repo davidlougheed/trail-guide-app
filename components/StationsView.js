@@ -1,5 +1,7 @@
 import React from  "react";
 
+import Constants from "expo-constants";
+
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 import StationsDetailView from "./StationsDetailView";
@@ -11,7 +13,7 @@ const Stack = createNativeStackNavigator();
 
 const listViewScreenOptions = {
     gestureEnabled: false,
-    title: "Elbow Lake Trail Guide",
+    title: Constants.manifest.name,
 };
 
 const StationsView = () => {
