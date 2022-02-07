@@ -5,6 +5,7 @@
 import React, {useEffect, useState} from "react";
 import {Platform} from "react-native";
 
+import * as Linking from "expo-linking";
 import {Ionicons} from "@expo/vector-icons";
 import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -54,8 +55,9 @@ const getScreenOptions = ({route}) => ({
     tabBarInactiveTintColor: "gray",
 });
 
-const LINKING = {
-    prefixes: ["http://localhost:19006"],  // TODO: Allow for proper prefix
+const urlPrefix = Linking.createURL("/");
+const linking = {
+    prefixes: [urlPrefix],
     config: {
         screens: {
             [POINTS_OF_INTEREST]: {
@@ -116,7 +118,7 @@ const App = () => {
             data={modalData[termsModal] ?? {}}
             onRequestClose={handleCloseModal}
         />
-        <NavigationContainer linking={LINKING}>
+        <NavigationContainer linking={linking}>
             <Tab.Navigator screenOptions={getScreenOptions}>
                 <Tab.Screen name={POINTS_OF_INTEREST} options={{headerShown: false}} component={StationsView} />
                 <Tab.Screen name={MAP} component={MapView} options={{headerShown: false}} />
