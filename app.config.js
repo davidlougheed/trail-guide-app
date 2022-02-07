@@ -2,10 +2,10 @@ import config from "./data/config.json";
 // import settings from "./data/settings.json";
 
 export default {
-    "owner": process.env.TCGS_EXPO_OWNER || undefined,
-    "name": process.env.TCGS_APP_NAME || config.APP_NAME || "trail-guide-app",
-    "slug": process.env.TCGS_APP_SLUG || config.APP_SLUG || "trail-guide-app",
-    "version": process.env.TCGS_APP_VERSION || "1.0.0",
+    "owner": process.env.TCGS_EXPO_OWNER ?? undefined,
+    "name": process.env.TCGS_APP_NAME ?? config.APP_NAME ?? "Trail Guide App",
+    "slug": process.env.TCGS_APP_SLUG ?? config.APP_SLUG ?? "trail-guide-app",
+    "version": process.env.TCGS_APP_VERSION ?? "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -34,7 +34,5 @@ export default {
     "web": {
         "favicon": "./assets/favicon.png"
     },
-    "expo": {
-        ...(config.LINKING_SCHEME ? {"scheme": config.LINKING_SCHEME} : {}),
-    },
+    ...(config.LINKING_SCHEME ? {"scheme": config.LINKING_SCHEME} : {}),
 };
