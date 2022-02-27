@@ -24,7 +24,6 @@ const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, .
     if (!assetId) return <View />;
 
     const [assets, error] = useAssets([assetId]);
-
     if (error) console.error(error);
     if (!assets) return <View />;
 

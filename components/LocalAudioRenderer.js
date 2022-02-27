@@ -10,15 +10,11 @@ import {useAssets} from "expo-asset";
 import assetData from "../data/assets/assets";
 import {getBaseUrlAndFileFromURI, getDataFromAssetURI} from "../utils";
 
-const LocalVideoRenderer = ({style, tnode, ...props}) => {
-    const {attributes: {width: widthAttr, height: heightAttr}, domNode: {children}} = tnode;
+const height = 50;
+const width = 320;
 
-    const heightAttrInt = parseInt(heightAttr, 10);
-    const widthAttrInt = parseInt(widthAttr, 10);
-
-    // TODO: Dynamic width based on screen size - up to max
-    const height = isNaN(heightAttrInt) ? 180 : heightAttrInt;
-    const width = isNaN(widthAttrInt) ? 320 : widthAttrInt;
+const LocalAudioRenderer = ({style, tnode, ...props}) => {
+    const {domNode: {children}} = tnode;
 
     const src = children[0].attribs["src"];
 
@@ -29,7 +25,7 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
     const srcSplit = src.split("/");
     const source = srcSplit[srcSplit.length - 1].split(".")[0];
 
-    const assetId = assetData["video"][uriData ?? source];
+    const assetId = assetData["audio"][uriData ?? source];
 
     const blankShell = <View {...props} style={{height, width}} />;
 
@@ -41,27 +37,23 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
 
     const [baseUrl, file] = getBaseUrlAndFileFromURI(assets[0].localUri);
 
-    // expo-av sucks; for now, use a native video tag for web and a WebView for native
-    // TODO: This has since been fixed in expo 44, so we can revert to it
+    // TODO: use expo-av
     return <View {...props} style={{height, width}}>
-        {/*<Video source={{uri: assets[0].localUri}}*/}
-        {/*       resizeMode="contain"*/}
-        {/*       useNativeControls={true} />*/}
         {Platform.OS === "web" ? (
-            <video height={height} width={width} controls={true} preload="auto">
+            <audio controls={true} preload="auto">
                 <source src={assets[0].localUri} />
-            </video>
+            </audio>
         ) : (
             <WebView source={{html: `
                 <html lang="en">
                 <head>
-                    <title>Video Element</title>
+                    <title>Audio Element</title>
                     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0">
                 </head>
                 <body style="margin: 0; padding: 0">
-                <video height="${height}" width="${width}" controls preload="auto">
+                <audio controls preload="auto">
                     <source src="${file}" />
-                </video>
+                </audio>
                 </body>
                 </html>
             `, baseUrl: baseUrl}} originWhitelist={["*"]} />
@@ -69,4 +61,4 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
     </View>;
 };
 
-export default LocalVideoRenderer;
+export default LocalAudioRenderer;

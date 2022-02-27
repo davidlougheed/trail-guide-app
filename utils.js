@@ -28,3 +28,14 @@ export const getDataFromModalURI = uri => {
     if (match === null) return null;
     return match[2];  // Capture group: modal ID
 };
+
+/**
+ * Extracts a base URI and file name from a local asset URI for rendering in a web view.
+ * @param {string} uri
+ * @return {[string,string]}
+ */
+export const getBaseUrlAndFileFromURI = uri => [
+    uri.substring(7, uri.lastIndexOf("/") + 1),
+    uri.substring(uri.lastIndexOf("/") + 1, uri.length),
+];
+
