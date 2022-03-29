@@ -6,6 +6,10 @@ export default {
         tagName: "audio",
         contentModel: HTMLContentModel.block,
     }),
+    "tgcs-audio": HTMLElementModel.fromCustomModel({
+        tagName: "tgcs-audio",
+        contentModel: HTMLContentModel.mixed,
+    }),
     "video": HTMLElementModel.fromCustomModel({
         tagName: "video",
         contentModel: HTMLContentModel.block,

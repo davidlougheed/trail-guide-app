@@ -3,20 +3,21 @@
 // See NOTICE for more information.
 
 import React from "react";
-import {Platform, View} from "react-native";
-import {WebView} from "react-native-webview";
+import {View} from "react-native";
 import {useAssets} from "expo-asset";
 
 import assetData from "../data/assets/assets";
-import {getBaseUrlAndFileFromURI, getDataFromAssetURI} from "../utils";
+import {getDataFromAssetURI} from "../utils";
+import AudioPlayer from "./AudioPlayer";
 
 const height = 50;
 const width = 320;
 
+// Supposed to work for both legacy <audio> tags and new <tgcs-audio> tags
 const LocalAudioRenderer = ({style, tnode, ...props}) => {
-    const {domNode: {children}} = tnode;
+    const {domNode} = tnode;
 
-    const src = children[0].attribs["src"];
+    const src = domNode.attribs["src"] ?? domNode.children[0].attribs["src"];
 
     // Check if source matches an asset URI, i.e. something which works both
     // as a web resource and as a sigil for loading a local asset.
@@ -35,30 +36,7 @@ const LocalAudioRenderer = ({style, tnode, ...props}) => {
     if (error) console.error(error);
     if (!assets) return blankShell;
 
-    const [baseUrl, file] = getBaseUrlAndFileFromURI(assets[0].localUri);
-
-    // TODO: use expo-av
-    return <View {...props} style={{height, width}}>
-        {Platform.OS === "web" ? (
-            <audio controls={true} preload="auto">
-                <source src={assets[0].localUri} />
-            </audio>
-        ) : (
-            <WebView source={{html: `
-                <html lang="en">
-                <head>
-                    <title>Audio Element</title>
-                    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0">
-                </head>
-                <body style="margin: 0; padding: 0">
-                <audio controls preload="auto">
-                    <source src="${file}" />
-                </audio>
-                </body>
-                </html>
-            `, baseUrl: baseUrl}} originWhitelist={["*"]} />
-        )}
-    </View>;
+    return <AudioPlayer linkText={domNode.attribs["data-link-text"]} src={assets[0].localUri} />;
 };
 
 export default LocalAudioRenderer;
