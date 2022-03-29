@@ -5,9 +5,9 @@
 export const ASSET_URI_PATTERN =
     /^https?:\/\/([a-zA-Z0-9.\-_:]{1,127})\/api\/v1\/assets\/([a-zA-Z0-9\-]{1,36})\/bytes\/?$/;
 
-// TODO: Validate hostname with capture group
+// TODO: Validate hostname (app URL) with capture group; maybe process with URL class?
 export const MODAL_URI_PATTERN =
-    /^https?:\/\/([a-zA-Z0-9.\-_:]{1,127})\/api\/v1\/modals\/([a-zA-Z0-9\-]{1,36})\/?$/;
+    /^https?:\/\/([a-zA-Z0-9.\-_:\/]{1,127})\/modals\/([a-zA-Z0-9\-]{1,36})\/?$/;
 
 /**
  * Extracts an asset ID (if present) from an asset bytes URI.
