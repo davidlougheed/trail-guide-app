@@ -15,6 +15,7 @@ import RNPickerSelect from "react-native-picker-select";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import {Ionicons} from "@expo/vector-icons";
+import QuizButton from "./QuizButton";
 
 const styles = StyleSheet.create({
     quizContainer: {
@@ -195,17 +196,17 @@ const Quiz = ({quiz, setModalsVisible}) => {
                         {showAnswer ? getIcon(o.answer) : null}
                     </View>
                     <View style={{flex: 1}}>
-                        <Button
-                            style={{marginTop: 8, flex: 1}}
-                            disabled={showAnswer && selectedOptions[0] !== i}
-                            title={o.label}
-                            type={selectedOptions[0] === i ? "primary" : "default"}
-                            danger={showAnswer && !o.answer}
+                        <QuizButton 
+                            label={o.label} 
+                            correct={o.answer} 
+                            quizSubmitted={showAnswer}
+                            selected={selectedOptions[0] === i} 
                             onPress={() => {
                                 setSelectedOptions([i]);
                                 setCorrect(o.answer);
                                 setShowAnswer(true);
-                            }} />
+                            }} 
+                        />
                     </View>
                 </View>)}
             </> : null}
