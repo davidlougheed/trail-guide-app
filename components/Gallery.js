@@ -31,12 +31,22 @@ const styles = StyleSheet.create({
 
     galleryTitle: {
         fontSize: 20,
-        marginBottom: 12,
+        marginBottom: 6,
+        textAlign: "center",
+    },
+    
+    pagerFlexContainer: {
+        width: "100%",
+        alignItems: "center", 
+    },
+    
+    pagerInnerContainer: {
+        width: "100%", 
+        maxWidth: galleryMaxWidth,
     },
 
     pager: {
         width: "100%",
-        maxWidth: galleryMaxWidth,
         minHeight: galleryHeight,
     },
 
@@ -79,13 +89,17 @@ const Gallery = ({gallery, setModalsVisible}) => {
             showPageIndicator={true}
             setModalsVisible={setModalsVisible}
         />
-        <PagerView style={styles.pager} initialPage={0} pageMargin={16}>
-            {items.map(({asset, caption}, i) => <View key={i} style={styles.galleryItemContainer}>
-                <Image style={styles.galleryImage} source={itemAssetsObj[asset]} />
-                {caption ? <Text style={styles.caption}>{caption}</Text> : null}
-            </View>)}
-        </PagerView>
-        <Text style={styles.helpText}>Swipe to scroll through the gallery.</Text>
+        <View style={styles.pagerFlexContainer}>
+            <View style={styles.pagerInnerContainer}>
+                <PagerView style={styles.pager} initialPage={0} pageMargin={16}>
+                    {items.map(({asset, caption}, i) => <View key={i} style={styles.galleryItemContainer}>
+                        <Image style={styles.galleryImage} source={itemAssetsObj[asset]} />
+                        {caption ? <Text style={styles.caption}>{caption}</Text> : null}
+                    </View>)}
+                </PagerView>
+                <Text style={styles.helpText}>Swipe to scroll through the gallery.</Text>
+            </View>
+        </View>
     </View>;
 };
 
