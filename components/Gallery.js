@@ -1,13 +1,14 @@
 import React from "react";
 import {
     Dimensions,
+    Platform,
     StyleSheet,
 
     Image,
     Text,
     View,
 
-    useWindowDimensions, Platform,
+    useWindowDimensions,
 } from "react-native";
 import {useAssets} from "expo-asset";
 
@@ -19,6 +20,8 @@ const PagerView = Platform.select({
 import assetData from "../data/assets/assets";
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 
+const galleryMaxWidth = 600;
+const galleryHeight = Math.min(Dimensions.get("window").width - 32, galleryMaxWidth) * (9/16);
 const styles = StyleSheet.create({
     galleryContainer: {
         marginTop: 2,  // Leave a gap to show a little divider line
@@ -33,12 +36,13 @@ const styles = StyleSheet.create({
 
     pager: {
         width: "100%",
-        minHeight: (Dimensions.get("window").width - 32) * (9/16),
+        maxWidth: galleryMaxWidth,
+        minHeight: galleryHeight,
     },
 
     galleryItemContainer: {
         width: "100%",
-        height: "100%",
+        minHeight: galleryHeight,
     },
 
     galleryImage: {
