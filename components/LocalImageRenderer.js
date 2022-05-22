@@ -31,22 +31,28 @@ const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, .
         setViewHeight(h);
         setViewWidth(w);
     });
+    
+    const hwRatio = viewHeight / viewWidth;
 
-    const targetWidth = Math.min(screenWidth - 16, 400);
+    // Set a max width to something reasonable to the image isn't huge on larger screens;
+    // use a smaller max width if the image is vertical.
+    const targetWidth = Math.min(screenWidth - 16, hwRatio > 1 ? 228 : 304);
 
     const heightInt = parseInt(height, 10);
     const widthInt = parseInt(width, 10);
-    return <Image
-        {...props}
-        source={assetId}
-        style={{
-            ...style,
-            marginTop: 8,
-            marginBottom: 8,
-            height: isNaN(heightInt) ? targetWidth * (viewHeight / viewWidth) : heightInt,
-            width: isNaN(widthInt) ? targetWidth : widthInt,
-        }}
-    />
+    return <View style={{alignItems: "center"}}>
+        <Image
+            {...props}
+            source={assetId}
+            style={{
+                ...style,
+                marginTop: 8,
+                marginBottom: 8,
+                height: isNaN(heightInt) ? targetWidth * hwRatio : heightInt,
+                width: isNaN(widthInt) ? targetWidth : widthInt,
+            }}
+        />
+    </View>
 };
 
 export default LocalImageRenderer;
