@@ -1,4 +1,4 @@
-import React from  "react";
+import React, {useCallback} from "react";
 import {SafeAreaView, SectionList} from "react-native";
 
 import StationsListItem from "./StationsListItem";
@@ -10,10 +10,10 @@ import stationData from "../data/stations.json";
 const StationsListView = ({navigation}) => {
     // TODO: Tablet view
 
-    const onPress = async id => {
+    const onPress = useCallback(async id => {
         // noinspection JSCheckFunctionSignatures
         await navigation.navigate("Points of Interest", {screen: `screen.station-list.station.${id}`});
-    };
+    }, [navigation]);
 
     return <SafeAreaView style={{flex: 1}}>
         <SectionList

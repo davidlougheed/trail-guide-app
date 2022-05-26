@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {TouchableOpacity} from "react-native";
 
 import Constants from "expo-constants";
@@ -21,7 +21,7 @@ const StationsView = () => {
 
     const [showInfoModal, setShowInfoModal] = useState(false);
 
-    const listViewScreenOptions = {
+    const listViewScreenOptions = useMemo(() => ({
         gestureEnabled: false,
         title: Constants.manifest.name,
         headerRight: () => (
@@ -33,7 +33,7 @@ const StationsView = () => {
                 />
             </TouchableOpacity>
         ),
-    };
+    }), []);
 
     // TODO: Don't use callback method for stack component, since it's slow
 

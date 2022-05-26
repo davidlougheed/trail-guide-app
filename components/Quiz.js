@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {
     Platform,
     StyleSheet,
@@ -114,6 +114,11 @@ const Quiz = ({quiz, setModalsVisible}) => {
         label: o.answer.toString(),
     })).sort((o1, o2) => o1.label.localeCompare(o2.label));
 
+    const onSubmit = useCallback(() => {
+        setCorrect(options.reduce((acc, o, i) => acc && o.answer === selectedOptions[i], true));
+        setShowAnswer(true);
+    }, [options, selectedOptions]);
+
     return <View style={styles.quizContainer}>
         {quiz.title ? <Text style={styles.quizTitle}>{title}</Text> : null}
         <Text style={styles.questionTitle}>Question</Text>
@@ -155,10 +160,7 @@ const Quiz = ({quiz, setModalsVisible}) => {
                     </View>;
                 })}
                 <View style={styles.submitButtonContainer}>
-                    <Button title="Submit" onPress={() => {
-                        setCorrect(options.reduce((acc, o, i) => acc && o.answer === selectedOptions[i], true));
-                        setShowAnswer(true);
-                    }} />
+                    <Button title="Submit" onPress={onSubmit} />
                 </View>
             </> : null}
 
@@ -183,10 +185,7 @@ const Quiz = ({quiz, setModalsVisible}) => {
                     </View>;
                 })}
                 <View style={styles.submitButtonContainer}>
-                    <Button title="Submit" onPress={() => {
-                        setCorrect(options.reduce((acc, o, i) => acc && o.answer === selectedOptions[i], true));
-                        setShowAnswer(true);
-                    }} />
+                    <Button title="Submit" onPress={onSubmit} />
                 </View>
             </> : null}
 

@@ -1,17 +1,17 @@
 import React from "react";
 import {StyleSheet, View} from "react-native";
 
-const WebPagerView = ({children, style, ...props}) => {
-    const styles = StyleSheet.create({
-        container: {
-            flexDirection: "row",
-            overflow: "scroll",
-        },
-    });
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        overflow: "scroll",
+    },
+});
 
-    return <View {...props} style={[style, styles.container]}>
+const WebPagerView = ({children, style, ...props}) => (
+    <View {...props} style={[style, styles.container]}>
         {children}
-    </View>;
-};
+    </View>
+);
 
 export default WebPagerView;

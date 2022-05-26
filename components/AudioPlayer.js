@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Text} from "react-native";
 import {Audio} from "expo-av";
 
@@ -9,13 +9,12 @@ const AudioPlayer = ({linkText, src}) => {
     const [playing, setPlaying] = useState(false);
     const [progress, setProgress] = useState("");
 
-    const playSound = async () => {
+    const playSound = useCallback(async () => {
         let sound_ = sound;
         try {
             if (!sound_) {
                 const {sound: newSound} = await Audio.Sound.createAsync({uri: src});
                 newSound.setOnPlaybackStatusUpdate(status => {
-                    console.log(status, playing, status.isPlaying);
                     setPlaying(status.isPlaying);
                     if (!status.isPlaying) {
                         setProgress("");
@@ -31,9 +30,9 @@ const AudioPlayer = ({linkText, src}) => {
         } catch (err) {
             console.error(err);
         }
-    };
+    }, [sound]);
 
-    const stopSound = async () => {
+    const stopSound = useCallback(async () => {
         try {
             if (!sound) return;
             await sound.stopAsync();
@@ -41,15 +40,15 @@ const AudioPlayer = ({linkText, src}) => {
         } catch (err) {
             console.error(err);
         }
-    };
+    }, [sound]);
 
     // Clean-up function to free audio memory when component is unloaded
     useEffect(() => sound ? (() => sound.unloadAsync()) : undefined, [sound]);
 
-    const toggleSound = async () => {
+    const toggleSound = useCallback(async () => {
         const status = sound ? (await sound.getStatusAsync()) : ({isPlaying: false});
         await (status.isPlaying ? stopSound : playSound)();
-    };
+    }, [sound, stopSound, playSound]);
 
     return <Text onPress={toggleSound} style={{fontSize: 16}}>
         <Text style={{marginRight: "0.5em"}}>{playing ? "⏹" : "▶️"}</Text>

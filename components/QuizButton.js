@@ -4,8 +4,6 @@ import React from "react";
 import {Platform, PlatformColor, StyleSheet, TouchableOpacity, View} from "react-native";
 import RenderHTML from "react-native-render-html";
 
-console.log(PlatformColor);
-
 const pc = PlatformColor ?? (() => undefined);
 
 // noinspection JSCheckFunctionSignatures

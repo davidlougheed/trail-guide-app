@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {RenderHTML} from "react-native-render-html";
 import * as WebBrowser from "expo-web-browser";
 
@@ -10,16 +10,18 @@ import styles from "./styles";
 import {getDataFromModalURI} from "../../utils";
 
 const CustomRenderHTML = ({setModalsVisible, ...props}) => {
+    const anchorOnPress = useCallback(async (event, href) => {
+        const modalId = getDataFromModalURI(href);
+        if (modalData.hasOwnProperty(modalId)) {
+            setModalsVisible({[modalId]: true});
+        } else {
+            await WebBrowser.openBrowserAsync(href);
+        }
+    }, [setModalsVisible]);
+
     const renderersProps = {
         a: {
-            onPress: async (event, href) => {
-                const modalId = getDataFromModalURI(href);
-                if (modalData.hasOwnProperty(modalId)) {
-                    setModalsVisible({[modalId]: true});
-                } else {
-                    await WebBrowser.openBrowserAsync(href);
-                }
-            },
+            onPress: anchorOnPress,
         },
     };
 
