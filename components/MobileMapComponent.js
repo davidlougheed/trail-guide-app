@@ -3,9 +3,10 @@ import {Text, View} from "react-native";
 import RNMapView, {Callout, Geojson, Marker} from "react-native-maps";
 import Svg, {Circle, Defs, LinearGradient, Stop, Path} from "react-native-svg";
 
+import {transformCoords} from "../gis";
+
 import layerData from "../data/layers.json";
 import stationData from "../data/stations.json";
-import {transformCoords} from "../gis";
 
 import iconSvgPaths from "./lib/iconSvgPaths";
 

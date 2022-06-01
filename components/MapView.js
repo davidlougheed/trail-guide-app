@@ -1,7 +1,7 @@
 import React from "react";
 import {Dimensions, Platform, StyleSheet, View} from "react-native";
-
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+
 import StationsDetailView from "./StationsDetailView";
 
 import stationData from "../data/stations.json";
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "center",
+        // alignItems: "center",
+        // justifyContent: "center",
     },
     map: {
         width: Dimensions.get("window").width,
