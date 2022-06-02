@@ -1,5 +1,5 @@
 // A web interface to manage a trail guide mobile app's content and data.
-// Copyright (C) 2021  David Lougheed
+// Copyright (C) 2021-2022  David Lougheed
 // See NOTICE for more information.
 
 import React from "react";
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const PageHeader = ({station, page}) => {
+const PageHeader = React.memo(({station, page}) => {
     const {header_image, long_title, subtitle, coordinates_utm} = station ?? page;
     const {east, north, zone} = (coordinates_utm ?? {});
 
@@ -76,6 +76,6 @@ const PageHeader = ({station, page}) => {
             ) : null}
         </ImageBackground>
     </View>;
-};
+});
 
 export default PageHeader;

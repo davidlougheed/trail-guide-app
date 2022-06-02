@@ -31,7 +31,7 @@ const modalStyles = {
     },
 };
 
-const CustomModal = ({visible, data, onRequestClose}) => {
+const CustomModal = React.memo(({visible, data, onRequestClose}) => {
     const {width} = useWindowDimensions();
 
     const {title, content, close_text} = data;
@@ -51,6 +51,6 @@ const CustomModal = ({visible, data, onRequestClose}) => {
             </View>
         </SafeAreaView>
     </Modal>;
-};
+});
 
 export default CustomModal;

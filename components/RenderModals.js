@@ -3,7 +3,7 @@ import React from "react";
 import CustomModal from "./CustomModal";
 import modalData from "../data/modals.json";
 
-const RenderModals = ({modalsVisible, setModalsVisible}) =>
+const RenderModals = React.memo(({modalsVisible, setModalsVisible}) =>
     <>
         {Object.entries(modalData).map(([k, d]) => {
             const closeModal = () => setModalsVisible({...modalsVisible, [k]: undefined});
@@ -14,6 +14,7 @@ const RenderModals = ({modalsVisible, setModalsVisible}) =>
                 onRequestClose={closeModal}
             />;
         })}
-    </>;
+    </>
+);
 
 export default RenderModals;

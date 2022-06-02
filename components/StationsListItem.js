@@ -53,7 +53,7 @@ const STATION_ICONS = {
     },
 };
 
-const StationsListItem = ({title, subtitle, onPress, trail, category}) => {
+const StationsListItem = React.memo(({title, subtitle, onPress, trail, category}) => {
     // TODO: Format content for list item
     return (
         <TouchableOpacity onPress={onPress}>
@@ -67,6 +67,6 @@ const StationsListItem = ({title, subtitle, onPress, trail, category}) => {
             </View>
         </TouchableOpacity>
     );
-}
+});
 
 export default StationsListItem;

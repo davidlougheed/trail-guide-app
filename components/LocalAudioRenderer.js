@@ -36,7 +36,7 @@ const LocalAudioRenderer = ({style, tnode, ...props}) => {
     if (error) console.error(error);
     if (!assets) return blankShell;
 
-    return <AudioPlayer linkText={domNode.attribs["data-link-text"]} src={assets[0].localUri} />;
+    return <AudioPlayer linkText={domNode.attribs["data-link-text"]} src={assets[0]} />;
 };
 
 export default LocalAudioRenderer;

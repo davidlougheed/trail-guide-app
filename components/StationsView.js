@@ -47,11 +47,11 @@ const StationsView = () => {
             />
             {stationData
                 .flatMap(t => t.data)
-                .map(s => {
-                    return <Stack.Screen key={s.title} name={`screen.station-list.station.${s.id}`} options={{
+                .map(s =>
+                    <Stack.Screen key={s.title} name={`screen.station-list.station.${s.id}`} options={{
                         title: s.title,
-                    }}>{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>;
-                })}
+                    }}>{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>
+                )}
         </Stack.Navigator>
     </>;
 }

@@ -10,10 +10,9 @@ import stationData from "../data/stations.json";
 const StationsListView = ({navigation}) => {
     // TODO: Tablet view
 
-    const onPress = useCallback(async id => {
-        // noinspection JSCheckFunctionSignatures
-        await navigation.navigate("Points of Interest", {screen: `screen.station-list.station.${id}`});
-    }, [navigation]);
+    const onPress = useCallback(
+        id => navigation.navigate("Points of Interest", {screen: `screen.station-list.station.${id}`}),
+        [navigation]);
 
     return <SafeAreaView style={{flex: 1}}>
         <SectionList

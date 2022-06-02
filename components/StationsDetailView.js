@@ -36,19 +36,21 @@ const StationsDetailView = ({station}) => {
     return <>
         <SafeAreaView style={styles.container}>
             <ScrollView>
-                <PageHeader station={station} />
-                {contents.map((c, i) => {
-                    switch (c.content_type) {
-                        case "html":
-                            return <HTMLContent key={i} content={c} setModalsVisible={setModalsVisible} />;
-                        case "gallery":
-                            return <Gallery key={i} gallery={c} setModalsVisible={setModalsVisible} />;
-                        case "quiz":
-                            return <Quiz key={i} quiz={c} setModalsVisible={setModalsVisible} />;
-                        default:
-                            return <View key={i} />;
-                    }
-                })}
+                {station ? <>
+                    <PageHeader station={station} />
+                    {contents.map((c, i) => {
+                        switch (c.content_type) {
+                            case "html":
+                                return <HTMLContent key={i} content={c} setModalsVisible={setModalsVisible} />;
+                            case "gallery":
+                                return <Gallery key={i} gallery={c} setModalsVisible={setModalsVisible} />;
+                            case "quiz":
+                                return <Quiz key={i} quiz={c} setModalsVisible={setModalsVisible} />;
+                            default:
+                                return <View key={i} />;
+                        }
+                    })}
+                </> : null}
             </ScrollView>
         </SafeAreaView>
         <RenderModals modalsVisible={modalsVisible} setModalsVisible={setModalsVisible} />

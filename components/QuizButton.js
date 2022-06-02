@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     }),
 });
 
-const QuizButton = ({option, index, selected, quizSubmitted, onPress}) => {
+const QuizButton = React.memo(({option, index, selected, quizSubmitted, onPress}) => {
     const {width} = useWindowDimensions();
 
     const onPress_ = useCallback(() => {
@@ -68,6 +68,6 @@ const QuizButton = ({option, index, selected, quizSubmitted, onPress}) => {
                         }} />
         </View>
     </TouchableOpacity>;
-};
+});
 
 export default QuizButton;

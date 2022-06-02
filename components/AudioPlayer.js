@@ -13,7 +13,7 @@ const AudioPlayer = ({linkText, src}) => {
         let sound_ = sound;
         try {
             if (!sound_) {
-                const {sound: newSound} = await Audio.Sound.createAsync({uri: src});
+                const {sound: newSound} = await Audio.Sound.createAsync(src);
                 newSound.setOnPlaybackStatusUpdate(status => {
                     setPlaying(status.isPlaying);
                     if (!status.isPlaying) {

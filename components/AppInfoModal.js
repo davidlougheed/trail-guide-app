@@ -32,8 +32,8 @@ const htmlContent = `
 </p>
 `;
 
-const AppInfoModal = ({visible, onRequestClose}) => {
+const AppInfoModal = React.memo(({visible, onRequestClose}) => {
     return <CustomModal onRequestClose={onRequestClose} visible={visible} data={{content: htmlContent}} />;
-};
+});
 
 export default AppInfoModal;

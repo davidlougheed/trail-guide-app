@@ -12,10 +12,10 @@ const styles = StyleSheet.create({
     }
 });
 
-const StationsListSectionHeader = ({title}) => (
+const StationsListSectionHeader = React.memo(({title}) => (
     <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
     </View>
-);
+));
 
 export default StationsListSectionHeader;

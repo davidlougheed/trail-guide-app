@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Gallery = ({gallery, setModalsVisible}) => {
+const Gallery = React.memo(({gallery, setModalsVisible}) => {
     const {title, description, items} = gallery;
     const {width} = useWindowDimensions();
 
@@ -101,6 +101,6 @@ const Gallery = ({gallery, setModalsVisible}) => {
             </View>
         </View>
     </View>;
-};
+});
 
 export default Gallery;

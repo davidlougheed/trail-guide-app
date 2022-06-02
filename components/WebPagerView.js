@@ -8,10 +8,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const WebPagerView = ({children, style, ...props}) => (
+const WebPagerView = React.memo(({children, style, ...props}) => (
     <View {...props} style={[style, styles.container]}>
         {children}
     </View>
-);
+));
 
 export default WebPagerView;
