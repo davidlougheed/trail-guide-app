@@ -90,16 +90,19 @@ const App = () => {
 
     const [termsModalVisible, setTermsModalVisible] = useState(false);
 
-    useEffect(async () => {
-        try {
-            const termsSeen = await AsyncStorage.getItem(KEY_TERMS_SEEN);
-            if (termsModal && termsSeen === null) {
-                // There is a terms modal to show, and we haven't seen it yet, so set it to visible
-                setTermsModalVisible(true);
+    useEffect(() => {
+        const fn = async () => {
+            try {
+                const termsSeen = await AsyncStorage.getItem(KEY_TERMS_SEEN);
+                if (termsModal && termsSeen === null) {
+                    // There is a terms modal to show, and we haven't seen it yet, so set it to visible
+                    setTermsModalVisible(true);
+                }
+            } catch (e) {
+                console.error(e);
             }
-        } catch (e) {
-            console.error(e);
-        }
+        };
+        fn().catch(console.error);
     }, []);
 
     const handleCloseModal = async () => {
