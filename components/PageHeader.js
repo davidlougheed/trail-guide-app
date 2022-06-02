@@ -55,7 +55,7 @@ const PageHeader = ({station, page}) => {
     const {header_image, long_title, subtitle, coordinates_utm} = station ?? page;
     const {east, north, zone} = (coordinates_utm ?? {});
 
-    const assetId = assetData["image"][header_image] ?? null;
+    const assetId = assetData?.["image"]?.[header_image] ?? null;
 
     if (assetId) {
         useAssets([assetId]);
