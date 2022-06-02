@@ -26,7 +26,7 @@ const LocalAudioRenderer = ({style, tnode, ...props}) => {
     const srcSplit = src.split("/");
     const source = srcSplit[srcSplit.length - 1].split(".")[0];
 
-    const assetId = assetData["audio"][uriData ?? source];
+    const assetId = assetData?.["audio"]?.[uriData ?? source];
 
     const blankShell = <View {...props} style={{height, width}} />;
 

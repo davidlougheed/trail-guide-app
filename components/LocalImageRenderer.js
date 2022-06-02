@@ -19,7 +19,7 @@ const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, .
     // as a web resource and as a sigil for loading a local asset.
     const serverAssetId = getDataFromAssetURI(src);
 
-    const assetId = assetData["image"][serverAssetId ?? src];
+    const assetId = assetData?.["image"]?.[serverAssetId ?? src];
 
     if (!assetId) return <View />;
 
