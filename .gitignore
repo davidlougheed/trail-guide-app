@@ -9,6 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 
+/data/about/
 /data/config.json
 /data/layers.json
 /data/modals.*
