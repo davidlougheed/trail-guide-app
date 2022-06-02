@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {
     Platform,
     StyleSheet,
@@ -109,10 +109,16 @@ const Quiz = ({quiz, setModalsVisible}) => {
     const [correct, setCorrect] = useState(false);
 
     // Used for matching quizzes
-    const allOptionAnswers = options.map(o => ({
-        value: o.answer.toString(),
-        label: o.answer.toString(),
-    })).sort((o1, o2) => o1.label.localeCompare(o2.label));
+    const allOptionAnswers = useMemo(() => options
+        .map(o => ({value: o.answer.toString(), label: o.answer.toString()}))
+        .sort((o1, o2) => o1.label.localeCompare(o2.label)),
+        [options]);
+
+    const chooseOnePress = useCallback((o, i) => {
+        setSelectedOptions([i]);
+        setCorrect(o.answer);
+        setShowAnswer(true);
+    }, []);
 
     const onSubmit = useCallback(() => {
         setCorrect(options.reduce((acc, o, i) => acc && o.answer === selectedOptions[i], true));
@@ -195,16 +201,12 @@ const Quiz = ({quiz, setModalsVisible}) => {
                         {showAnswer ? getIcon(o.answer) : null}
                     </View>
                     <View style={{flex: 1}}>
-                        <QuizButton 
-                            label={o.label} 
-                            correct={o.answer} 
+                        <QuizButton
+                            option={o}
+                            index={i}
                             quizSubmitted={showAnswer}
                             selected={selectedOptions[0] === i} 
-                            onPress={() => {
-                                setSelectedOptions([i]);
-                                setCorrect(o.answer);
-                                setShowAnswer(true);
-                            }} 
+                            onPress={chooseOnePress}
                         />
                     </View>
                 </View>)}
