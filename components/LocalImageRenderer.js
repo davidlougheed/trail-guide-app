@@ -12,8 +12,10 @@ import {getDataFromAssetURI} from "../utils";
 const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, ...props}) => {
     const {width: screenWidth} = useWindowDimensions();
 
-    const [viewHeight, setViewHeight] = useState(1);
-    const [viewWidth, setViewWidth] = useState(1);
+    const heightInt = parseInt(height, 10);
+    const widthInt = parseInt(width, 10);
+
+    const [viewDimensions, setViewDimensions] = useState(null);
 
     // Check if source matches an asset URI, i.e. something which works both
     // as a web resource and as a sigil for loading a local asset.
@@ -21,33 +23,29 @@ const LocalImageRenderer = ({style, tnode: {attributes: {src, width, height}}, .
 
     const assetId = assetData?.["image"]?.[serverAssetId ?? src];
 
-    if (!assetId) return <View />;
+    if (!assetId) return <View style={{width: 228, height: 228}} />;
 
     const [assets, error] = useAssets([assetId]);
     if (error) console.error(error);
-    if (!assets) return <View />;
+    if (!assets) return <View style={{width: 228, height: 228}} />;
 
     Image.getSize(assets[0].uri, (w, h) => {
-        setViewHeight(h);
-        setViewWidth(w);
+        setViewDimensions([w, h]);
     });
+
+    if (!viewDimensions) return <View style={{width: 228, height: 228}} />;
     
-    const hwRatio = viewHeight / viewWidth;
+    const hwRatio = viewDimensions[1] / viewDimensions[0];
 
     // Set a max width to something reasonable to the image isn't huge on larger screens;
     // use a smaller max width if the image is vertical.
     const targetWidth = Math.min(screenWidth - 16, hwRatio > 1 ? 228 : 304);
 
-    const heightInt = parseInt(height, 10);
-    const widthInt = parseInt(width, 10);
-    return <View style={{alignItems: "center"}}>
+    return <View style={{alignItems: "center", marginTop: 8, marginBottom: 8}} {...props}>
         <Image
-            {...props}
             source={assetId}
             style={{
                 ...style,
-                marginTop: 8,
-                marginBottom: 8,
                 height: isNaN(heightInt) ? targetWidth * hwRatio : heightInt,
                 width: isNaN(widthInt) ? targetWidth : widthInt,
             }}
