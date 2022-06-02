@@ -40,7 +40,7 @@ const MobileMapComponent = ({navigation, ...props}) => {
         ref={mapRef}
     >
         {stationData.flatMap(({id, data}, i) =>
-            data.map(({title, category, coordinates_utm}, j) =>
+            data.map(({id: stationId, title, category, coordinates_utm}, j) =>
                 <Marker
                     key={`${i}.${j}`}
                     coordinate={transformCoords(coordinates_utm)}
@@ -65,7 +65,7 @@ const MobileMapComponent = ({navigation, ...props}) => {
                         </Svg>
                     </View>
                     <Callout style={{width: 16 + title.length*6.5}} onPress={() => {
-                        navigation.push(`screen.map.station.${title}`);
+                        navigation.push(`screen.map.station.${stationId}`);
                     }}>
                         <Text style={{textAlign: "center"}}>{title}</Text>
                     </Callout>

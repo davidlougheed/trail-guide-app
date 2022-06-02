@@ -38,7 +38,7 @@ const MapView = () => {
         {stationData
             .flatMap(t => t.data)
             .map(s => {
-                return <Stack.Screen key={s.title} name={`screen.map.station.${s.title}`} options={{
+                return <Stack.Screen key={s.title} name={`screen.map.station.${s.id}`} options={{
                     title: s.title,
                 }}>{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>;
             })}
