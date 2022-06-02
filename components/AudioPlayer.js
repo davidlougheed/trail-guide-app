@@ -51,13 +51,13 @@ const AudioPlayer = ({linkText, src}) => {
     }, [sound, stopSound, playSound]);
 
     return <Text onPress={toggleSound} style={{fontSize: 16}}>
-        <Text style={{marginRight: "0.5em"}}>{playing ? "⏹" : "▶️"}</Text>
+        <Text>{playing ? "⏹" : "▶️"} </Text>
         <Text style={{textDecorationLine: "underline", color: "rgb(0, 122, 255)"}}>
             {linkText ?? (playing ? "Stop Sound" : "Play Sound")}</Text>
         {progress ? (
             <Text style={{color: "#666"}}>&nbsp;({progress})</Text>
         ) : null}
-        <Text style={{marginLeft: "0.5em"}}>🔊</Text>
+        <Text> 🔊</Text>
     </Text>
 };
 
