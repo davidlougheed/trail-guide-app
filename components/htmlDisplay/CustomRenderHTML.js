@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useMemo} from "react";
 import {RenderHTML} from "react-native-render-html";
 import * as WebBrowser from "expo-web-browser";
 
@@ -9,7 +9,7 @@ import renderers from "./renderers";
 import styles from "./styles";
 import {getDataFromModalURI} from "../../utils";
 
-const CustomRenderHTML = ({setModalsVisible, ...props}) => {
+const CustomRenderHTML = React.memo(({setModalsVisible, ...props}) => {
     const anchorOnPress = useCallback(async (event, href) => {
         const modalId = getDataFromModalURI(href);
         if (modalData.hasOwnProperty(modalId)) {
@@ -19,11 +19,11 @@ const CustomRenderHTML = ({setModalsVisible, ...props}) => {
         }
     }, [setModalsVisible]);
 
-    const renderersProps = {
+    const renderersProps = useMemo(() => ({
         a: {
             onPress: anchorOnPress,
         },
-    };
+    }), [anchorOnPress]);
 
     return <RenderHTML {...props}
                        baseStyle={{...styles.base, ...(props.baseStyle ?? {})}}
@@ -31,6 +31,6 @@ const CustomRenderHTML = ({setModalsVisible, ...props}) => {
                        renderers={renderers}
                        renderersProps={renderersProps}
                        customHTMLElementModels={customElements} />
-};
+});
 
 export default CustomRenderHTML;

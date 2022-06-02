@@ -3,11 +3,11 @@ import {Button, useWindowDimensions, View} from "react-native";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 
-const HTMLContent = ({content, setModalsVisible}) => {
+const HTMLContent = React.memo(({content, setModalsVisible}) => {
     const {width} = useWindowDimensions();
     const [expanded, setExpanded] = useState(false);
 
-    const readMoreButton = useCallback(() => setExpanded(true), []);
+    const readMoreButton = useCallback(() => setExpanded(!expanded), [expanded]);
 
     return <View style={{backgroundColor: "white", paddingHorizontal: 16}}>
         <CustomRenderHTML source={{html: content.content_before_fold}} contentWidth={width} />
@@ -29,6 +29,6 @@ const HTMLContent = ({content, setModalsVisible}) => {
                 />
             ) : null}
     </View>;
-};
+});
 
 export default HTMLContent;
