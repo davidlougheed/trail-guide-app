@@ -21,7 +21,7 @@ const colourMap = {
     "other": ["#333", "#111"],
 };
 
-const MobileMapComponent = ({navigation, ...props}) => {
+const MapComponent = ({navigation, ...props}) => {
     const mapRef = useRef();
 
     return <RNMapView
@@ -82,4 +82,4 @@ const MobileMapComponent = ({navigation, ...props}) => {
     </RNMapView>;
 };
 
-export default MobileMapComponent;
+export default MapComponent;

@@ -1,5 +1,5 @@
-import React from "react";
-import {Dimensions, Platform, StyleSheet, View} from "react-native";
+import React, {useMemo} from "react";
+import {Dimensions, Platform, StyleSheet, useWindowDimensions, View} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 import StationsDetailView from "./StationsDetailView";
@@ -8,31 +8,30 @@ import stationData from "../data/stations.json";
 
 const Stack = createNativeStackNavigator();
 
-const MapComponent = Platform.select({
-    native: () => require("./MobileMapComponent"),
-    default: () => require("./WebMapComponent"),
-})().default;
+import MapComponent from "./MapComponent";
 
 // TODO: Offline maps
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "white",
-        // alignItems: "center",
-        // justifyContent: "center",
-    },
-    map: {
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height,
-    },
-});
-
-const InnerMapView = ({navigation}) => <View style={styles.container}>
-    <MapComponent style={styles.map} navigation={navigation} />
-</View>;
-
 const MapView = () => {
+    const {height, width} = useWindowDimensions();
+
+    const styles = useMemo(() => StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: "white",
+            // alignItems: "center",
+            // justifyContent: "center",
+        },
+        map: {
+            width,
+            height,
+        },
+    }), [height, width]);
+
+    const InnerMapView = useMemo(() => ({navigation}) => <View style={styles.container}>
+        <MapComponent style={styles.map} navigation={navigation} />
+    </View>, [styles]);
+
     return <Stack.Navigator>
         <Stack.Screen name="screen.map.overview" options={{title: "Map"}} component={InnerMapView} />
         {stationData

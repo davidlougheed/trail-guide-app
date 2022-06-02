@@ -26,7 +26,7 @@ L.Marker.prototype.options.icon = L.icon({
     shadowSize:  [41, 41],
 });
 
-const WebMapComponent = ({navigation, ...props}) => {
+const MapComponent = ({navigation, ...props}) => {
     const height = Dimensions.get("window").height;
 
     // noinspection JSValidateTypes,JSUnresolvedVariable
@@ -59,4 +59,4 @@ const WebMapComponent = ({navigation, ...props}) => {
     </View>;  // Placeholder for now
 };
 
-export default WebMapComponent;
+export default MapComponent;
