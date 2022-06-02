@@ -2,7 +2,9 @@
 
 **Author:** David Lougheed
 
-I have built corresponding content editor front ends and back ends, to make it
+I have built a corresponding content editor 
+[front end](https://github.com/davidlougheed/trail-guide-content-web) and 
+[back end](https://github.com/davidlougheed/trail-guide-content-server), to make it
 easy for users to update content and make it accessible for a CI pipeline to
 integrate the content into a binary.
 
