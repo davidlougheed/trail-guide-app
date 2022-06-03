@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {SafeAreaView, ScrollView, useWindowDimensions, View} from "react-native";
+import React, {useMemo, useState} from "react";
+import {SafeAreaView, ScrollView, StyleSheet, useWindowDimensions, View} from "react-native";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import PageHeader from "./PageHeader";
@@ -10,11 +10,20 @@ import {pageStyles} from "./lib/sharedStyles";
 
 const pagesById = Object.fromEntries(pageData.map(page => [page.id, page]));
 
+const styles = StyleSheet.create({
+    pageContent: {
+        backgroundColor: "white",
+        paddingHorizontal: 16,
+    },
+});
+
 const PageView = ({route}) => {
     const {width} = useWindowDimensions();
 
     const {pageId} = route.params;
     const page = pagesById[pageId] ?? pageData[0];
+
+    const source = useMemo(() => ({html: page.content}), [page]);
 
     const [modalsVisible, setModalsVisible] = useState({});
 
@@ -22,9 +31,9 @@ const PageView = ({route}) => {
         <SafeAreaView style={pageStyles.container}>
             <ScrollView>
                 <PageHeader page={{long_title: page.long_title}} />
-                <View style={{backgroundColor: "white", paddingHorizontal: 16}}>
+                <View style={styles.pageContent}>
                     <CustomRenderHTML
-                        source={{html: page.content}}
+                        source={source}
                         contentWidth={width}
                         setModalsVisible={setModalsVisible}
                     />

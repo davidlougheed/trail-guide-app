@@ -100,9 +100,11 @@ const getIcon = optionCorrect => {
  * @return {JSX.Element}
  * @constructor
  */
-const Quiz = ({quiz, setModalsVisible}) => {
+const Quiz = React.memo(({quiz, setModalsVisible}) => {
     const {quiz_type, title, question, answer, options} = quiz ?? {};
     const {width} = useWindowDimensions();
+
+    const answerSource = useMemo(() => ({html: answer}), [answer]);
 
     const [showAnswer, setShowAnswer] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState(getInitialSelectedOptions(quiz));
@@ -217,9 +219,9 @@ const Quiz = ({quiz, setModalsVisible}) => {
             <Text style={correct ? styles.textCorrect : styles.textIncorrect}>
                 {correct ? "Correct!" : "Sorry, not quite right."}</Text>
             <Text style={styles.questionTitle}>Answer</Text>
-            <CustomRenderHTML source={{html: answer}} contentWidth={width} setModalsVisible={setModalsVisible} />
+            <CustomRenderHTML source={answerSource} contentWidth={width} setModalsVisible={setModalsVisible} />
         </View> : null}
     </View>;
-};
+});
 
 export default Quiz;
