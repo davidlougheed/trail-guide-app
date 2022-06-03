@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
     questionTitle: {
         fontWeight: "bold",
-        fontSize: 14,
+        fontSize: 16,
         textTransform: "uppercase",
     },
 
@@ -185,7 +185,7 @@ const Quiz = ({quiz, setModalsVisible}) => {
                         <View style={{flex: 1}}>
                             <Text
                                 onPress={() => clickHandler(!selectedOptions[i])}
-                                style={{fontSize: 16}}
+                                style={{fontSize: 18}}
                             >{o.label}</Text>
                         </View>
                     </View>;

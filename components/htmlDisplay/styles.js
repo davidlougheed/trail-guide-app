@@ -6,15 +6,16 @@ export default {
     tags: {
         small: {
             color: "#777777",
+            fontSize: 14,
             lineHeight: 16,
         },
         p: {
-            fontSize: 16,
-            lineHeight: 22,
+            fontSize: 18,
+            lineHeight: 24,
             marginVertical: 8,
         },
         li: {
-            fontSize: 16,
+            fontSize: 18,
             marginBottom: 4,
         },
     },

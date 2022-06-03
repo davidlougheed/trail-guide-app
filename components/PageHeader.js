@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         ...textShadow,
     },
     subtitle: {
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 8,
         color: "white",
         ...textShadow,
@@ -42,11 +42,13 @@ const styles = StyleSheet.create({
     coordinatesTitle: {
         color: "white",
         fontWeight: "bold",
+        fontSize: 18,
         ...textShadow,
     },
     coordinatesItem: {
         color: "white",
         marginTop: 4,
+        fontSize: 18,
         ...textShadow,
     },
 });

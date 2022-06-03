@@ -61,13 +61,13 @@ const styles = StyleSheet.create({
     },
 
     caption: {
-        fontSize: 12,
+        fontSize: 14,
         color: "#999",
     },
 
     helpText: {
         marginTop: 16,
-        fontSize: 11,
+        fontSize: 13,
         color: "#AAA",
     },
 });

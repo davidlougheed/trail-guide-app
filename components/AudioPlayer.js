@@ -50,7 +50,7 @@ const AudioPlayer = ({linkText, src}) => {
         await (status.isPlaying ? stopSound : playSound)();
     }, [sound, stopSound, playSound]);
 
-    return <Text onPress={toggleSound} style={{fontSize: 16}}>
+    return <Text onPress={toggleSound} style={{fontSize: 18}}>
         <Text>{playing ? "⏹" : "▶️"} </Text>
         <Text style={{textDecorationLine: "underline", color: "rgb(0, 122, 255)"}}>
             {linkText ?? (playing ? "Stop Sound" : "Play Sound")}</Text>

@@ -62,9 +62,9 @@ const QuizButton = React.memo(({option, index, selected, quizSubmitted, onPress}
                         contentWidth={width - 16}
                         baseStyle={{
                             color: (quizSubmitted && !selected ? "#666666" : "white"), 
-                            textTransform: "uppercase", 
                             textAlign: "center",
                             fontWeight: "bold",
+                            fontSize: 18,
                         }} />
         </View>
     </TouchableOpacity>;
