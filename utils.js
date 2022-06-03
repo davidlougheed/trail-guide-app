@@ -1,13 +1,16 @@
 // These are sloppy patterns, allowing invalid domains.
 // It is fine though; we're not allowing untrusted data into the app.
 
-// TODO: Validate hostname with capture group
-export const ASSET_URI_PATTERN =
-    /^https?:\/\/([a-zA-Z0-9.\-_:]{1,127})\/api\/v1\/assets\/([a-zA-Z0-9\-]{1,36})\/bytes\/?$/;
+import {BASE_URL, APP_BASE_URL} from "./data/config.json";
 
-// TODO: Validate hostname (app URL) with capture group; maybe process with URL class?
+export const ASSET_URI_PATTERN =
+    /^(https?:\/\/[a-zA-Z\d.\-_:]{1,127})\/api\/v1\/assets\/([a-zA-Z\d\-]{1,36})\/bytes\/?$/;
+
 export const MODAL_URI_PATTERN =
-    /^https?:\/\/([a-zA-Z0-9.\-_:\/]{1,127})\/modals\/([a-zA-Z0-9\-]{1,36})\/?$/;
+    /^(https?:\/\/[a-zA-Z\d.\-_:\/]{1,127})\/modals\/([a-zA-Z\d\-]{1,36})\/?$/;
+
+export const PAGE_URI_PATTERN =
+    /^(https?:\/\/[a-zA-Z\d.\-_:\/]{1,127})\/pages\/([a-zA-Z\d\-]{1,36})\/?$/;
 
 /**
  * Extracts an asset ID (if present) from an asset bytes URI.
@@ -15,7 +18,7 @@ export const MODAL_URI_PATTERN =
  */
 export const getDataFromAssetURI = uri => {
     const match = uri.match(ASSET_URI_PATTERN);
-    if (match === null) return null;
+    if (match === null || match[1] !== BASE_URL) return null;
     return match[2];  // Capture group: asset ID
 };
 
@@ -25,7 +28,17 @@ export const getDataFromAssetURI = uri => {
  */
 export const getDataFromModalURI = uri => {
     const match = uri.match(MODAL_URI_PATTERN);
-    if (match === null) return null;
+    if (match === null || match[1] !== APP_BASE_URL) return null;
+    return match[2];  // Capture group: modal ID
+};
+
+/**
+ * Extracts a page ID (if present) from a page detail URI.
+ * @param {string} uri
+ */
+export const getDataFromPageURI = uri => {
+    const match = uri.match(PAGE_URI_PATTERN);
+    if (match === null || match[1] !== APP_BASE_URL) return null;
     return match[2];  // Capture group: modal ID
 };
 
