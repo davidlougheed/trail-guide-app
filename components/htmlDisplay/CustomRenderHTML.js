@@ -11,6 +11,11 @@ import {getDataFromModalURI} from "../../utils";
 
 const CustomRenderHTML = React.memo(({setModalsVisible, ...props}) => {
     const anchorOnPress = useCallback(async (event, href) => {
+        if (href.startsWith("www.")) {
+            // Hack in a fix for people forgetting to put https://
+            href = `https://${href}`;
+        }
+
         const modalId = getDataFromModalURI(href);
         if (modalData.hasOwnProperty(modalId)) {
             setModalsVisible({[modalId]: true});
