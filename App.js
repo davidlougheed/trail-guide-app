@@ -2,7 +2,7 @@
 // Copyright (C) 2021  David Lougheed
 // See NOTICE for more information.
 
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Platform} from "react-native";
 
 import * as Linking from "expo-linking";
@@ -85,6 +85,11 @@ const linking = {
 
 const KEY_TERMS_SEEN = "@termsSeen";
 
+const SCREEN_OPTIONS = {
+    [POINTS_OF_INTEREST]: {headerShown: false},
+    [MAP]: {headerShown: false},
+};
+
 const App = () => {
     const termsModal = settings?.terms_modal ?? null;
 
@@ -105,7 +110,7 @@ const App = () => {
         fn().catch(console.error);
     }, []);
 
-    const handleCloseModal = async () => {
+    const handleCloseModal = useCallback(async () => {
         try {
             await AsyncStorage.setItem(KEY_TERMS_SEEN, "true");  // Some non-null value, doesn't really matter
         } catch (e) {
@@ -113,7 +118,7 @@ const App = () => {
         } finally {
             setTermsModalVisible(false);
         }
-    };
+    }, []);
 
     return <>
         <CustomModal
@@ -123,8 +128,16 @@ const App = () => {
         />
         <NavigationContainer linking={linking}>
             <Tab.Navigator screenOptions={getScreenOptions}>
-                <Tab.Screen name={POINTS_OF_INTEREST} options={{headerShown: false}} component={StationsView} />
-                <Tab.Screen name={MAP} component={MapView} options={{headerShown: false}} />
+                <Tab.Screen
+                    name={POINTS_OF_INTEREST}
+                    options={SCREEN_OPTIONS[POINTS_OF_INTEREST]}
+                    component={StationsView}
+                />
+                <Tab.Screen
+                    name={MAP}
+                    options={SCREEN_OPTIONS[MAP]}
+                    component={MapView}
+                />
                 {pageData.map(page =>
                     <Tab.Screen
                         key={page.id}

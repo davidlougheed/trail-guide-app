@@ -13,7 +13,7 @@ import {getDataFromModalURI, getDataFromPageURI} from "../../utils";
 
 const pagesById = Object.fromEntries(pageData.map(p => [p.id, p]));
 
-const CustomRenderHTML = React.memo(({setModalsVisible, ...props}) => {
+const CustomRenderHTML = React.memo(({setModalsVisible, baseStyle, ...props}) => {
     const navigation = useNavigation();
 
     const anchorOnPress = useCallback(async (event, href) => {
@@ -33,6 +33,7 @@ const CustomRenderHTML = React.memo(({setModalsVisible, ...props}) => {
         }
     }, [setModalsVisible]);
 
+    const baseStyleAll = useMemo(() => ({...styles.base, ...(baseStyle ?? {})}), [baseStyle]);
     const renderersProps = useMemo(() => ({
         a: {
             onPress: anchorOnPress,
@@ -40,7 +41,7 @@ const CustomRenderHTML = React.memo(({setModalsVisible, ...props}) => {
     }), [anchorOnPress]);
 
     return <RenderHTML {...props}
-                       baseStyle={{...styles.base, ...(props.baseStyle ?? {})}}
+                       baseStyle={baseStyleAll}
                        tagsStyles={styles.tags}
                        renderers={renderers}
                        renderersProps={renderersProps}

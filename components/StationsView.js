@@ -16,7 +16,7 @@ import AppInfoModal from "./AppInfoModal";
 
 const Stack = createNativeStackNavigator();
 
-const StationsView = () => {
+const StationsView = React.memo(() => {
     // TODO: Tablet view
 
     const [showInfoModal, setShowInfoModal] = useState(false);
@@ -37,6 +37,7 @@ const StationsView = () => {
 
     // TODO: Don't use callback method for stack component, since it's slow
 
+    // noinspection JSValidateTypes
     return <>
         <AppInfoModal visible={showInfoModal} onRequestClose={() => setShowInfoModal(false)} />
         <Stack.Navigator initialRouteName="screen.station-list.list">
@@ -48,12 +49,14 @@ const StationsView = () => {
             {stationData
                 .flatMap(t => t.data)
                 .map(s =>
-                    <Stack.Screen key={s.title} name={`screen.station-list.station.${s.id}`} options={{
-                        title: s.title,
-                    }}>{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>
+                    <Stack.Screen
+                        key={s.id}
+                        name={`screen.station-list.station.${s.id}`}
+                        options={{title: s.title}}
+                    >{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>
                 )}
         </Stack.Navigator>
     </>;
-}
+});
 
 export default StationsView;

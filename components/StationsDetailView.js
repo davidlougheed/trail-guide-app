@@ -28,7 +28,7 @@ import {pageStyles as styles} from "./lib/sharedStyles";
  * @return {JSX.Element}
  * @constructor
  */
-const StationsDetailView = ({station}) => {
+const StationsDetailView = React.memo(({station}) => {
     const [modalsVisible, setModalsVisible] = useState({});
 
     const {contents} = station;
@@ -55,6 +55,6 @@ const StationsDetailView = ({station}) => {
         </SafeAreaView>
         <RenderModals modalsVisible={modalsVisible} setModalsVisible={setModalsVisible} />
     </>;
-};
+});
 
 export default StationsDetailView;
