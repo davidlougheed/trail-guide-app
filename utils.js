@@ -12,6 +12,9 @@ export const MODAL_URI_PATTERN =
 export const PAGE_URI_PATTERN =
     /^(https?:\/\/[a-zA-Z\d.\-_:\/]{1,127})\/pages\/([a-zA-Z\d\-]{1,36})\/?$/;
 
+export const STATION_URI_PATTERN =
+    /^(https?:\/\/[a-zA-Z\d.\-_:\/]{1,127})\/stations\/([a-zA-Z\d\-]{1,36})\/?$/;
+
 /**
  * Extracts an asset ID (if present) from an asset bytes URI.
  * @param {string} uri
@@ -38,6 +41,16 @@ export const getDataFromModalURI = uri => {
  */
 export const getDataFromPageURI = uri => {
     const match = uri.match(PAGE_URI_PATTERN);
+    if (match === null || match[1] !== APP_BASE_URL) return null;
+    return match[2];  // Capture group: modal ID
+};
+
+/**
+ * Extracts a station ID (if present) from a station URI.
+ * @param {string} uri
+ */
+export const getDataFromStationURI = uri => {
+    const match = uri.match(STATION_URI_PATTERN);
     if (match === null || match[1] !== APP_BASE_URL) return null;
     return match[2];  // Capture group: modal ID
 };
