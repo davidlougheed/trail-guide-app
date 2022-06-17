@@ -58,8 +58,6 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
         });
     }, [assets])
 
-    if (!assets || !viewDimensions) return <View style={{width: 228, height: 228}} />;
-
     const zoomViewTap = useCallback(e => {
         // noinspection JSUnresolvedVariable
         if (e.target.viewConfig && e.target.viewConfig.Manager !== "ImageViewManager") {
@@ -74,11 +72,11 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
         }
     }, [closeModal]);
 
-    const hwRatio = viewDimensions[1] / viewDimensions[0];
+    const hwRatio = viewDimensions ? (viewDimensions[1] / viewDimensions[0]) : 1;
 
     const modalImageStyle = useMemo(() => ({
-        height: Math.min(screenWidth, viewDimensions[0]) * hwRatio,
-        width: Math.min(screenWidth, viewDimensions[0]),
+        height: Math.min(screenWidth, viewDimensions?.[0] ?? 9999999) * hwRatio,
+        width: Math.min(screenWidth, viewDimensions?.[0] ?? 9999999),
     }), [screenWidth, viewDimensions]);
 
     const displayImageStyle = useMemo(() => {
@@ -95,6 +93,8 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
             width: isNaN(widthInt) ? targetWidth : widthInt,
         };
     }, [screenWidth, viewDimensions, width, height]);
+
+    if (!assets || !viewDimensions) return <View style={styles.dneStyle} />;
 
     return <View style={styles.container} {...props}>
         <Modal visible={modalVisible}
