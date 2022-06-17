@@ -1,9 +1,10 @@
 // A web interface to manage a trail guide mobile app's content and data.
 // Copyright (C) 2021-2022  David Lougheed
 // See NOTICE for more information.
+// noinspection JSValidateTypes
 
 import React, {useRef} from "react";
-import {View} from "react-native";
+import {Text, View} from "react-native";
 import {useAssets} from "expo-asset";
 import {Video} from "expo-av";
 
@@ -13,7 +14,10 @@ import {getDataFromAssetURI} from "../utils";
 const LocalVideoRenderer = ({style, tnode, ...props}) => {
     const video = useRef(null);
 
-    const {attributes: {width: widthAttr, height: heightAttr}, domNode: {children}} = tnode;
+    const {
+        attributes: {width: widthAttr, height: heightAttr},
+        domNode: {children, src: srcAttr, poster: posterAttr},
+    } = tnode;
 
     const heightAttrInt = parseInt(heightAttr, 10);
     const widthAttrInt = parseInt(widthAttr, 10);
@@ -22,28 +26,54 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
     const height = isNaN(heightAttrInt) ? 180 : heightAttrInt;
     const width = isNaN(widthAttrInt) ? 320 : widthAttrInt;
 
-    const src = children[0].attribs["src"];
+    /** @type string|null */
+    const posterSrc = posterAttr ?? null;
+    const videoSrc = srcAttr ?? children[0].attribs["src"] ?? null;
+
+    console.log(posterSrc, videoSrc);
+
+    const posterUriData = posterSrc ? getDataFromAssetURI(posterSrc) : null;
+
+    const posterSrcSplit = (posterSrc ?? "").split("/");
+    const posterSource = posterSrcSplit[posterSrcSplit.length - 1].split(".")[0];
 
     // Check if source matches an asset URI, i.e. something which works both
     // as a web resource and as a sigil for loading a local asset.
-    const uriData = getDataFromAssetURI(src);
+    const uriData = videoSrc ? getDataFromAssetURI(videoSrc) : null;
 
-    const srcSplit = src.split("/");
-    const source = srcSplit[srcSplit.length - 1].split(".")[0];
+    const videoSrcSplit = (videoSrc ?? "").split("/");
+    const videoSource = videoSrcSplit[videoSrcSplit.length - 1].split(".")[0];
 
-    const assetId = assetData?.["video"]?.[uriData ?? source];
+    const posterAssetId = assetData?.["image"]?.[posterUriData ?? posterSource];
+    const videoAssetId = assetData?.["video"]?.[uriData ?? videoSource];
 
-    const blankShell = <View {...props} style={{height, width}} />;
+    const hasPoster = !!posterAssetId;
+    const hasVideo = !!videoAssetId;
 
-    if (!assetId) return blankShell;
+    const blankShell = <View {...props} style={{height, width}}><Text>Loading...</Text></View>;
 
-    const [assets, error] = useAssets([assetId]);
+    if (!videoAssetId) return blankShell;
+
+    const [assets, error] = useAssets([
+        ...(hasPoster ? [posterAssetId] : []),
+        ...(hasVideo ? [videoAssetId] : [])
+    ]);
     if (error) console.error(error);
     if (!assets) return blankShell;
 
+    const videoProps = {};
+    if (hasPoster) {
+        videoProps.posterSource = assets[0];
+        if (hasVideo) videoProps.source = assets[1];
+    } else if (hasVideo) {
+        videoProps.source = assets[0];
+    }
+
     return <View {...props} style={{height, width}}>
         <Video ref={video}
-               source={assets[0]}
+               style={{height, width}}
+               {...videoProps}
+               usePoster={hasPoster}
                resizeMode="contain"
                useNativeControls={true} />
     </View>;
