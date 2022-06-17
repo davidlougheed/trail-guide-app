@@ -16,6 +16,7 @@ export default {
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
     },
+    "userInterfaceStyle": "light",
     "updates": {
         "fallbackToCacheTimeout": 0
     },
