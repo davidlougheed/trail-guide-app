@@ -28,7 +28,7 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
 
     /** @type string|null */
     const posterSrc = posterAttr ?? null;
-    const videoSrc = srcAttr ?? children[0].attribs["src"] ?? null;
+    const videoSrc = srcAttr ?? children?.[0]?.attribs?.["src"] ?? null;
 
     console.log(posterSrc, videoSrc);
 

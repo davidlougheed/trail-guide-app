@@ -17,13 +17,13 @@ const width = 320;
 const LocalAudioRenderer = ({style, tnode, ...props}) => {
     const {domNode} = tnode;
 
-    const src = domNode.attribs["src"] ?? domNode.children[0].attribs["src"];
+    const src = domNode.attribs["src"] ?? domNode.children?.[0]?.attribs?.["src"];
 
     // Check if source matches an asset URI, i.e. something which works both
     // as a web resource and as a sigil for loading a local asset.
-    const uriData = getDataFromAssetURI(src);
+    const uriData = src ? getDataFromAssetURI(src) : null;
 
-    const srcSplit = src.split("/");
+    const srcSplit = (src || "").split("/");
     const source = srcSplit[srcSplit.length - 1].split(".")[0];
 
     const assetId = assetData?.["audio"]?.[uriData ?? source];
