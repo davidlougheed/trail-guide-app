@@ -16,7 +16,7 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
 
     const {
         attributes: {width: widthAttr, height: heightAttr},
-        domNode: {children, src: srcAttr, poster: posterAttr},
+        domNode: {children, attribs: {src: srcAttr, poster: posterAttr}},
     } = tnode;
 
     const heightAttrInt = parseInt(heightAttr, 10);
@@ -29,8 +29,6 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
     /** @type string|null */
     const posterSrc = posterAttr ?? null;
     const videoSrc = srcAttr ?? children?.[0]?.attribs?.["src"] ?? null;
-
-    console.log(posterSrc, videoSrc);
 
     const posterUriData = posterSrc ? getDataFromAssetURI(posterSrc) : null;
 
