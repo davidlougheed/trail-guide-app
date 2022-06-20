@@ -120,36 +120,34 @@ const App = () => {
         }
     }, []);
 
-    return <>
+    return <NavigationContainer linking={linking}>
         <CustomModal
             visible={termsModalVisible}
             data={modalData[termsModal] ?? {}}
             onRequestClose={handleCloseModal}
         />
-        <NavigationContainer linking={linking}>
-            <Tab.Navigator screenOptions={getScreenOptions}>
+        <Tab.Navigator screenOptions={getScreenOptions}>
+            <Tab.Screen
+                name={POINTS_OF_INTEREST}
+                options={SCREEN_OPTIONS[POINTS_OF_INTEREST]}
+                component={StationsView}
+            />
+            <Tab.Screen
+                name={MAP}
+                options={SCREEN_OPTIONS[MAP]}
+                component={MapView}
+            />
+            {pageData.map(page =>
                 <Tab.Screen
-                    name={POINTS_OF_INTEREST}
-                    options={SCREEN_OPTIONS[POINTS_OF_INTEREST]}
-                    component={StationsView}
+                    key={page.id}
+                    name={page.id}
+                    component={PageView}
+                    options={{title: page.title}}
+                    initialParams={{pageId: page.id}}
                 />
-                <Tab.Screen
-                    name={MAP}
-                    options={SCREEN_OPTIONS[MAP]}
-                    component={MapView}
-                />
-                {pageData.map(page =>
-                    <Tab.Screen
-                        key={page.id}
-                        name={page.id}
-                        component={PageView}
-                        options={{title: page.title}}
-                        initialParams={{pageId: page.id}}
-                    />
-                )}
-            </Tab.Navigator>
-        </NavigationContainer>
-    </>;
+            )}
+        </Tab.Navigator>
+    </NavigationContainer>;
 };
 
 // noinspection JSUnusedGlobalSymbols
