@@ -6,7 +6,8 @@ import {Ionicons} from "@expo/vector-icons";
 
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
-import {linkColor} from "../constants";
+// import {linkColor} from "../constants";
+import {STATION_LIST, stationScreenName} from "../routes";
 
 import StationsDetailView from "./StationsDetailView";
 import StationsListView from "./StationsListView";
@@ -15,6 +16,16 @@ import stationData from "../data/stations.json";
 import AppInfoModal from "./AppInfoModal";
 
 const Stack = createNativeStackNavigator();
+
+const STATION_SCREENS = stationData
+    .flatMap(t => t.data)
+    .map(s =>
+        <Stack.Screen
+            key={s.id}
+            name={stationScreenName(s.id)}
+            options={{title: s.title}}
+        >{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>
+    );
 
 const StationsView = React.memo(() => {
     // TODO: Tablet view
@@ -29,7 +40,7 @@ const StationsView = React.memo(() => {
                 <Ionicons
                     name="information-circle-outline"
                     size={24}
-                    color={linkColor}
+                    // color={linkColor}
                 />
             </TouchableOpacity>
         ),
@@ -40,21 +51,13 @@ const StationsView = React.memo(() => {
     // noinspection JSValidateTypes
     return <>
         <AppInfoModal visible={showInfoModal} onRequestClose={() => setShowInfoModal(false)} />
-        <Stack.Navigator initialRouteName="screen.station-list.list">
+        <Stack.Navigator initialRouteName={STATION_LIST}>
             <Stack.Screen
-                name="screen.station-list.list"
+                name={STATION_LIST}
                 options={listViewScreenOptions}
                 component={StationsListView}
             />
-            {stationData
-                .flatMap(t => t.data)
-                .map(s =>
-                    <Stack.Screen
-                        key={s.id}
-                        name={`screen.station-list.station.${s.id}`}
-                        options={{title: s.title}}
-                    >{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>
-                )}
+            {STATION_SCREENS}
         </Stack.Navigator>
     </>;
 });

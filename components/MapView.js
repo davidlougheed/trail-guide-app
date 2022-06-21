@@ -1,14 +1,24 @@
 import React, {useMemo} from "react";
-import {Dimensions, Platform, StyleSheet, useWindowDimensions, View} from "react-native";
+import {StyleSheet, useWindowDimensions, View} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 import StationsDetailView from "./StationsDetailView";
 
 import stationData from "../data/stations.json";
 
+import MapComponent from "./MapComponent";
+import {mapStationScreenName} from "../routes";
+
 const Stack = createNativeStackNavigator();
 
-import MapComponent from "./MapComponent";
+/** @type React.ReactNode[] */
+const STATION_SCREENS = stationData
+    .flatMap(t => t.data)
+    .map(s => <Stack.Screen
+        key={s.title}
+        name={mapStationScreenName(s.id)}
+        options={{title: s.title}}
+    >{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>);
 
 // TODO: Offline maps
 
@@ -34,13 +44,7 @@ const MapView = () => {
 
     return <Stack.Navigator>
         <Stack.Screen name="screen.map.overview" options={{title: "Map"}} component={InnerMapView} />
-        {stationData
-            .flatMap(t => t.data)
-            .map(s => {
-                return <Stack.Screen key={s.title} name={`screen.map.station.${s.id}`} options={{
-                    title: s.title,
-                }}>{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>;
-            })}
+        {STATION_SCREENS}
     </Stack.Navigator>;
 };
 

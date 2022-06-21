@@ -24,6 +24,7 @@ import pageData from "./data/pages.json"
 import settings from "./data/settings.json";
 import stationData from "./data/stations.json";
 import CustomModal from "./components/CustomModal";
+import {MAP_OVERVIEW, mapStationScreenName, STATION_LIST, stationScreenName} from "./routes";
 
 const pagesById = Object.fromEntries(pageData.map(page => [page.id, page]));
 
@@ -61,20 +62,22 @@ const linking = {
     config: {
         screens: {
             [POINTS_OF_INTEREST]: {
+                initialRouteName: STATION_LIST,
                 screens: {
-                    "screen.station-list.list": "stations/list",
+                    [STATION_LIST]: "stations/list",
                     ...Object.fromEntries(stationData
                         .flatMap(t => t.data)
-                        .map(s => [`screen.station-list.station.${s.id}`, `stations/detail/${s.id}`])
+                        .map(s => [stationScreenName(s.id), `stations/detail/${s.id}`])
                     ),
                 },
             },
             [MAP]: {
+                initialRouteName: MAP_OVERVIEW,
                 screens: {
-                    "screen.map.overview": "map/overview",
+                    [MAP_OVERVIEW]: "map/overview",
                     ...Object.fromEntries(stationData
                         .flatMap(t => t.data)
-                        .map(s => [`screen.map.station.${s.id}`, `map/detail/${s.id}`])
+                        .map(s => [mapStationScreenName(s.id), `map/detail/${s.id}`])
                     ),
                 },
             },
@@ -90,7 +93,17 @@ const SCREEN_OPTIONS = {
     [MAP]: {headerShown: false},
 };
 
-const App = () => {
+const PAGE_SCREENS = pageData.map(page =>
+    <Tab.Screen
+        key={page.id}
+        name={page.id}
+        component={PageView}
+        options={{title: page.title}}
+        initialParams={{pageId: page.id}}
+    />
+);
+
+const App = React.memo(() => {
     const termsModal = settings?.terms_modal ?? null;
 
     const [termsModalVisible, setTermsModalVisible] = useState(false);
@@ -126,7 +139,7 @@ const App = () => {
             data={modalData[termsModal] ?? {}}
             onRequestClose={handleCloseModal}
         />
-        <Tab.Navigator screenOptions={getScreenOptions}>
+        <Tab.Navigator screenOptions={getScreenOptions} initialRouteName={POINTS_OF_INTEREST}>
             <Tab.Screen
                 name={POINTS_OF_INTEREST}
                 options={SCREEN_OPTIONS[POINTS_OF_INTEREST]}
@@ -137,18 +150,10 @@ const App = () => {
                 options={SCREEN_OPTIONS[MAP]}
                 component={MapView}
             />
-            {pageData.map(page =>
-                <Tab.Screen
-                    key={page.id}
-                    name={page.id}
-                    component={PageView}
-                    options={{title: page.title}}
-                    initialParams={{pageId: page.id}}
-                />
-            )}
+            {PAGE_SCREENS}
         </Tab.Navigator>
     </NavigationContainer>;
-};
+});
 
 // noinspection JSUnusedGlobalSymbols
 export default App;
