@@ -4,7 +4,7 @@
 // noinspection JSValidateTypes
 
 import React, {useRef} from "react";
-import {Text, View} from "react-native";
+import {Text, useWindowDimensions, View} from "react-native";
 import {useAssets} from "expo-asset";
 import {Video} from "expo-av";
 
@@ -12,6 +12,8 @@ import assetData from "../data/assets/assets";
 import {getDataFromAssetURI} from "../utils";
 
 const LocalVideoRenderer = React.memo(({style, tnode, ...props}) => {
+    const {width: screenWidth} = useWindowDimensions();
+
     const video = useRef(null);
 
     const {
@@ -22,9 +24,9 @@ const LocalVideoRenderer = React.memo(({style, tnode, ...props}) => {
     const heightAttrInt = parseInt(heightAttr, 10);
     const widthAttrInt = parseInt(widthAttr, 10);
 
-    // TODO: Dynamic width based on screen size - up to max
-    const height = isNaN(heightAttrInt) ? 180 : heightAttrInt;
-    const width = isNaN(widthAttrInt) ? 320 : widthAttrInt;
+    // TODO: Non-fixed aspect ratio
+    const height = Math.min(isNaN(heightAttrInt) ? 180 : heightAttrInt, (screenWidth - 32) * (9/16));
+    const width = Math.min(isNaN(widthAttrInt) ? 320 : widthAttrInt, screenWidth - 32);
 
     /** @type string|null */
     const posterSrc = posterAttr ?? null;
