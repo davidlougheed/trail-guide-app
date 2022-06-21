@@ -1,3 +1,7 @@
+// A mobile app to display interactive trail guide content.
+// Copyright (C) 2021-2022  David Lougheed
+// See NOTICE for more information.
+
 import React, {useRef} from "react";
 import {Text, View} from "react-native";
 import RNMapView, {Callout, Geojson, Marker} from "react-native-maps";

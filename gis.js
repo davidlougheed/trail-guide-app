@@ -1,3 +1,7 @@
+// A mobile app to display interactive trail guide content.
+// Copyright (C) 2021-2022  David Lougheed
+// See NOTICE for more information.
+
 import proj4 from "proj4";
 
 export const transformCoords = ({zone, east, north}) => {

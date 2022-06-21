@@ -1,4 +1,4 @@
-// A web interface to manage a trail guide mobile app's content and data.
+// A mobile app to display interactive trail guide content.
 // Copyright (C) 2021-2022  David Lougheed
 // See NOTICE for more information.
 // noinspection JSValidateTypes

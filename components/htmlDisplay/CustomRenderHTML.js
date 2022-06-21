@@ -1,3 +1,7 @@
+// A mobile app to display interactive trail guide content.
+// Copyright (C) 2021-2022  David Lougheed
+// See NOTICE for more information.
+
 import React, {useCallback, useMemo} from "react";
 import {RenderHTML} from "react-native-render-html";
 import {useNavigation} from "@react-navigation/native";

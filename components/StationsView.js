@@ -1,3 +1,7 @@
+// A mobile app to display interactive trail guide content.
+// Copyright (C) 2021-2022  David Lougheed
+// See NOTICE for more information.
+
 import React, {useMemo, useState} from "react";
 import {TouchableOpacity} from "react-native";
 

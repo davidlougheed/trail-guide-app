@@ -1,3 +1,6 @@
+// A mobile app to display interactive trail guide content.
+// Copyright (C) 2021-2022  David Lougheed
+// See NOTICE for more information.
 // noinspection JSValidateTypes
 
 import React, {useCallback} from "react";
