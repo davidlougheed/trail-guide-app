@@ -11,7 +11,7 @@ import {Video} from "expo-av";
 import assetData from "../data/assets/assets";
 import {getDataFromAssetURI} from "../utils";
 
-const LocalVideoRenderer = ({style, tnode, ...props}) => {
+const LocalVideoRenderer = React.memo(({style, tnode, ...props}) => {
     const video = useRef(null);
 
     const {
@@ -75,6 +75,6 @@ const LocalVideoRenderer = ({style, tnode, ...props}) => {
                resizeMode="contain"
                useNativeControls={true} />
     </View>;
-};
+});
 
 export default LocalVideoRenderer;

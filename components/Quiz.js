@@ -93,6 +93,11 @@ const getIcon = optionCorrect => {
         : <Ionicons name={`${iconPrefix}-close-circle-outline`} size={28} color="#ff4d4f" />;
 };
 
+const SELECT_PLACEHOLDER = {
+    label: "Select an option…",
+    value: "",
+};
+
 /**
  *
  * @param {{quiz_type: string, title: string, question: string, answer: string, options: array}} quiz
@@ -153,10 +158,7 @@ const Quiz = React.memo(({quiz, setModalsVisible}) => {
                         </View>
                         <View style={{paddingRight: 8, width: 140}}>
                             <RNPickerSelect
-                                placeholder={{
-                                    label: "Select an option…",
-                                    value: "",
-                                }}
+                                placeholder={SELECT_PLACEHOLDER}
                                 onValueChange={vNew =>
                                     setSelectedOptions(selectedOptions.map((vOld, j) => i === j ? vNew : vOld))}
                                 items={allOptionAnswers}

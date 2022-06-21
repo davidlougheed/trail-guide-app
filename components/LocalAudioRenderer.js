@@ -14,7 +14,7 @@ const height = 50;
 const width = 320;
 
 // Supposed to work for both legacy <audio> tags and new <tgcs-audio> tags
-const LocalAudioRenderer = ({style, tnode, ...props}) => {
+const LocalAudioRenderer = React.memo(({style, tnode, ...props}) => {
     const {domNode} = tnode;
 
     const src = domNode.attribs["src"] ?? domNode.children?.[0]?.attribs?.["src"];
@@ -37,6 +37,6 @@ const LocalAudioRenderer = ({style, tnode, ...props}) => {
     if (!assets) return blankShell;
 
     return <AudioPlayer linkText={domNode.attribs["data-link-text"]} src={assets[0]} />;
-};
+});
 
 export default LocalAudioRenderer;

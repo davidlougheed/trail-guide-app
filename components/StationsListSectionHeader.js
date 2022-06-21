@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontWeight: "bold",
-    }
+    },
 });
 
 const StationsListSectionHeader = React.memo(({title}) => (

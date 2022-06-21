@@ -22,13 +22,13 @@ const StationsListView = React.memo(({navigation}) => {
         <SectionList
             sections={stationData}
             keyExtractor={(item, index) => `${item.title}.${index}`}
-            renderItem={({item, section}) => {
-                 return <StationsListItem
+            renderItem={({item, section}) => (
+                 <StationsListItem
                      {...item}
                      trail={section.id}
                      onPress={() => onPress(item.id)}
-                 />;
-             }}
+                 />
+            )}
             renderSectionHeader={({section: {title}}) => <StationsListSectionHeader title={title} />} />
     </SafeAreaView>;
 });
