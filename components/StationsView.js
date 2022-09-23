@@ -11,13 +11,14 @@ import {Ionicons} from "@expo/vector-icons";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 // import {linkColor} from "../constants";
-import {STATION_LIST, stationScreenName} from "../routes";
+import {STATION_LIST, PRIVACY_POLICY, stationScreenName} from "../routes";
 
 import StationsDetailView from "./StationsDetailView";
 import StationsListView from "./StationsListView";
 
 import stationData from "../data/stations.json";
 import AppInfoModal from "./AppInfoModal";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,10 @@ const STATION_SCREENS = stationData
             options={{title: s.title}}
         >{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>
     );
+
+const privacyPolicyScreenOptions = {
+    title: "Privacy Policy",
+};
 
 const StationsView = React.memo(() => {
     // TODO: Tablet view
@@ -60,6 +65,11 @@ const StationsView = React.memo(() => {
                 name={STATION_LIST}
                 options={listViewScreenOptions}
                 component={StationsListView}
+            />
+            <Stack.Screen
+                name={PRIVACY_POLICY}
+                options={privacyPolicyScreenOptions}
+                component={PrivacyPolicy}
             />
             {STATION_SCREENS}
         </Stack.Navigator>

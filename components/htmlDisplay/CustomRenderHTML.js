@@ -14,15 +14,24 @@ import stationData from "../../data/stations.json";
 import customElements from "./customElements";
 import renderers from "./renderers";
 import styles from "./styles";
+
 import {getDataFromModalURI, getDataFromPageURI, getDataFromStationURI} from "../../utils";
+import * as r from "../../routes";
 
 const pagesById = Object.fromEntries(pageData.map(p => [p.id, p]));
 const stationsById = Object.fromEntries(stationData.flatMap(s => s.data.map(st => [st.id, st])));
 
-const CustomRenderHTML = React.memo(({setModalsVisible, baseStyle, ...props}) => {
+const CustomRenderHTML = React.memo(({setModalsVisible, baseStyle, onNavigateAway, ...props}) => {
     const navigation = useNavigation();
 
     const anchorOnPress = useCallback(async (event, href) => {
+        console.log(href);
+        if (href === "about:///privacy-policy") {
+            navigation.navigate({name: r.PRIVACY_POLICY});
+            if (onNavigateAway) onNavigateAway();
+            return;
+        }
+
         if (href.startsWith("www.")) {
             // Hack in a fix for people forgetting to put https://
             href = `https://${href}`;
@@ -31,12 +40,14 @@ const CustomRenderHTML = React.memo(({setModalsVisible, baseStyle, ...props}) =>
         const modalId = getDataFromModalURI(href);
         const pageId = getDataFromPageURI(href);
         const stationId = getDataFromStationURI(href);
-        if (modalId && modalData.hasOwnProperty(modalId)) {
+        if (setModalsVisible && modalId && modalData.hasOwnProperty(modalId)) {
             setModalsVisible({[modalId]: true});
         } else if (pageId && pagesById.hasOwnProperty(pageId)) {
             navigation.navigate({name: pageId, key: pageId});
+            if (onNavigateAway) onNavigateAway();
         } else if (stationId && stationsById.hasOwnProperty(stationId)) {
-            navigation.navigate({name: `screen.station-list.station.${stationId}`, key: stationId});
+            navigation.navigate({name: r.stationScreenName(stationId), key: stationId});
+            if (onNavigateAway) onNavigateAway();
         } else {
             await WebBrowser.openBrowserAsync(href);
         }

@@ -24,7 +24,7 @@ import pageData from "./data/pages.json"
 import settings from "./data/settings.json";
 import stationData from "./data/stations.json";
 import CustomModal from "./components/CustomModal";
-import {MAP_OVERVIEW, mapStationScreenName, STATION_LIST, stationScreenName} from "./routes";
+import * as r from "./routes";
 
 const pagesById = Object.fromEntries(pageData.map(page => [page.id, page]));
 
@@ -46,7 +46,7 @@ const getScreenOptions = ({route}) => ({
                 break;
             default:
                 // Page
-                iconName = `${iconPrefix}-${pagesById[route.name].icon ?? "help-circle-outline"}`;
+                iconName = `${iconPrefix}-${pagesById?.[route.name]?.icon ?? "help-circle-outline"}`;
                 break;
         }
 
@@ -62,27 +62,28 @@ const linking = {
     config: {
         screens: {
             [POINTS_OF_INTEREST]: {
-                initialRouteName: STATION_LIST,
+                initialRouteName: r.STATION_LIST,
                 screens: {
-                    [STATION_LIST]: "stations/list",
+                    [r.STATION_LIST]: "stations/list",
+                    [r.PRIVACY_POLICY]: "privacy-policy",
                     ...Object.fromEntries(stationData
                         .flatMap(t => t.data)
-                        .map(s => [stationScreenName(s.id), `stations/detail/${s.id}`])
+                        .map(s => [r.stationScreenName(s.id), `stations/detail/${s.id}`])
                     ),
                 },
             },
             [MAP]: {
-                initialRouteName: MAP_OVERVIEW,
+                initialRouteName: r.MAP_OVERVIEW,
                 screens: {
-                    [MAP_OVERVIEW]: "map/overview",
+                    [r.MAP_OVERVIEW]: "map/overview",
                     ...Object.fromEntries(stationData
                         .flatMap(t => t.data)
-                        .map(s => [mapStationScreenName(s.id), `map/detail/${s.id}`])
+                        .map(s => [r.mapStationScreenName(s.id), `map/detail/${s.id}`])
                     ),
                 },
             },
             ...Object.fromEntries(pageData.map(page => [page.id, `pages/${page.id}`])),
-        }
+        },
     },
 };
 

@@ -4,6 +4,11 @@ import {APP_GITHUB_URL} from "../constants";
 import CustomModal from "./CustomModal";
 
 const htmlContent = `
+<h2>Privacy Policy</h2>
+<p>
+    <a href="/privacy-policy">Tap here</a> to see this app's privacy policy.
+</p>
+
 <h2>Legal Notice</h2>
 <p>
     This application is powered by free software. See the below notice

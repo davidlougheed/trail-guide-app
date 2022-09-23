@@ -26,6 +26,7 @@ const PageView = ({route}) => {
 
     const {pageId} = route.params;
     const page = pagesById[pageId] ?? pageData[0];
+    const pageHeaderData = useMemo(() => ({long_title: page.long_title}), [page]);
 
     const source = useMemo(() => ({html: page.content}), [page]);
 
@@ -34,7 +35,7 @@ const PageView = ({route}) => {
     return <>
         <SafeAreaView style={pageStyles.container}>
             <ScrollView>
-                <PageHeader page={{long_title: page.long_title}} />
+                <PageHeader page={pageHeaderData} />
                 <View style={styles.pageContent}>
                     <CustomRenderHTML
                         source={source}
