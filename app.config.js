@@ -45,10 +45,10 @@ export default ({config}) => ({
         "versionCode": process.env.TGCS_ANDROID_VERSION_CODE
             ? parseInt(process.env.TGCS_ANDROID_VERSION_CODE, 10)
             : 1,
-        "adaptiveIcon": {
-            "foregroundImage": "./assets/adaptive-icon.png",
-            "backgroundColor": "#FFFFFF"
-        },
+        // "adaptiveIcon": {
+        //     "foregroundImage": "./assets/adaptive-icon.png",
+        //     "backgroundColor": "#FFFFFF"
+        // },
         "intentFilters": [{
             "action": "VIEW",
             "autoVerify": true,
