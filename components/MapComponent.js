@@ -2,8 +2,8 @@
 // Copyright (C) 2021-2022  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
-import {Dimensions, Text, TouchableOpacity, View} from "react-native";
+import React, {useMemo} from "react";
+import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import L from "leaflet";
 import {GeoJSON, MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 
@@ -30,12 +30,24 @@ L.Marker.prototype.options.icon = L.icon({
     shadowSize:  [41, 41],
 });
 
+const styles = StyleSheet.create({
+    calloutText: {
+        textAlign: "center",
+        color: "rgb(5, 127, 255)",
+    },
+});
+
+const center = [44.4727488, -76.4295608];
+
 const MapComponent = ({navigation, ...props}) => {
     const height = Dimensions.get("window").height;
 
+    const mapContainerStyle = useMemo(() => ({height}), [height]);
+
+    // TODO: Configurable centre and boundaries
     // noinspection JSValidateTypes,JSUnresolvedVariable
     return <View {...props}>
-        <MapContainer center={[44.4727488, -76.4295608]} zoom={14} style={{height}}>
+        <MapContainer center={center} zoom={14} style={mapContainerStyle}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -54,13 +66,13 @@ const MapComponent = ({navigation, ...props}) => {
                 return <Marker position={[t.latitude, t.longitude]} key={station.id}>
                     <Popup>
                         <TouchableOpacity onPress={() => navigation.push(`screen.map.station.${station.id}`)}>
-                            <Text>{station.title}</Text>
+                            <Text style={styles.calloutText}>{station.title}</Text>
                         </TouchableOpacity>
                     </Popup>
                 </Marker>;
             })}
         </MapContainer>;
-    </View>;  // Placeholder for now
+    </View>;
 };
 
 export default MapComponent;

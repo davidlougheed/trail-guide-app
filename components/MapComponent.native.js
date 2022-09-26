@@ -2,8 +2,8 @@
 // Copyright (C) 2021-2022  David Lougheed
 // See NOTICE for more information.
 
-import React, {useRef} from "react";
-import {Text, View} from "react-native";
+import React, {useCallback, useRef} from "react";
+import {StyleSheet, Text, View} from "react-native";
 import RNMapView, {Callout, Geojson, Marker} from "react-native-maps";
 import Svg, {Circle, Defs, LinearGradient, Stop, Path} from "react-native-svg";
 
@@ -25,35 +25,42 @@ const colourMap = {
     "other": ["#333", "#111"],
 };
 
+const styles = StyleSheet.create({
+    markerView: {
+        height: 36,
+        width: 36,
+    },
+    calloutText: {
+        textAlign: "center",
+        color: "rgb(5, 127, 255)",
+    },
+});
+
+const markerCalloutAnchor = {x: 0, y: -0.5};
+
 const MapComponent = ({navigation, ...props}) => {
     const mapRef = useRef();
 
-    return <RNMapView
-        {...props}
-        showsUserLocation={true}
-        onMapReady={() => {
-            if (mapRef.current) {
-                // noinspection JSUnresolvedFunction
-                mapRef.current.fitToCoordinates(stationCoordinates, {
-                    edgePadding: {
-                        top: 50, left: 50, right: 50, bottom: 50,
-                    },
-                });
-            }
-        }}
-        ref={mapRef}
-    >
+    const onMapReady = useCallback(() => {
+        if (mapRef.current) {
+            // noinspection JSUnresolvedFunction
+            mapRef.current.fitToCoordinates(stationCoordinates, {
+                edgePadding: {
+                    top: 50, left: 50, right: 50, bottom: 50,
+                },
+            });
+        }
+    }, [mapRef]);
+
+    return <RNMapView{...props} showsUserLocation={true} onMapReady={onMapReady} ref={mapRef}>
         {stationData.flatMap(({id, data}, i) =>
             data.map(({id: stationId, title, category, coordinates_utm}, j) =>
                 <Marker
                     key={`${i}.${j}`}
                     coordinate={transformCoords(coordinates_utm)}
-                    calloutAnchor={{x: 0, y: -0.5}}
+                    calloutAnchor={markerCalloutAnchor}
                 >
-                    <View style={{
-                        height: 36,
-                        width: 36,
-                    }}>
+                    <View style={styles.markerView}>
                         <Svg height="100%" width="100%" viewBox="0 0 100 100">
                             <Defs>
                                 <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
@@ -71,17 +78,13 @@ const MapComponent = ({navigation, ...props}) => {
                     <Callout style={{width: 16 + title.length*6.5}} onPress={() => {
                         navigation.push(`screen.map.station.${stationId}`);
                     }}>
-                        <Text style={{textAlign: "center"}}>{title}</Text>
+                        <Text style={styles.calloutText}>{title}</Text>
                     </Callout>
                 </Marker>
             )
         )}
         {layerData.filter(({enabled}) => enabled).map(({id, geojson}) =>
-            <Geojson
-                key={id}
-                geojson={geojson}
-                strokeWidth={3}
-            />
+            <Geojson key={id} geojson={geojson} strokeWidth={3} />
         )}
     </RNMapView>;
 };

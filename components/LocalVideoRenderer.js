@@ -69,6 +69,7 @@ const LocalVideoRenderer = React.memo(({style, tnode, ...props}) => {
         videoProps.source = assets[0];
     }
 
+    // TODO: videoStyle prop for next version
     return <View {...props} style={{height, width}}>
         <Video ref={video}
                style={{height, width}}
