@@ -1,13 +1,14 @@
-import config from "./data/config.json";
+import configData from "./data/config.json";
 // import settings from "./data/settings.json";
 
-const appURL = new URL(process.env.TGCS_APP_BASE_URL ?? config.APP_BASE_URL ?? "https://example.com");
+const appURL = new URL(process.env.TGCS_APP_BASE_URL ?? configData.APP_BASE_URL ?? "https://example.com");
 const appPath = appURL.pathname.replace(/\/$/, "");
 
-export default {
+export default ({config}) => ({
+    ...config,
     "owner": process.env.TGCS_EXPO_OWNER || undefined,
-    "name": process.env.TGCS_APP_NAME || config.APP_NAME || "Trail Guide App",
-    "slug": process.env.TGCS_APP_SLUG || config.APP_SLUG || "trail-guide-app",
+    "name": process.env.TGCS_APP_NAME || configData.APP_NAME || "Trail Guide App",
+    "slug": process.env.TGCS_APP_SLUG || configData.APP_SLUG || "trail-guide-app",
     "version": process.env.TGCS_APP_VERSION || "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -65,4 +66,4 @@ export default {
     "web": {
         "favicon": "./assets/favicon.png"
     },
-};
+});
