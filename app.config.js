@@ -18,8 +18,14 @@ export default ({config}) => ({
         "backgroundColor": "#ffffff"
     },
     "userInterfaceStyle": "light",
+    "runtimeVersion": {
+        "policy": "sdkVersion",
+    },
     "updates": {
-        "fallbackToCacheTimeout": 0
+        ...(process.env.TGCS_EXPO_PROJECT_ID
+            ? {"url": `https://u.expo.dev/${process.env.TGCS_EXPO_PROJECT_ID}`}
+            : {}),
+        "fallbackToCacheTimeout": 0,
     },
     "assetBundlePatterns": [
         "**/*"
