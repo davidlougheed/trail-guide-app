@@ -23,6 +23,11 @@ export default {
     "assetBundlePatterns": [
         "**/*"
     ],
+    "extra": {
+        "eas": {
+            "projectId": process.env.TGCS_EXPO_PROJECT_ID || undefined,
+        },
+    },
     "ios": {
         "bundleIdentifier": process.env.TGCS_IOS_BUNDLE_IDENTIFIER || undefined,
         "buildNumber":  process.env.TGCS_IOS_BUILD_NUMBER || process.env.TGCS_APP_VERSION || "1.0.0",
