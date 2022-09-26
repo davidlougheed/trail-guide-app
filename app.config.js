@@ -4,8 +4,6 @@ import configData from "./data/config.json";
 const appURL = new URL(process.env.TGCS_APP_BASE_URL ?? configData.APP_BASE_URL ?? "https://example.com");
 const appPath = appURL.pathname.replace(/\/$/, "");
 
-console.debug(process.env);
-
 export default ({config}) => ({
     ...config,
     "owner": process.env.TGCS_EXPO_OWNER || undefined,
