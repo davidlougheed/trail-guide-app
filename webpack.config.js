@@ -1,9 +1,10 @@
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 
 module.exports = async function (env, argv) {
+  env.mode = "production";
   // Customize the config before returning it.
   // noinspection JSValidateTypes
-  return await createExpoWebpackConfigAsync({
+  const cfg = await createExpoWebpackConfigAsync({
     ...env,
     babel: {
       dangerouslyAddModulePathsToTranspile: [
@@ -11,4 +12,9 @@ module.exports = async function (env, argv) {
       ]
     }
   }, argv);
+  cfg.optimization = {
+    ...cfg.optimization,
+    usedExports: true,  // TODO: this is false normally, but seems to cause a crash with react-native-render-html
+  };
+  return cfg;
 };
