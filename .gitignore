@@ -9,13 +9,13 @@ npm-debug.*
 *.orig.*
 web-build/
 
+*.zip
+
 /data/about/
 /data/config.json
 /data/layers.json
 /data/modals.*
-!/data/modals.example.json
 /data/pages.*
-!/data/pages.example.json
 /data/settings.*
 /data/stations.*
 /data/assets/*
