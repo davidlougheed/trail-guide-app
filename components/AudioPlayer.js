@@ -3,8 +3,14 @@
 // See NOTICE for more information.
 
 import React, {useCallback, useEffect, useState} from "react";
-import {Text} from "react-native";
+import {StyleSheet, Text} from "react-native";
 import {Audio} from "expo-av";
+
+const styles = StyleSheet.create({
+    mainText: {fontSize: 18},
+    linkText: {textDecorationLine: "underline", color: "rgb(0, 122, 255)"},
+    progressText: {color: "#666"},
+});
 
 const toSeconds = s => (s / 1000).toFixed(0);
 
@@ -17,7 +23,7 @@ const AudioPlayer = ({linkText, src}) => {
         let sound_ = sound;
         try {
             if (!sound_) {
-                const {sound: newSound} = await Audio.Sound.createAsync(src);
+                const {sound: newSound} = await Audio.Sound.createAsync(src, {shouldPlay: true});
                 newSound.setOnPlaybackStatusUpdate(status => {
                     setPlaying(status.isPlaying);
                     if (!status.isPlaying) {
@@ -30,6 +36,7 @@ const AudioPlayer = ({linkText, src}) => {
                 setSound(newSound);
                 sound_ = newSound;
             }
+            await sound.setPositionAsync(0);
             await sound_.playAsync();
         } catch (err) {
             console.error(err);
@@ -54,13 +61,10 @@ const AudioPlayer = ({linkText, src}) => {
         await (status.isPlaying ? stopSound : playSound)();
     }, [sound, stopSound, playSound]);
 
-    return <Text onPress={toggleSound} style={{fontSize: 18}}>
+    return <Text onPress={toggleSound} style={styles.mainText}>
         <Text>{playing ? "⏹" : "▶️"} </Text>
-        <Text style={{textDecorationLine: "underline", color: "rgb(0, 122, 255)"}}>
-            {linkText ?? (playing ? "Stop Sound" : "Play Sound")}</Text>
-        {progress ? (
-            <Text style={{color: "#666"}}>&nbsp;({progress})</Text>
-        ) : null}
+        <Text style={styles.linkText}>{linkText ?? (playing ? "Stop Sound" : "Play Sound")}</Text>
+        {progress ? <Text style={styles.progressText}>&nbsp;({progress})</Text> : null}
         <Text> 🔊</Text>
     </Text>
 };

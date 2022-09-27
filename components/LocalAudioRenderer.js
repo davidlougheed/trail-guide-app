@@ -3,7 +3,7 @@
 // See NOTICE for more information.
 
 import React from "react";
-import {View} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {useAssets} from "expo-asset";
 
 import assetData from "../data/assets/assets";
@@ -12,6 +12,10 @@ import AudioPlayer from "./AudioPlayer";
 
 const height = 50;
 const width = 320;
+
+const styles = StyleSheet.create({
+    blankShell: {height, width},
+});
 
 // Supposed to work for both legacy <audio> tags and new <tgcs-audio> tags
 const LocalAudioRenderer = React.memo(({style, tnode, ...props}) => {
@@ -28,7 +32,7 @@ const LocalAudioRenderer = React.memo(({style, tnode, ...props}) => {
 
     const assetId = assetData?.["audio"]?.[uriData ?? source];
 
-    const blankShell = <View {...props} style={{height, width}} />;
+    const blankShell = <View {...props} style={styles.blankShell} />;
 
     if (!assetId) return blankShell;
 
