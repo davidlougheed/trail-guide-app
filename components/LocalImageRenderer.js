@@ -11,7 +11,15 @@ import assetData from "../data/assets/assets";
 import {getDataFromAssetURI} from "../utils";
 
 const styles = StyleSheet.create({
-    dneStyle: {width: 228, height: 228},
+    dneStyle: {
+        width: 228,
+        height: 228,
+        backgroundColor: "#FCFCFC",
+        padding: 8,
+    },
+    dneTextStyle: {
+        color: "#999999",
+    },
 
     container: {alignItems: "center", marginTop: 8, marginBottom: 8},
 
@@ -28,6 +36,11 @@ const styles = StyleSheet.create({
     closeButtonText: {
         color: "white",
         fontSize: 28
+    },
+
+    innerImageStyle: {
+        width: "100%",
+        height: "100%",
     },
 });
 
@@ -46,7 +59,9 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
 
     const assetId = assetData?.["image"]?.[serverAssetId ?? src];
 
-    if (!assetId) return <View style={styles.dneStyle} />;
+    if (!assetId) return <View style={styles.dneStyle}>
+        <Text style={styles.dneTextStyle}>Error loading image.</Text>
+    </View>;
 
     const [assets, error] = useAssets([assetId]);
     if (error) console.error(error);
@@ -110,8 +125,8 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
                 </ReactNativeZoomableView>
             </View>
         </Modal>
-        <TouchableOpacity onPress={openModal}>
-            <Image source={assetId} style={displayImageStyle} />
+        <TouchableOpacity onPress={openModal} style={displayImageStyle}>
+            <Image source={assetId} style={styles.innerImageStyle} />
         </TouchableOpacity>
     </View>
 });
