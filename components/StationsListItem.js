@@ -39,6 +39,7 @@ const STATION_ICONS = {
         "green": require("../assets/culture-green.png"),
         "orange": require("../assets/culture-orange.png"),
         "red": require("../assets/culture-red.png"),
+        "accessible": require("../assets/culture-red.png"),
         "other": require("../assets/culture-other.png"),
     },
     "environment": {
@@ -46,6 +47,7 @@ const STATION_ICONS = {
         "green": require("../assets/environment-green.png"),
         "orange": require("../assets/environment-orange.png"),
         "red": require("../assets/environment-red.png"),
+        "accessible": require("../assets/environment-red.png"),
         "other": require("../assets/environment-other.png"),
     },
     "research": {
@@ -53,6 +55,7 @@ const STATION_ICONS = {
         "green": require("../assets/research-green.png"),
         "orange": require("../assets/research-orange.png"),
         "red": require("../assets/research-red.png"),
+        "accessible": require("../assets/research-red.png"),
         "other": require("../assets/research-other.png"),
     },
 };
