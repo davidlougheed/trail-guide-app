@@ -7,7 +7,9 @@ import {StyleSheet, Text} from "react-native";
 import {Audio} from "expo-av";
 
 const styles = StyleSheet.create({
-    mainText: {fontSize: 18},
+    mainText: {
+        fontSize: 18,
+    },
     linkText: {textDecorationLine: "underline", color: "rgb(0, 122, 255)"},
     progressText: {color: "#666"},
 });
@@ -63,7 +65,9 @@ const AudioPlayer = ({linkText, src}) => {
         await (status.isPlaying ? stopSound : playSound)();
     }, [sound, stopSound, playSound]);
 
-    return <Text onPress={toggleSound} style={styles.mainText}>
+    if (linkText) linkText = linkText.trim();
+
+    return <Text onPress={toggleSound} style={styles.mainText} numberOfLines={1}>
         <Text>{playing ? "⏹" : "▶️"} </Text>
         <Text style={styles.linkText}>{linkText ?? (playing ? "Stop Sound" : "Play Sound")}</Text>
         {progress ? <Text style={styles.progressText}>&nbsp;({progress})</Text> : null}
