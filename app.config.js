@@ -6,10 +6,15 @@ const appPath = appURL.pathname.replace(/\/$/, "");
 
 export default ({config}) => ({
     ...config,
+
     "owner": process.env.TGCS_EXPO_OWNER || undefined,
+
     "name": process.env.TGCS_APP_NAME || configData.APP_NAME || "Trail Guide App",
     "slug": process.env.TGCS_APP_SLUG || configData.APP_SLUG || "trail-guide-app",
     "version": process.env.TGCS_APP_VERSION || "1.0.0",
+
+    "scheme": process.env.TGCS_APP_URL_SCHEME || undefined,
+
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -18,6 +23,7 @@ export default ({config}) => ({
         "backgroundColor": "#ffffff"
     },
     "userInterfaceStyle": "light",
+
     "runtimeVersion": {
         "policy": "sdkVersion",
     },
@@ -27,14 +33,17 @@ export default ({config}) => ({
             : {}),
         "fallbackToCacheTimeout": 0,
     },
+
     "assetBundlePatterns": [
         "**/*"
     ],
+
     "extra": {
         "eas": {
             "projectId": process.env.TGCS_EXPO_PROJECT_ID || undefined,
         },
     },
+
     "ios": {
         "bundleIdentifier": process.env.TGCS_IOS_BUNDLE_IDENTIFIER || undefined,
         "buildNumber":  process.env.TGCS_IOS_BUILD_NUMBER || process.env.TGCS_APP_VERSION || "1.0.0",
