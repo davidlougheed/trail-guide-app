@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         padding: 8,
     },
     dneTextStyle: {
-        color: "#999999",
+        color: "#666666",
     },
 
     container: {alignItems: "center", marginTop: 8, marginBottom: 8},
@@ -60,7 +60,7 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
     const assetId = assetData?.["image"]?.[serverAssetId ?? src];
 
     if (!assetId) return <View style={styles.dneStyle}>
-        <Text style={styles.dneTextStyle}>Error loading image.</Text>
+        <Text style={styles.dneTextStyle}>Error loading image. Source: {src}</Text>
     </View>;
 
     const [assets, error] = useAssets([assetId]);
