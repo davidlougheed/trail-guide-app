@@ -9,6 +9,7 @@ import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 
 const styles = StyleSheet.create({
     htmlContainer: {
+        marginTop: 2,  // Leave a gap to show a little divider line
         backgroundColor: "white",
         paddingHorizontal: 16,
     },
