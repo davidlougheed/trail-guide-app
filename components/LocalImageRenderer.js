@@ -64,12 +64,10 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
 
     const assetId = assetData["image"]?.[serverAssetId ?? src];
 
-    if (!assetId) return <View>
-        <Text style={{fontSize: 16, color: "black"}}>{src} {serverAssetId}</Text>
-        <View style={styles.dneStyle}>
-            <Text style={styles.dneTextStyle}>Error loading image. Source: {src}</Text>
-        </View>
-    </View>;
+    if (!assetId) return <View style={styles.dneStyle}>
+        <Text style={styles.dneTextStyle}>
+            Error loading image. Source: {src}; Asset: {JSON.stringify(serverAssetId)}</Text>
+    </View>
 
     const [assets, error] = useAssets([assetId]);
     if (error) console.error(error);
@@ -117,7 +115,10 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
         };
     }, [screenWidth, viewDimensions, width, height]);
 
-    if (!assets || !viewDimensions) return <View style={styles.dneStyle} />;
+    if (!assets || !viewDimensions) return <View style={styles.dneStyle}>
+        <Text style={styles.dneTextStyle}>
+            Error loading image. # assets: {(assets ?? []).length}; Dimensions: {JSON.stringify(viewDimensions)}</Text>
+    </View>;
 
     return <View style={styles.container} {...props}>
         <Text style={{fontSize: 16, color: "black"}}>{src} {serverAssetId}</Text>
