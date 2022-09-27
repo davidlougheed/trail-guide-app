@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     dneStyle: {
         width: 228,
         height: 228,
-        backgroundColor: "#FCFCFC",
+        backgroundColor: "#FCCCCC",
         padding: 8,
     },
     dneTextStyle: {
