@@ -80,7 +80,7 @@ const Gallery = React.memo(({gallery, setModalsVisible}) => {
     const {title, description, items} = gallery;
     const {width} = useWindowDimensions();
 
-    const itemAssets = items.map(i => [i.asset, assetData["image"][i.asset]]);
+    const itemAssets = items.map(i => [i.asset, assetData["image"]?.[i.asset]]);
     const itemAssetsObj = Object.fromEntries(itemAssets);
 
     useAssets(itemAssets.map(i => i[1]).filter(i => i));
