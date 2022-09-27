@@ -38,7 +38,10 @@ const styles = StyleSheet.create({
     },
     closeButtonText: {
         color: "white",
-        fontSize: 28
+        fontSize: 28,
+        textShadowColor: "rgba(0, 0, 0, 0.7)",
+        textShadowOffset: {width: 0, height: 0},
+        textShadowRadius: 3,
     },
 
     innerImageStyle: {
