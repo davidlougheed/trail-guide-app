@@ -23,6 +23,8 @@ const AudioPlayer = ({linkText, src}) => {
         let sound_ = sound;
         try {
             if (!sound_) {
+                await Audio.setAudioModeAsync({playsInSilentModeIOS: true});
+
                 const {sound: newSound} = await Audio.Sound.createAsync(src, {shouldPlay: true});
                 newSound.setOnPlaybackStatusUpdate(status => {
                     setPlaying(status.isPlaying);
