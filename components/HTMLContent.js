@@ -22,26 +22,25 @@ const HTMLContent = React.memo(({content, setModalsVisible}) => {
     const postFoldSource = useMemo(() => ({html: content.content_after_fold}), [content]);
 
     const readMoreButton = useCallback(() => setExpanded(!expanded), [expanded]);
+    const readMoreButtonStyle = useMemo(() => ({
+        backgroundColor: "white",
+        paddingBottom: expanded ? 0 : 16,
+    }), [expanded]);
+
+    const commonHTMLProps = useMemo(() => ({
+        contentWidth: width,
+        setModalsVisible,
+    }), [width, setModalsVisible]);
 
     return <View style={styles.htmlContainer}>
-        <CustomRenderHTML source={preFoldSource} contentWidth={width} />
+        <CustomRenderHTML source={preFoldSource} {...commonHTMLProps} />
         {content.content_after_fold
             ? (
-                <View style={{
-                    backgroundColor: "white",
-                    paddingBottom: expanded ? 0 : 16
-                }}>
+                <View style={readMoreButtonStyle}>
                     <Button title={expanded ? "HIDE" : "READ MORE"} onPress={readMoreButton} />
                 </View>
             ) : null}
-        {expanded
-            ? (
-                <CustomRenderHTML
-                    source={postFoldSource}
-                    contentWidth={width}
-                    setModalsVisible={setModalsVisible}
-                />
-            ) : null}
+        {expanded ? <CustomRenderHTML source={postFoldSource} {...commonHTMLProps} /> : null}
     </View>;
 });
 
