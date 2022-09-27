@@ -43,7 +43,7 @@ const StationsView = React.memo(() => {
 
     const listViewScreenOptions = useMemo(() => ({
         gestureEnabled: false,
-        title: Constants.manifest.name,
+        title: Constants.expoConfig.name,
         headerRight: () => (
             <TouchableOpacity onPress={() => setShowInfoModal(true)}>
                 <Ionicons

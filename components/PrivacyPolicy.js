@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
 
 const page = {long_title: "Privacy Policy"};
 const privacyPolicy = {
-    html: `<p>The "${Constants.manifest.name}" app ("the app") does not collect any personal information from users. 
-The app may link to third-party websites which are not covered by this policy.</p>`,
+    html: `<p>The "${Constants.expoConfig.name}" app ("the app") does not collect any personal information from 
+users. The app may link to third-party websites which are not covered by this policy.</p>`,
 };
 
 const PrivacyPolicy = () => {
