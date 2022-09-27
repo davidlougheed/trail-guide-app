@@ -14,8 +14,6 @@ const styles = StyleSheet.create({
     dneStyle: {
         width: 228,
         height: 228,
-        backgroundColor: "#FCCCCC",
-        padding: 8,
     },
     dneTextStyle: {
         color: "#666666",
@@ -74,9 +72,7 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
 
     useEffect(() => {
         if (!assets) return;
-        Image.getSize(assets[0].uri, (w, h) => {
-            setViewDimensions([w, h]);
-        });
+        setViewDimensions([assets[0].width, assets[0].height]);
     }, [assets])
 
     const zoomViewTap = useCallback(e => {
@@ -115,13 +111,9 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
         };
     }, [screenWidth, viewDimensions, width, height]);
 
-    if (!assets || !viewDimensions) return <View style={styles.dneStyle}>
-        <Text style={styles.dneTextStyle}>
-            Error loading image. # assets: {(assets ?? []).length}; Dimensions: {JSON.stringify(viewDimensions)}</Text>
-    </View>;
+    if (!assets || !viewDimensions) return <View style={styles.dneStyle} />;
 
     return <View style={styles.container} {...props}>
-        <Text style={{fontSize: 16, color: "black"}}>{src} {serverAssetId}</Text>
         <Modal visible={modalVisible}
                animationType="fade"
                transparent={true}
