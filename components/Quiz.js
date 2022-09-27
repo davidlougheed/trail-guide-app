@@ -204,8 +204,6 @@ const Quiz = React.memo(({quiz, setModalsVisible}) => {
         setShowAnswer(true);
     }, [options, selectedOptions]);
 
-    console.log(visiblePickers);
-
     const renderedOptions = useMemo(() => {
         switch (quiz_type) {
             case "match_values": {
