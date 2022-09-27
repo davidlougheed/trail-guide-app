@@ -8,7 +8,7 @@ import {HTMLContentModel, HTMLElementModel} from "react-native-render-html";
 export default {
     "audio": HTMLElementModel.fromCustomModel({
         tagName: "audio",
-        contentModel: HTMLContentModel.block,
+        contentModel: HTMLContentModel.mixed,
     }),
     "tgcs-audio": HTMLElementModel.fromCustomModel({
         tagName: "tgcs-audio",

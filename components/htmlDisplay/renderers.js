@@ -7,6 +7,7 @@ import LocalImageRenderer from "../LocalImageRenderer";
 import LocalVideoRenderer from "../LocalVideoRenderer";
 
 export default {
+    ["tgcs-audio"]: LocalAudioRenderer,
     audio: LocalAudioRenderer,
     img: LocalImageRenderer,
     video: LocalVideoRenderer,
