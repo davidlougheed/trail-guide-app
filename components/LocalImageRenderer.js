@@ -22,7 +22,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
 
-    container: {alignItems: "center", marginTop: 8, marginBottom: 8},
+    container: {
+        alignItems: "center",
+        marginTop: 8,
+        marginBottom: 8
+    },
 
     modalContainer: {
         flex: 1,
@@ -60,8 +64,11 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
 
     const assetId = assetData["image"]?.[serverAssetId ?? src];
 
-    if (!assetId) return <View style={styles.dneStyle}>
-        <Text style={styles.dneTextStyle}>Error loading image. Source: {src}</Text>
+    if (!assetId) return <View>
+        <Text style={{fontSize: 16, color: "black"}}>{src} {serverAssetId}</Text>
+        <View style={styles.dneStyle}>
+            <Text style={styles.dneTextStyle}>Error loading image. Source: {src}</Text>
+        </View>
     </View>;
 
     const [assets, error] = useAssets([assetId]);
