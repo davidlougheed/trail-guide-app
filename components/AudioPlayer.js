@@ -36,7 +36,7 @@ const AudioPlayer = ({linkText, src}) => {
                 setSound(newSound);
                 sound_ = newSound;
             }
-            await sound.setPositionAsync(0);
+            await sound_.setPositionAsync(0);
             await sound_.playAsync();
         } catch (err) {
             console.error(err);
