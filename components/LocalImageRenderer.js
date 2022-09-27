@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     },
     dneTextStyle: {
         color: "#666666",
+        fontSize: 14,
     },
 
     container: {alignItems: "center", marginTop: 8, marginBottom: 8},
@@ -57,7 +58,7 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
     // as a web resource and as a sigil for loading a local asset.
     const serverAssetId = getDataFromAssetURI(src);
 
-    const assetId = assetData?.["image"]?.[serverAssetId ?? src];
+    const assetId = assetData["image"]?.[serverAssetId ?? src];
 
     if (!assetId) return <View style={styles.dneStyle}>
         <Text style={styles.dneTextStyle}>Error loading image. Source: {src}</Text>
@@ -112,6 +113,7 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
     if (!assets || !viewDimensions) return <View style={styles.dneStyle} />;
 
     return <View style={styles.container} {...props}>
+        <Text style={{fontSize: 16, color: "black"}}>{src} {serverAssetId}</Text>
         <Modal visible={modalVisible}
                animationType="fade"
                transparent={true}
