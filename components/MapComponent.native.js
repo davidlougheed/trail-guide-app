@@ -18,7 +18,7 @@ const stationCoordinates = stationData.flatMap(({data}) =>
     data.map(({coordinates_utm}) => transformCoords(coordinates_utm)));
 
 const colourMap = {
-    "accessible": ["rgb(255, 59, 48)", "rgb(255, 45, 85)"],
+    "acc": ["rgb(255, 59, 48)", "rgb(255, 45, 85)"],
     "red": ["rgb(255, 59, 48)", "rgb(255, 45, 85)"],
     "blue": ["rgb(0, 122, 255)", "rgb(88, 86, 214)"],
     "green": ["rgb(52, 199, 89)", "rgb(0, 199, 190)"],
