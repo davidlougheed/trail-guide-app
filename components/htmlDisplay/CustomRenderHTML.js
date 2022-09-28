@@ -21,50 +21,56 @@ import * as r from "../../routes";
 const pagesById = Object.fromEntries(pageData.map(p => [p.id, p]));
 const stationsById = Object.fromEntries(stationData.flatMap(s => s.data.map(st => [st.id, st])));
 
-const CustomRenderHTML = React.memo(({setModalsVisible, baseStyle, onNavigateAway, ...props}) => {
-    const navigation = useNavigation();
+const CustomRenderHTML = React.memo(
+    ({setModalsVisible, baseStyle, onNavigateAway, inModal, ...props}) => {
+        const navigation = useNavigation();
 
-    const anchorOnPress = useCallback(async (event, href) => {
-        if (href === "about:///privacy-policy") {
-            navigation.navigate({name: r.PRIVACY_POLICY});
-            if (onNavigateAway) onNavigateAway();
-            return;
-        }
+        const anchorOnPress = useCallback(async (event, href) => {
+            if (href === "about:///privacy-policy") {
+                navigation.navigate()
+                navigation.navigate({name: r.PRIVACY_POLICY});
+                if (onNavigateAway) onNavigateAway();
+                return;
+            }
 
-        if (href.startsWith("www.")) {
-            // Hack in a fix for people forgetting to put https://
-            href = `https://${href}`;
-        }
+            if (href.startsWith("www.")) {
+                // Hack in a fix for people forgetting to put https://
+                href = `https://${href}`;
+            }
 
-        const modalId = getDataFromModalURI(href);
-        const pageId = getDataFromPageURI(href);
-        const stationId = getDataFromStationURI(href);
-        if (setModalsVisible && modalId && modalData.hasOwnProperty(modalId)) {
-            setModalsVisible({[modalId]: true});
-        } else if (pageId && pagesById.hasOwnProperty(pageId)) {
-            navigation.navigate({name: pageId, key: pageId});
-            if (onNavigateAway) onNavigateAway();
-        } else if (stationId && stationsById.hasOwnProperty(stationId)) {
-            navigation.navigate({name: r.stationScreenName(stationId), key: stationId});
-            if (onNavigateAway) onNavigateAway();
-        } else {
-            await WebBrowser.openBrowserAsync(href);
-        }
-    }, [setModalsVisible]);
+            const modalId = getDataFromModalURI(href);
+            const pageId = getDataFromPageURI(href);
+            const stationId = getDataFromStationURI(href);
+            if (setModalsVisible && modalId && modalData.hasOwnProperty(modalId)) {
+                if (inModal && onNavigateAway) {
+                    // If we're navigating from a modal to another modal, close the current one first.
+                    onNavigateAway();
+                }
+                setModalsVisible({[modalId]: true});
+            } else if (pageId && pagesById.hasOwnProperty(pageId)) {
+                navigation.navigate({name: pageId, key: pageId});
+                if (onNavigateAway) onNavigateAway();
+            } else if (stationId && stationsById.hasOwnProperty(stationId)) {
+                navigation.navigate({name: r.stationScreenName(stationId), key: stationId});
+                if (onNavigateAway) onNavigateAway();
+            } else {
+                await WebBrowser.openBrowserAsync(href);
+            }
+        }, [setModalsVisible]);
 
-    const baseStyleAll = useMemo(() => ({...styles.base, ...(baseStyle ?? {})}), [baseStyle]);
-    const renderersProps = useMemo(() => ({
-        a: {
-            onPress: anchorOnPress,
-        },
-    }), [anchorOnPress]);
+        const baseStyleAll = useMemo(() => ({...styles.base, ...(baseStyle ?? {})}), [baseStyle]);
+        const renderersProps = useMemo(() => ({
+            a: {
+                onPress: anchorOnPress,
+            },
+        }), [anchorOnPress]);
 
-    return <RenderHTML {...props}
-                       baseStyle={baseStyleAll}
-                       tagsStyles={styles.tags}
-                       renderers={renderers}
-                       renderersProps={renderersProps}
-                       customHTMLElementModels={customElements} />
-});
+        return <RenderHTML {...props}
+                           baseStyle={baseStyleAll}
+                           tagsStyles={styles.tags}
+                           renderers={renderers}
+                           renderersProps={renderersProps}
+                           customHTMLElementModels={customElements} />
+    });
 
 export default CustomRenderHTML;

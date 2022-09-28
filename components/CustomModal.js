@@ -49,6 +49,7 @@ const CustomModal = React.memo(({visible, data, onRequestClose}) => {
                     baseStyle={modalStyles.htmlBase}
                     contentWidth={width}
                     onNavigateAway={onRequestClose}
+                    inModal={true}
                 />
             </ScrollView>
             <View style={modalStyles.buttonContainer}>
