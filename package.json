@@ -1,6 +1,6 @@
 {
   "name": "trail-guide-app",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A trail guide app framework/shell for populating with custom content.",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
