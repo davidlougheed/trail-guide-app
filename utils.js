@@ -22,6 +22,7 @@ export const STATION_URI_PATTERN =
 /**
  * Extracts an asset ID (if present) from an asset bytes URI.
  * @param {string} uri
+ * @return string | null
  */
 export const getDataFromAssetURI = uri => {
     const match = uri.match(ASSET_URI_PATTERN);
@@ -32,6 +33,7 @@ export const getDataFromAssetURI = uri => {
 /**
  * Extracts a modal ID (if present) from a modal detail URI.
  * @param {string} uri
+ * @return string | null
  */
 export const getDataFromModalURI = uri => {
     const match = uri.match(MODAL_URI_PATTERN);
@@ -42,6 +44,7 @@ export const getDataFromModalURI = uri => {
 /**
  * Extracts a page ID (if present) from a page detail URI.
  * @param {string} uri
+ * @return string | null
  */
 export const getDataFromPageURI = uri => {
     const match = uri.match(PAGE_URI_PATTERN);
