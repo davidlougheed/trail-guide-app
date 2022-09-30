@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
 const PageHeader = React.memo(({station, page}) => {
     const {header_image, long_title, subtitle, coordinates_utm} = station ?? page;
-    const {east, north, zone} = (coordinates_utm ?? {});
+    const {crs, east, north, zone} = (coordinates_utm ?? {});
 
     const assetId = assetData?.["image"]?.[header_image] ?? null;
 
@@ -69,7 +69,7 @@ const PageHeader = React.memo(({station, page}) => {
             {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
             {coordinates_utm ? (
                 <View style={styles.coordinatesBox}>
-                    <Text style={styles.coordinatesTitle}>UTM Coordinates (Zone {zone ?? ""})</Text>
+                    <Text style={styles.coordinatesTitle}>UTM Coordinates ({crs ?? ""} Zone {zone ?? ""})</Text>
                     <Text style={styles.coordinatesItem}>
                         <Text style={{fontWeight: "bold"}}>East:</Text> {east ?? ""}E</Text>
                     <Text style={styles.coordinatesItem}>
