@@ -35,7 +35,7 @@ const modalStyles = {
     },
 };
 
-const CustomModal = React.memo(({visible, data, onRequestClose}) => {
+const CustomModal = React.memo(({visible, data, onRequestClose, setModalsVisible}) => {
     const {width} = useWindowDimensions();
 
     const {title, content, close_text} = data;
@@ -48,6 +48,7 @@ const CustomModal = React.memo(({visible, data, onRequestClose}) => {
                     source={{html: content ?? ""}}
                     baseStyle={modalStyles.htmlBase}
                     contentWidth={width}
+                    setModalsVisible={setModalsVisible}
                     onNavigateAway={onRequestClose}
                     inModal={true}
                 />

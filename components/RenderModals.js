@@ -16,6 +16,7 @@ const RenderModals = React.memo(({modalsVisible, setModalsVisible}) =>
                 visible={modalsVisible[k] !== undefined}
                 data={{content: d.content}}
                 onRequestClose={closeModal}
+                setModalsVisible={setModalsVisible}
             />;
         })}
     </>
