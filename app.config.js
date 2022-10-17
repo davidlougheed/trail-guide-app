@@ -77,6 +77,11 @@ export default ({config}) => ({
                 "DEFAULT"
             ],
         }],
+        "config": {
+            "googleMaps": {
+                "apiKey": process.env.TGCS_ANDROID_MAPS_API_KEY || undefined,
+            },
+        },
     },
     "web": {
         "favicon": "./assets/favicon.png"
