@@ -3,6 +3,7 @@
 // See NOTICE for more information.
 
 import React, {useCallback, useMemo} from "react";
+import {Linking} from "react-native";
 import {RenderHTML} from "react-native-render-html";
 import {useNavigation} from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
@@ -53,8 +54,10 @@ const CustomRenderHTML = React.memo(
             } else if (stationId && stationsById.hasOwnProperty(stationId)) {
                 navigation.navigate({name: r.stationScreenName(stationId), key: stationId});
                 if (onNavigateAway) onNavigateAway();
-            } else {
+            } else if (href.startsWith("http")) {
                 await WebBrowser.openBrowserAsync(href);
+            } else {
+                await Linking.openURL(href);
             }
         }, [setModalsVisible]);
 
