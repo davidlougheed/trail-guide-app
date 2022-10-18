@@ -28,7 +28,6 @@ const CustomRenderHTML = React.memo(
 
         const anchorOnPress = useCallback(async (event, href) => {
             if (href === "about:///privacy-policy") {
-                navigation.navigate()
                 navigation.navigate({name: r.PRIVACY_POLICY});
                 if (onNavigateAway) onNavigateAway();
                 return;
