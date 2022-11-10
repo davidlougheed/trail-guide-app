@@ -24,6 +24,7 @@ export default ({config}) => ({
     },
     "userInterfaceStyle": "light",
 
+    "jsEngine": "hermes",
     "runtimeVersion": {
         "policy": "sdkVersion",
     },
