@@ -83,6 +83,12 @@ export default ({config}) => ({
                 "apiKey": process.env.TGCS_ANDROID_MAPS_API_KEY || undefined,
             },
         },
+        "blockedPermissions": [
+            // We don't need to record audio using expo-av, so don't request this permission.
+            "android.permission.RECORD_AUDIO",
+            // Don't need to write to external storage either.
+            "android.permission.WRITE_EXTERNAL_STORAGE",
+        ],
     },
     "web": {
         "favicon": "./assets/favicon.png"
