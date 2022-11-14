@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const markerCalloutAnchor = {x: 0, y: -0.5};
+const markerCalloutAnchor = {x: 0.5, y: 0};
 
 const MapComponent = ({navigation, ...props}) => {
     const mapRef = useRef();
