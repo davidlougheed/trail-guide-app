@@ -23,7 +23,7 @@ const pagesById = Object.fromEntries(pageData.map(p => [p.id, p]));
 const stationsById = Object.fromEntries(stationData.flatMap(s => s.data.map(st => [st.id, st])));
 
 const CustomRenderHTML = React.memo(
-    ({setModalsVisible, baseStyle, onNavigateAway, inModal, ...props}) => {
+    ({setModalsVisible, baseStyle, onNavigateAway, inModal, source, ...props}) => {
         const navigation = useNavigation();
 
         const anchorOnPress = useCallback(async (event, href) => {
@@ -67,12 +67,23 @@ const CustomRenderHTML = React.memo(
             },
         }), [anchorOnPress]);
 
-        return <RenderHTML {...props}
-                           baseStyle={baseStyleAll}
-                           tagsStyles={styles.tags}
-                           renderers={renderers}
-                           renderersProps={renderersProps}
-                           customHTMLElementModels={customElements} />
+        // Replace "narrow non-breaking space" inserted by Word pasting
+        // with a normal space to prevent funky word wrapping.
+        const sourceProcessed = useMemo(() => {
+            if (source.html) return {html: source.html.replaceAll("\u202f", " ")};
+            return source;
+        }, [source]);
+
+        // noinspection JSValidateTypes
+        return <RenderHTML
+            {...props}
+            source={sourceProcessed}
+            baseStyle={baseStyleAll}
+            tagsStyles={styles.tags}
+            renderers={renderers}
+            renderersProps={renderersProps}
+            customHTMLElementModels={customElements}
+        />;
     });
 
 export default CustomRenderHTML;
