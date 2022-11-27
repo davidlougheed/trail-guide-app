@@ -37,17 +37,21 @@ const styles = StyleSheet.create({
     },
 });
 
-const center = [44.4727488, -76.4295608];
+const enabledStations = stationData.flatMap(t => t.data).filter(station => station.enabled);
+const enabledStationsLatLong = enabledStations.map(station => {
+    const t = transformCoords(station.coordinates_utm);
+    return [t.latitude, t.longitude];
+});
+const bounds = L.latLngBounds(enabledStationsLatLong).pad(0.3);
 
 const MapComponent = ({navigation, ...props}) => {
     const height = Dimensions.get("window").height;
-
     const mapContainerStyle = useMemo(() => ({height}), [height]);
 
     // TODO: Configurable centre and boundaries
     // noinspection JSValidateTypes,JSUnresolvedVariable
     return <View {...props}>
-        <MapContainer center={center} zoom={14} style={mapContainerStyle}>
+        <MapContainer style={mapContainerStyle} bounds={bounds}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -61,9 +65,8 @@ const MapComponent = ({navigation, ...props}) => {
                     })}
                 />
             )}
-            {stationData.flatMap(t => t.data).filter(station => station.enabled).map(station => {
-                const t = transformCoords(station.coordinates_utm);
-                return <Marker position={[t.latitude, t.longitude]} key={station.id}>
+            {enabledStations.map((station, si) => {
+                return <Marker position={enabledStationsLatLong[si]} key={station.id}>
                     <Popup>
                         <TouchableOpacity onPress={() => navigation.push(`screen.map.station.${station.id}`)}>
                             <Text style={styles.calloutText}>{station.title}</Text>
