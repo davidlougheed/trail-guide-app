@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
         gap: 16,
     },
     pickerContainer: {paddingRight: 8, width: 150},
-    matchLabelContainer: {flex: 1},
     matchLabel: {fontSize: 16},
 
     answerContainer: {
@@ -107,6 +106,8 @@ const styles = StyleSheet.create({
         color: "#ff4d4f",
         marginBottom: 8,
     },
+
+    flex1: {flex: 1},
 });
 
 const getInitialSelectedOptions = ({quiz_type, options}) => {
@@ -256,7 +257,7 @@ const Quiz = React.memo(({quiz, setModalsVisible}) => {
                                     }}
                                 />
                             </View>
-                            <View style={styles.matchLabelContainer}>
+                            <View style={styles.flex1}>
                                 <Text style={styles.matchLabel}>{o.label}</Text>
                             </View>
                         </View>;
@@ -279,7 +280,7 @@ const Quiz = React.memo(({quiz, setModalsVisible}) => {
                             <View style={{paddingRight: 8}}>
                                 <Checkbox value={selectedOptions[i]} onValueChange={clickHandler} />
                             </View>
-                            <View style={{flex: 1}}>
+                            <View style={styles.flex1}>
                                 <Text
                                     onPress={() => clickHandler(!selectedOptions[i])}
                                     style={{fontSize: 18}}
@@ -298,7 +299,7 @@ const Quiz = React.memo(({quiz, setModalsVisible}) => {
                         <View style={{paddingRight: showAnswer ? 8 : 0, paddingTop: 2}}>
                             {showAnswer ? getIcon(o.answer) : null}
                         </View>
-                        <View style={{flex: 1}}>
+                        <View style={styles.flex1}>
                             <QuizButton
                                 option={o}
                                 index={i}
