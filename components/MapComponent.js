@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     },
 });
 
+const enabledLayers = layerData.filter(layer => layer.enabled);
 const enabledStations = stationData.flatMap(t => t.data).filter(station => station.enabled);
 const enabledStationsLatLong = enabledStations.map(station => {
     const t = transformCoords(station.coordinates_utm);
@@ -56,7 +57,7 @@ const MapComponent = ({navigation, ...props}) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {layerData.filter(layer => layer.enabled).map(layer =>
+            {enabledLayers.map(layer =>
                 <GeoJSON
                     key={layer.id}
                     data={layer.geojson}
@@ -65,15 +66,15 @@ const MapComponent = ({navigation, ...props}) => {
                     })}
                 />
             )}
-            {enabledStations.map((station, si) => {
-                return <Marker position={enabledStationsLatLong[si]} key={station.id}>
+            {enabledStations.map((station, si) =>
+                <Marker position={enabledStationsLatLong[si]} key={station.id}>
                     <Popup>
                         <TouchableOpacity onPress={() => navigation.push(`screen.map.station.${station.id}`)}>
                             <Text style={styles.calloutText}>{station.title}</Text>
                         </TouchableOpacity>
                     </Popup>
-                </Marker>;
-            })}
+                </Marker>
+            )}
         </MapContainer>;
     </View>;
 };

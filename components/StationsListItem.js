@@ -62,18 +62,16 @@ const STATION_ICONS = {
 
 const StationsListItem = React.memo(({title, subtitle, onPress, trail, category}) => {
     // TODO: Format content for list item
-    return (
-        <TouchableOpacity onPress={onPress}>
-            <View style={styles.container}>
-                <Image source={STATION_ICONS[category][trail]} style={styles.icon} />
-                <View style={styles.textContainer}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.subtitle}>{subtitle}</Text>
-                </View>
-                <Ionicons name="chevron-forward-outline" style={styles.chevron} size={18} color="#CCCCCC" />
+    return <TouchableOpacity onPress={onPress}>
+        <View style={styles.container}>
+            <Image source={STATION_ICONS[category][trail]} style={styles.icon} />
+            <View style={styles.textContainer}>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.subtitle}>{subtitle}</Text>
             </View>
-        </TouchableOpacity>
-    );
+            <Ionicons name="chevron-forward-outline" style={styles.chevron} size={18} color="#CCCCCC" />
+        </View>
+    </TouchableOpacity>;
 });
 
 export default StationsListItem;
