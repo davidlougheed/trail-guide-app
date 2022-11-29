@@ -117,10 +117,7 @@ const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, 
     if (!assets || !viewDimensions) return <View style={styles.dneStyle} />;
 
     return <View style={styles.container} {...props}>
-        <Modal visible={modalVisible}
-               animationType="fade"
-               transparent={true}
-               onRequestClose={closeModal}>
+        <Modal visible={modalVisible} animationType="fade" transparent={true} onRequestClose={closeModal}>
             <View style={styles.modalContainer}>
                 <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
                     <Text style={styles.closeButtonText}>&#10005;</Text>

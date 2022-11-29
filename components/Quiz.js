@@ -151,15 +151,15 @@ const pickerButtonStyles = StyleSheet.create({
     }
 });
 
-const PickerButton = React.memo(({placeholder, value, ...props}) => {
-    return <TouchableOpacity {...props}>
+const PickerButton = React.memo(({placeholder, value, ...props}) => (
+    <TouchableOpacity {...props}>
         <View style={pickerButtonStyles.button}>
             {value
                 ? <Text style={pickerButtonStyles.buttonValue}>{value} &or;</Text>
                 : <Text style={pickerButtonStyles.buttonPlaceholder}>{placeholder} &or;</Text>}
         </View>
-    </TouchableOpacity>;
-});
+    </TouchableOpacity>
+));
 
 /**
  *
@@ -217,8 +217,7 @@ const Quiz = React.memo(({quiz, setModalsVisible}) => {
                         };
                         // noinspection JSValidateTypes
                         return <View key={i} style={styles.optionContainer}>
-                            <Modal transparent={true}
-                                   visible={visiblePickers[i]}>
+                            <Modal transparent={true} visible={visiblePickers[i]}>
                                 <View style={styles.pickerModal}>
                                     <View style={styles.pickerModalContent}>
                                         <Text style={{fontSize: 22}}>Choose an option</Text>
@@ -226,7 +225,8 @@ const Quiz = React.memo(({quiz, setModalsVisible}) => {
                                                 selectedValue={pickerValue}
                                                 onValueChange={onPickerChange}>
                                             <Picker.Item key="placeholder" value="" label="Choose option…" />
-                                            {allOptionAnswers.map((o, oi) => <Picker.Item key={`option-${oi}`} {...o} />)}
+                                            {allOptionAnswers.map((o, oi) =>
+                                                <Picker.Item key={`option-${oi}`} {...o} />)}
                                         </Picker>
                                         <Button
                                             title="Save"
