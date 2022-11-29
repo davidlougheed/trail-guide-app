@@ -11,6 +11,11 @@ const pc = PlatformColor ?? (() => undefined);
 
 // noinspection JSCheckFunctionSignatures
 const styles = StyleSheet.create({
+    buttonOpacity: {
+        flex: 1,
+        marginTop: 4,
+        marginBottom: 4,
+    },
     buttonView: {
         borderRadius: 2,
         padding: 8,
@@ -51,7 +56,7 @@ const QuizButton = React.memo(({option, index, selected, quizSubmitted, onPress}
     }, [option, index]);
 
     // noinspection JSValidateTypes
-    return <TouchableOpacity style={{flex: 1, marginTop: 4, marginBottom: 4}} onPress={onPress_}>
+    return <TouchableOpacity style={styles.buttonOpacity} onPress={onPress_}>
         <View style={StyleSheet.compose(
             styles.buttonView, quizSubmitted 
                 ? (selected ? (
