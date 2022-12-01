@@ -21,6 +21,7 @@ const PagerView = Platform.select({
     default: () => require("./WebPagerView"),
 })().default;
 
+import {WYSIWYG_BLANKS} from "../constants";
 import assetData from "../data/assets/assets";
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 
@@ -87,12 +88,14 @@ const Gallery = React.memo(({gallery, setModalsVisible}) => {
 
     return <View style={styles.galleryContainer}>
         {gallery.title ? <Text style={styles.galleryTitle}>{title}</Text> : null}
-        <CustomRenderHTML
-            source={{html: description}}
-            contentWidth={width}
-            showPageIndicator={true}
-            setModalsVisible={setModalsVisible}
-        />
+        {!WYSIWYG_BLANKS.includes(description) ? (
+            <CustomRenderHTML
+                source={{html: description}}
+                contentWidth={width}
+                showPageIndicator={true}
+                setModalsVisible={setModalsVisible}
+            />
+        ) : null}
         <View style={styles.pagerFlexContainer}>
             <View style={styles.pagerInnerContainer}>
                 <PagerView style={styles.pager} initialPage={0} pageMargin={16}>
