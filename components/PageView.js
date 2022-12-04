@@ -9,10 +9,8 @@ import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import PageHeader from "./PageHeader";
 import RenderModals from "./RenderModals";
 
-import pageData from "../data/pages.json";
+import {pageData, pagesById} from "../dataSources";
 import {pageStyles} from "./lib/sharedStyles";
-
-const pagesById = Object.fromEntries(pageData.map(page => [page.id, page]));
 
 const styles = StyleSheet.create({
     pageContent: {

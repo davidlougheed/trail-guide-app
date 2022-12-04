@@ -19,10 +19,7 @@ import StationsView from "./components/StationsView";
 const POINTS_OF_INTEREST = "Points of Interest";
 const MAP = "Map";
 
-import modalData from "./data/modals.json";
-import pageData from "./data/pages.json"
-import settings from "./data/settings.json";
-import stationData from "./data/stations.json";
+import {modalData, pageData, settings, enabledStations} from "./dataSources";
 import CustomModal from "./components/CustomModal";
 import * as r from "./routes";
 
@@ -66,20 +63,16 @@ const linking = {
                 screens: {
                     [r.STATION_LIST]: "stations/list",
                     [r.PRIVACY_POLICY]: "privacy-policy",
-                    ...Object.fromEntries(stationData
-                        .flatMap(t => t.data)
-                        .map(s => [r.stationScreenName(s.id), `stations/detail/${s.id}`])
-                    ),
+                    ...Object.fromEntries(
+                        enabledStations.map(s => [r.stationScreenName(s.id), `stations/detail/${s.id}`])),
                 },
             },
             [MAP]: {
                 initialRouteName: r.MAP_OVERVIEW,
                 screens: {
                     [r.MAP_OVERVIEW]: "map/overview",
-                    ...Object.fromEntries(stationData
-                        .flatMap(t => t.data)
-                        .map(s => [r.mapStationScreenName(s.id), `map/detail/${s.id}`])
-                    ),
+                    ...Object.fromEntries(
+                        enabledStations.map(s => [r.mapStationScreenName(s.id), `map/detail/${s.id}`])),
                 },
             },
             ...Object.fromEntries(pageData.map(page => [page.id, `pages/${page.id}`])),

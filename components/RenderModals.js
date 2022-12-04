@@ -5,7 +5,7 @@
 import React from "react";
 
 import CustomModal from "./CustomModal";
-import modalData from "../data/modals.json";
+import {modalData} from "../dataSources";
 
 const RenderModals = React.memo(({modalsVisible, setModalsVisible}) =>
     <>

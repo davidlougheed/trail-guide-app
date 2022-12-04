@@ -148,7 +148,7 @@ const pickerButtonStyles = StyleSheet.create({
         color: "#999999",
         fontSize: 12,
         textAlign: "center",
-    }
+    },
 });
 
 const PickerButton = React.memo(({placeholder, value, ...props}) => (

@@ -8,9 +8,7 @@ import {RenderHTML} from "react-native-render-html";
 import {useNavigation} from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
 
-import modalData from "../../data/modals.json";
-import pageData from "../../data/pages.json";
-import stationData from "../../data/stations.json";
+import {modalData, pagesById, enabledStationsById} from "../../dataSources";
 
 import customElements from "./customElements";
 import renderers from "./renderers";
@@ -19,22 +17,20 @@ import styles from "./styles";
 import {getDataFromModalURI, getDataFromPageURI, getDataFromStationURI} from "../../utils";
 import * as r from "../../routes";
 
-const pagesById = Object.fromEntries(pageData.map(p => [p.id, p]));
-const stationsById = Object.fromEntries(stationData.flatMap(s => s.data.map(st => [st.id, st])));
-
 const CustomRenderHTML = React.memo(
     ({setModalsVisible, baseStyle, onNavigateAway, inModal, source, ...props}) => {
         const navigation = useNavigation();
 
         const anchorOnPress = useCallback(async (event, href) => {
+            // Special override for local privacy policy link
             if (href === "about:///privacy-policy") {
                 navigation.navigate({name: r.PRIVACY_POLICY});
                 if (onNavigateAway) onNavigateAway();
                 return;
             }
 
+            // Hack in a fix for people forgetting to put https://
             if (href.startsWith("www.")) {
-                // Hack in a fix for people forgetting to put https://
                 href = `https://${href}`;
             }
 
@@ -50,7 +46,7 @@ const CustomRenderHTML = React.memo(
             } else if (pageId && pagesById.hasOwnProperty(pageId)) {
                 navigation.navigate({name: pageId, key: pageId});
                 if (onNavigateAway) onNavigateAway();
-            } else if (stationId && stationsById.hasOwnProperty(stationId)) {
+            } else if (stationId && enabledStationsById.hasOwnProperty(stationId)) {
                 navigation.navigate({name: r.stationScreenName(stationId), key: stationId});
                 if (onNavigateAway) onNavigateAway();
             } else if (href.startsWith("http")) {

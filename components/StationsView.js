@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2022  David Lougheed
 // See NOTICE for more information.
 
-import React, {useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {TouchableOpacity} from "react-native";
 
 import Constants from "expo-constants";
@@ -11,19 +11,18 @@ import {Ionicons} from "@expo/vector-icons";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 // import {linkColor} from "../constants";
+import {enabledStations} from "../dataSources";
 import {STATION_LIST, PRIVACY_POLICY, stationScreenName} from "../routes";
 
 import StationsDetailView from "./StationsDetailView";
 import StationsListView from "./StationsListView";
 
-import stationData from "../data/stations.json";
 import AppInfoModal from "./AppInfoModal";
 import PrivacyPolicy from "./PrivacyPolicy";
 
 const Stack = createNativeStackNavigator();
 
-const STATION_SCREENS = stationData
-    .flatMap(t => t.data)
+const STATION_SCREENS = enabledStations
     .map(s =>
         <Stack.Screen
             key={s.id}
@@ -55,11 +54,11 @@ const StationsView = React.memo(() => {
         ),
     }), []);
 
-    // TODO: Don't use callback method for stack component, since it's slow
+    const onRequestClose = useCallback(() => setShowInfoModal(false), []);
 
     // noinspection JSValidateTypes
     return <>
-        <AppInfoModal visible={showInfoModal} onRequestClose={() => setShowInfoModal(false)} />
+        <AppInfoModal visible={showInfoModal} onRequestClose={onRequestClose} />
         <Stack.Navigator initialRouteName={STATION_LIST}>
             <Stack.Screen
                 name={STATION_LIST}

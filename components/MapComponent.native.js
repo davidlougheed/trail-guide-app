@@ -7,15 +7,11 @@ import {StyleSheet, Text, View} from "react-native";
 import RNMapView, {Callout, Geojson, Marker} from "react-native-maps";
 import Svg, {Circle, Defs, LinearGradient, Stop, Path} from "react-native-svg";
 
+import {enabledLayers, enabledStations, stationData} from "../dataSources";
 import {transformCoords} from "../gis";
-
-import layerData from "../data/layers.json";
-import stationData from "../data/stations.json";
-
 import iconSvgPaths from "./lib/iconSvgPaths";
 
-const stationCoordinates = stationData.flatMap(({data}) =>
-    data.map(({coordinates_utm}) => transformCoords(coordinates_utm)));
+const stationCoordinates = enabledStations.map(({coordinates_utm}) => transformCoords(coordinates_utm));
 
 const colourMap = {
     "acc": ["rgb(255, 59, 48)", "rgb(255, 45, 85)"],
@@ -55,7 +51,7 @@ const MapComponent = ({navigation, ...props}) => {
 
     return <RNMapView{...props} showsUserLocation={true} onMapReady={onMapReady} ref={mapRef}>
         {stationData.flatMap(({id, data}, i) =>
-            data.map(({id: stationId, title, category, coordinates_utm}, j) =>
+            data.filter(s => s.enabled).map(({id: stationId, title, category, coordinates_utm}, j) =>
                 <Marker
                     key={`${i}.${j}`}
                     coordinate={transformCoords(coordinates_utm)}
@@ -84,7 +80,7 @@ const MapComponent = ({navigation, ...props}) => {
                 </Marker>
             )
         )}
-        {layerData.filter(({enabled}) => enabled).map(({id, geojson}) =>
+        {enabledLayers.map(({id, geojson}) =>
             <Geojson key={id} geojson={geojson} strokeWidth={3} />
         )}
     </RNMapView>;

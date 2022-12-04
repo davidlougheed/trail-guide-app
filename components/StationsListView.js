@@ -8,7 +8,7 @@ import {SafeAreaView, SectionList, StyleSheet} from "react-native";
 import StationsListItem from "./StationsListItem";
 import StationsListSectionHeader from "./StationsListSectionHeader";
 
-import stationData from "../data/stations.json";
+import {stationData} from "../dataSources";
 
 const styles = StyleSheet.create({
     safeView: {flex: 1},

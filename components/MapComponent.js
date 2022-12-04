@@ -7,10 +7,8 @@ import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from "react-native
 import L from "leaflet";
 import {GeoJSON, MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 
+import {enabledLayers, enabledStations} from "../dataSources";
 import {transformCoords} from "../gis";
-
-import layerData from "../data/layers.json";
-import stationData from "../data/stations.json";
 
 import "leaflet/dist/leaflet.css";
 import icon from "leaflet/dist/images/marker-icon.png";
@@ -37,8 +35,6 @@ const styles = StyleSheet.create({
     },
 });
 
-const enabledLayers = layerData.filter(layer => layer.enabled);
-const enabledStations = stationData.flatMap(t => t.data).filter(station => station.enabled);
 const enabledStationsLatLong = enabledStations.map(station => {
     const t = transformCoords(station.coordinates_utm);
     return [t.latitude, t.longitude];

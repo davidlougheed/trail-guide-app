@@ -6,23 +6,22 @@ import React, {useMemo} from "react";
 import {StyleSheet, useWindowDimensions, View} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
+import MapComponent from "./MapComponent";
 import StationsDetailView from "./StationsDetailView";
 
-import stationData from "../data/stations.json";
-
-import MapComponent from "./MapComponent";
+import {enabledStations} from "../dataSources";
 import {mapStationScreenName} from "../routes";
 
 const Stack = createNativeStackNavigator();
 
 /** @type React.ReactNode[] */
-const STATION_SCREENS = stationData
-    .flatMap(t => t.data)
-    .map(s => <Stack.Screen
-        key={s.title}
-        name={mapStationScreenName(s.id)}
-        options={{title: s.title}}
-    >{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>);
+const STATION_SCREENS = enabledStations
+    .map(s =>
+        <Stack.Screen
+            key={s.title}
+            name={mapStationScreenName(s.id)}
+            options={{title: s.title}}
+        >{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>);
 
 // TODO: Offline maps
 
