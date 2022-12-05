@@ -2,13 +2,14 @@
 // Copyright (C) 2021-2022  David Lougheed
 // See NOTICE for more information.
 
-import React, {useCallback} from "react";
+import React from "react";
 import {SafeAreaView, SectionList, StyleSheet} from "react-native";
 
 import StationsListItem from "./StationsListItem";
 import StationsListSectionHeader from "./StationsListSectionHeader";
 
 import {stationData} from "../dataSources";
+import {stationScreenName} from "../routes";
 
 const styles = StyleSheet.create({
     safeView: {flex: 1},
@@ -18,9 +19,7 @@ const styles = StyleSheet.create({
 const StationsListView = React.memo(({navigation}) => {
     // TODO: Tablet view
 
-    const onPress = useCallback(
-        id => navigation.navigate("Points of Interest", {screen: `screen.station-list.station.${id}`}),
-        [navigation]);
+    const onPress = id => navigation.navigate("Points of Interest", {screen: stationScreenName(id)});
 
     return <SafeAreaView style={styles.safeView}>
         <SectionList

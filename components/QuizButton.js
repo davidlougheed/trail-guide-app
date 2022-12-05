@@ -55,6 +55,9 @@ const QuizButton = React.memo(({option, index, selected, quizSubmitted, onPress}
         onPress(option, index);
     }, [option, index]);
 
+    // We use a RenderHTML element here for button content,
+    // since buttons may contain formatting such as italic text
+    // (for example, for scientific names of species.)
     // noinspection JSValidateTypes
     return <TouchableOpacity style={styles.buttonOpacity} onPress={onPress_}>
         <View style={StyleSheet.compose(
@@ -66,14 +69,16 @@ const QuizButton = React.memo(({option, index, selected, quizSubmitted, onPress}
                 ) : styles.buttonViewDisabled) 
                 : styles.buttonViewActive
         )}>
-            <RenderHTML source={{html: option.label}}
-                        contentWidth={width - 16}
-                        baseStyle={{
-                            color: (quizSubmitted && !selected ? "#666666" : "white"), 
-                            textAlign: "center",
-                            fontWeight: "bold",
-                            fontSize: 18,
-                        }} />
+            <RenderHTML
+                source={{html: option.label}}
+                contentWidth={width - 16}
+                baseStyle={{
+                    color: (quizSubmitted && !selected ? "#666666" : "white"),
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                }}
+            />
         </View>
     </TouchableOpacity>;
 });
