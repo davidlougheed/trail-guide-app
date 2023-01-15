@@ -17,7 +17,7 @@ const htmlContent = `
 </p>
 <p>
     An interactive trail guide mobile app with text, media, and more.
-    Copyright (C) 2021-2022  David Lougheed
+    Copyright (C) 2021-2023  David Lougheed
 </p>
 <p>
     Licensed under the Apache License, Version 2.0 (the "License");
