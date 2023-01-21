@@ -19,11 +19,11 @@ import StationsView from "./components/StationsView";
 const POINTS_OF_INTEREST = "Points of Interest";
 const MAP = "Map";
 
-import {modalData, pageData, settings, enabledStations} from "./dataSources";
+import {localDataProvider} from "./dataSources";
 import CustomModal from "./components/CustomModal";
 import * as r from "./routes";
 
-const pagesById = Object.fromEntries(pageData.map(page => [page.id, page]));
+const pagesById = localDataProvider.pages.itemsByID;
 
 const Tab = createBottomTabNavigator();
 
@@ -64,7 +64,8 @@ const linking = {
                     [r.STATION_LIST]: "stations/list",
                     [r.PRIVACY_POLICY]: "privacy-policy",
                     ...Object.fromEntries(
-                        enabledStations.map(s => [r.stationScreenName(s.id), `stations/detail/${s.id}`])),
+                        localDataProvider.stations.enabled.map(
+                            s => [r.stationScreenName(s.id), `stations/detail/${s.id}`])),
                 },
             },
             [MAP]: {
@@ -72,10 +73,11 @@ const linking = {
                 screens: {
                     [r.MAP_OVERVIEW]: "map/overview",
                     ...Object.fromEntries(
-                        enabledStations.map(s => [r.mapStationScreenName(s.id), `map/detail/${s.id}`])),
+                        localDataProvider.stations.enabled.map(
+                            s => [r.mapStationScreenName(s.id), `map/detail/${s.id}`])),
                 },
             },
-            ...Object.fromEntries(pageData.map(page => [page.id, `pages/${page.id}`])),
+            ...Object.fromEntries(localDataProvider.pages.items.map(page => [page.id, `pages/${page.id}`])),
         },
     },
 };
@@ -87,7 +89,7 @@ const SCREEN_OPTIONS = {
     [MAP]: {headerShown: false},
 };
 
-const PAGE_SCREENS = pageData.map(page =>
+const PAGE_SCREENS = localDataProvider.pages.items.map(page =>
     <Tab.Screen
         key={page.id}
         name={page.id}
@@ -98,7 +100,7 @@ const PAGE_SCREENS = pageData.map(page =>
 );
 
 const App = React.memo(() => {
-    const termsModal = settings?.terms_modal ?? null;
+    const termsModal = localDataProvider.settings.data?.terms_modal ?? null;
 
     const [termsModalVisible, setTermsModalVisible] = useState(false);
 
@@ -130,7 +132,7 @@ const App = React.memo(() => {
     return <NavigationContainer linking={linking}>
         <CustomModal
             visible={termsModalVisible}
-            data={modalData[termsModal] ?? {}}
+            data={localDataProvider.modals.itemsByID[termsModal] ?? {}}
             onRequestClose={handleCloseModal}
         />
         <Tab.Navigator screenOptions={getScreenOptions} initialRouteName={POINTS_OF_INTEREST}>

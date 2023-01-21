@@ -7,7 +7,7 @@ import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from "react-native
 import L from "leaflet";
 import {GeoJSON, MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 
-import {enabledLayers, enabledStations} from "../dataSources";
+import {localDataProvider} from "../dataSources";
 import {transformCoords} from "../gis";
 
 import "leaflet/dist/leaflet.css";
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const enabledStationsLatLong = enabledStations.map(station => {
+const enabledStationsLatLong = localDataProvider.stations.enabled.map(station => {
     const t = transformCoords(station.coordinates_utm);
     return [t.latitude, t.longitude];
 });
@@ -45,6 +45,8 @@ const MapComponent = ({navigation, ...props}) => {
     const height = Dimensions.get("window").height;
     const mapContainerStyle = useMemo(() => ({height}), [height]);
 
+    const {layers, stations} = localDataProvider;
+
     // TODO: Configurable centre and boundaries
     // noinspection JSValidateTypes,JSUnresolvedVariable
     return <View {...props}>
@@ -53,7 +55,7 @@ const MapComponent = ({navigation, ...props}) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {enabledLayers.map(layer =>
+            {layers.enabled.map(layer =>
                 <GeoJSON
                     key={layer.id}
                     data={layer.geojson}
@@ -62,7 +64,7 @@ const MapComponent = ({navigation, ...props}) => {
                     })}
                 />
             )}
-            {enabledStations.map((station, si) =>
+            {stations.enabled.map((station, si) =>
                 <Marker position={enabledStationsLatLong[si]} key={station.id}>
                     <Popup>
                         <TouchableOpacity onPress={() => navigation.push(`screen.map.station.${station.id}`)}>

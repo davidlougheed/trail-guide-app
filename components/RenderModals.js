@@ -5,11 +5,11 @@
 import React from "react";
 
 import CustomModal from "./CustomModal";
-import {modalData} from "../dataSources";
+import {localDataProvider} from "../dataSources";
 
 const RenderModals = React.memo(({modalsVisible, setModalsVisible}) =>
     <>
-        {Object.entries(modalData).map(([k, d]) => {
+        {Object.entries(localDataProvider.modals.itemsByID).map(([k, d]) => {
             const closeModal = () => setModalsVisible({...modalsVisible, [k]: undefined});
             return <CustomModal
                 key={k}

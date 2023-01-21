@@ -8,7 +8,7 @@ import {SafeAreaView, SectionList, StyleSheet} from "react-native";
 import StationsListItem from "./StationsListItem";
 import StationsListSectionHeader from "./StationsListSectionHeader";
 
-import {stationData} from "../dataSources";
+import {localDataProvider} from "../dataSources";
 import {stationScreenName} from "../routes";
 
 const styles = StyleSheet.create({
@@ -23,7 +23,7 @@ const StationsListView = React.memo(({navigation}) => {
 
     return <SafeAreaView style={styles.safeView}>
         <SectionList
-            sections={stationData}
+            sections={localDataProvider.stations.categoryNested}
             keyExtractor={(item, index) => `${item.title}.${index}`}
             renderItem={({item, section}) => (
                  <StationsListItem

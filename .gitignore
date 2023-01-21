@@ -16,12 +16,12 @@ web-build/
 /data/about/
 /data/config.json
 /data/layers.json
+/data/metadata.json
 /data/modals.*
 /data/pages.*
 /data/settings.*
 /data/stations.*
 /data/assets/*
-/data*
 
 # macOS
 .DS_Store

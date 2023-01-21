@@ -9,7 +9,7 @@ import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import PageHeader from "./PageHeader";
 import RenderModals from "./RenderModals";
 
-import {pageData, pagesById} from "../dataSources";
+import {localDataProvider} from "../dataSources";
 import {pageStyles} from "./lib/sharedStyles";
 
 const styles = StyleSheet.create({
@@ -23,7 +23,7 @@ const PageView = ({route}) => {
     const {width} = useWindowDimensions();
 
     const {pageId} = route.params;
-    const page = pagesById[pageId] ?? pageData[0];
+    const page = localDataProvider.pages.itemsByID[pageId] ?? localDataProvider.pages.items[0];
     const pageHeaderData = useMemo(() => ({long_title: page.long_title}), [page]);
 
     const source = useMemo(() => ({html: page.content}), [page]);

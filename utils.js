@@ -5,8 +5,8 @@
 // These are sloppy patterns, allowing invalid domains.
 // It is fine though; we're not allowing untrusted data into the app.
 
-import {config} from "./dataSources";
-const {BASE_URL, APP_BASE_URL} = config;
+import {localDataProvider} from "./dataSources";
+const {BASE_URL, APP_BASE_URL} = localDataProvider.config.data;
 
 export const ASSET_URI_PATTERN =
     /^(https?:\/\/[a-zA-Z\d.\-_:]{1,127})\/api\/v1\/assets\/([a-zA-Z\d\-]{1,36})\/bytes\/?$/;

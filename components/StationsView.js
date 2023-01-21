@@ -11,7 +11,7 @@ import {Ionicons} from "@expo/vector-icons";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 // import {linkColor} from "../constants";
-import {enabledStations} from "../dataSources";
+import {localDataProvider} from "../dataSources";
 import {STATION_LIST, PRIVACY_POLICY, stationScreenName} from "../routes";
 
 import StationsDetailView from "./StationsDetailView";
@@ -22,7 +22,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 
 const Stack = createNativeStackNavigator();
 
-const STATION_SCREENS = enabledStations
+const STATION_SCREENS = localDataProvider.stations.enabled
     .map(s =>
         <Stack.Screen
             key={s.id}

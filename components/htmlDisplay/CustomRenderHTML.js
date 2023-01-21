@@ -8,7 +8,7 @@ import {RenderHTML} from "react-native-render-html";
 import {useNavigation} from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
 
-import {modalData, pagesById, enabledStationsById} from "../../dataSources";
+import {localDataProvider} from "../../dataSources";
 
 import customElements from "./customElements";
 import renderers from "./renderers";
@@ -19,6 +19,8 @@ import * as r from "../../routes";
 
 const CustomRenderHTML = React.memo(
     ({setModalsVisible, baseStyle, onNavigateAway, inModal, source, ...props}) => {
+        const {modals, pages, stations} = localDataProvider;
+
         const navigation = useNavigation();
 
         const anchorOnPress = useCallback(async (event, href) => {
@@ -37,16 +39,16 @@ const CustomRenderHTML = React.memo(
             const modalId = getDataFromModalURI(href);
             const pageId = getDataFromPageURI(href);
             const stationId = getDataFromStationURI(href);
-            if (setModalsVisible && modalId && modalData.hasOwnProperty(modalId)) {
+            if (setModalsVisible && modalId && modals.itemsByID.hasOwnProperty(modalId)) {
                 if (inModal && onNavigateAway) {
                     // If we're navigating from a modal to another modal, close the current one first.
                     onNavigateAway();
                 }
                 setModalsVisible({[modalId]: true});
-            } else if (pageId && pagesById.hasOwnProperty(pageId)) {
+            } else if (pageId && pages.itemsByID.hasOwnProperty(pageId)) {
                 navigation.navigate({name: pageId, key: pageId});
                 if (onNavigateAway) onNavigateAway();
-            } else if (stationId && enabledStationsById.hasOwnProperty(stationId)) {
+            } else if (stationId && stations.enabledByID.hasOwnProperty(stationId)) {
                 navigation.navigate({name: r.stationScreenName(stationId), key: stationId});
                 if (onNavigateAway) onNavigateAway();
             } else if (href.startsWith("http")) {
