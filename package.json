@@ -20,7 +20,7 @@
     "@react-navigation/native-stack": "^6.9.8",
     "expo": "^47.0.0",
     "expo-asset": "~8.7.0",
-    "expo-av": "~13.0.2",
+    "expo-av": "~13.0.3",
     "expo-checkbox": "~2.2.2",
     "expo-constants": "~14.0.2",
     "expo-file-system": "~15.1.1",
