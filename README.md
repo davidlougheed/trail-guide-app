@@ -1,3 +1,5 @@
+<img src="./assets/dtgs_logo.png" alt="David's Trail Guide System Logo" width="200" height="109">
+
 # Trail Guide App
 
 **Author:** David Lougheed
