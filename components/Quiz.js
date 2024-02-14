@@ -4,7 +4,6 @@
 
 import React, {useCallback, useMemo, useState} from "react";
 import {
-    Platform,
     StyleSheet,
 
     Button,
@@ -123,11 +122,10 @@ const getInitialSelectedOptions = ({quiz_type, options}) => {
     }
 };
 
-const getIcon = optionCorrect => {
-    const iconPrefix = Platform.OS === "android" ? "md" : "ios";
+const getIcon = (optionCorrect) => {
     return optionCorrect
-        ? <Ionicons name={`${iconPrefix}-checkmark-circle-outline`} size={28} color="#52c41a" />
-        : <Ionicons name={`${iconPrefix}-close-circle-outline`} size={28} color="#ff4d4f" />;
+        ? <Ionicons name="checkmark-circle-outline" size={28} color="#52c41a" />
+        : <Ionicons name="close-circle-outline" size={28} color="#ff4d4f" />;
 };
 
 const pickerButtonStyles = StyleSheet.create({
