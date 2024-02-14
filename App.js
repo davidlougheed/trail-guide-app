@@ -3,7 +3,6 @@
 // See NOTICE for more information.
 
 import React, {useCallback, useEffect, useState} from "react";
-import {Platform} from "react-native";
 
 import * as Linking from "expo-linking";
 import {Ionicons} from "@expo/vector-icons";
@@ -32,18 +31,16 @@ const getScreenOptions = ({route}) => ({
     tabBarIcon: ({color, size}) => {
         let iconName;
 
-        const iconPrefix = Platform.OS === "android" ? "md" : "ios";
-
         switch (route.name) {
             case POINTS_OF_INTEREST:
-                iconName = `${iconPrefix}-information-circle-outline`;
+                iconName = "information-circle-outline";
                 break;
             case MAP:
-                iconName = `${iconPrefix}-map-outline`;
+                iconName = "map-outline";
                 break;
             default:
                 // Page
-                iconName = `${iconPrefix}-${pagesById?.[route.name]?.icon ?? "help-circle-outline"}`;
+                iconName = pagesById?.[route.name]?.icon ?? "help-circle-outline";
                 break;
         }
 
