@@ -31,6 +31,9 @@ const STATION_SCREENS = localDataProvider.stations.enabled
         >{props => <StationsDetailView {...props} station={s} />}</Stack.Screen>
     );
 
+const navigatorScreenOptions = {
+    headerBackTitle: "Back",
+};
 const privacyPolicyScreenOptions = {
     title: "Privacy Policy",
 };
@@ -59,7 +62,7 @@ const StationsView = React.memo(() => {
     // noinspection JSValidateTypes
     return <>
         <AppInfoModal visible={showInfoModal} onRequestClose={onRequestClose} />
-        <Stack.Navigator initialRouteName={STATION_LIST}>
+        <Stack.Navigator initialRouteName={STATION_LIST} screenOptions={navigatorScreenOptions}>
             <Stack.Screen
                 name={STATION_LIST}
                 options={listViewScreenOptions}
