@@ -7,9 +7,10 @@ import {SafeAreaView, ScrollView, StyleSheet, useWindowDimensions, View} from "r
 
 import Constants from "expo-constants";
 
-import {pageStyles} from "./lib/sharedStyles";
+import { pageStyles } from "./lib/sharedStyles";
 import PageHeader from "./PageHeader";
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
+import { localDataProvider } from "../dataSources";
 
 const styles = StyleSheet.create({
     content: {
@@ -18,10 +19,17 @@ const styles = StyleSheet.create({
     },
 });
 
-const page = {long_title: "Privacy Policy"};
+const page = { long_title: "Privacy Policy" };
+// noinspection JSUnresolvedReference
 const privacyPolicy = {
-    html: `<p>The "${Constants.expoConfig.name}" app ("the app") does not collect any personal information from 
-users. The app may link to third-party websites which are not covered by this policy.</p>`,
+    html: localDataProvider.settings.data?.privacy_policy ?? (
+        `
+        <p>
+            The "${Constants.expoConfig.name}" app ("the app") does not collect any personal information from 
+            users. The app may link to third-party websites which are not covered by this policy.
+        </p>
+        `
+    ),
 };
 
 const PrivacyPolicy = () => {
