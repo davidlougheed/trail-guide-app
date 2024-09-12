@@ -5,7 +5,6 @@
 import React from "react";
 import {
     Dimensions,
-    Platform,
     StyleSheet,
 
     Image,
@@ -16,10 +15,7 @@ import {
 } from "react-native";
 import {useAssets} from "expo-asset";
 
-const PagerView = Platform.select({
-    native: () => require("react-native-pager-view"),
-    default: () => require("./WebPagerView"),
-})().default;
+import PagerView from "./PagerView";
 
 import {WYSIWYG_BLANKS} from "../constants";
 import assetData from "../data/assets/assets";
