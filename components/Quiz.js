@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React, {useCallback, useMemo, useState} from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import {
     StyleSheet,
 
@@ -149,7 +149,7 @@ const pickerButtonStyles = StyleSheet.create({
     },
 });
 
-const PickerButton = React.memo(({placeholder, value, ...props}) => (
+const PickerButton = memo(({placeholder, value, ...props}) => (
     <TouchableOpacity {...props}>
         <View style={pickerButtonStyles.button}>
             {value
@@ -166,7 +166,7 @@ const PickerButton = React.memo(({placeholder, value, ...props}) => (
  * @return {JSX.Element}
  * @constructor
  */
-const Quiz = React.memo(({quiz, setModalsVisible}) => {
+const Quiz = memo(({quiz, setModalsVisible}) => {
     const {quiz_type, title, question, answer, options} = quiz ?? {};
     const {width} = useWindowDimensions();
 

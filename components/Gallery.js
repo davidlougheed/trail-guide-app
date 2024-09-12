@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 import {
     Dimensions,
     StyleSheet,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Gallery = React.memo(({gallery, setModalsVisible}) => {
+const Gallery = memo(({gallery, setModalsVisible}) => {
     const {title, description, items} = gallery;
     const {width} = useWindowDimensions();
 

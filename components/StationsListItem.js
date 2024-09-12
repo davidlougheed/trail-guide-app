@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 
@@ -60,7 +60,7 @@ const STATION_ICONS = {
     },
 };
 
-const StationsListItem = React.memo(({title, subtitle, onPress, trail, category}) => {
+const StationsListItem = memo(({title, subtitle, onPress, trail, category}) => {
     // TODO: Format content for list item
     return <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>

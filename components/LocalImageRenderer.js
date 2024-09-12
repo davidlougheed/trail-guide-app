@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import {Image, Modal, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import {ReactNativeZoomableView} from "@openspacelabs/react-native-zoomable-view";
 import {useAssets} from "expo-asset";
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const LocalImageRenderer = React.memo(({style, tnode: {attributes: {src, width, height}}, ...props}) => {
+const LocalImageRenderer = memo(({style, tnode: {attributes: {src, width, height}}, ...props}) => {
     const {width: screenWidth} = useWindowDimensions();
 
     const [modalVisible, setModalVisible] = useState(false);

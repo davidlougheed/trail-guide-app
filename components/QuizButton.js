@@ -3,7 +3,7 @@
 // See NOTICE for more information.
 // noinspection JSValidateTypes
 
-import React, {useCallback} from "react";
+import { memo, useCallback } from "react";
 import {Platform, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import RenderHTML from "react-native-render-html";
 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     }),
 });
 
-const QuizButton = React.memo(({option, index, selected, quizSubmitted, onPress}) => {
+const QuizButton = memo(({option, index, selected, quizSubmitted, onPress}) => {
     const {width} = useWindowDimensions();
 
     const onPress_ = useCallback(() => {

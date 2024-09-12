@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 
 import {APP_GITHUB_URL} from "../constants";
 import CustomModal from "./CustomModal";
@@ -36,7 +36,7 @@ const htmlContent = `
 </p>
 `;
 
-const AppInfoModal = React.memo(({visible, onRequestClose}) => (
+const AppInfoModal = memo(({visible, onRequestClose}) => (
     <CustomModal onRequestClose={onRequestClose} visible={visible} data={{content: htmlContent}} />
 ));
 

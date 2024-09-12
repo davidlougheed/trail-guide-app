@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {StyleSheet, useWindowDimensions, View} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 

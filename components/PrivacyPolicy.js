@@ -2,7 +2,6 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
 import {SafeAreaView, ScrollView, StyleSheet, useWindowDimensions, View} from "react-native";
 
 import Constants from "expo-constants";

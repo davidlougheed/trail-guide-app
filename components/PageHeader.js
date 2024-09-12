@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 import {ImageBackground, StyleSheet, Text, View} from "react-native";
 import {useAssets} from "expo-asset";
 
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const PageHeader = React.memo(({station, page}) => {
+const PageHeader = memo(({station, page}) => {
     const {header_image, long_title, subtitle, coordinates_utm} = station ?? page;
     const {crs, east, north, zone} = (coordinates_utm ?? {});
 

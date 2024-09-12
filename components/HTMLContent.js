@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React, {useCallback, useMemo, useState} from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import {Button, StyleSheet, useWindowDimensions, View} from "react-native";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const HTMLContent = React.memo(({content, setModalsVisible}) => {
+const HTMLContent = memo(({content, setModalsVisible}) => {
     const {width} = useWindowDimensions();
     const [expanded, setExpanded] = useState(false);
 

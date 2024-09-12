@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React, {useState} from "react";
+import { memo, useState } from "react";
 import {
     SafeAreaView,
     ScrollView,
@@ -32,7 +32,7 @@ import {pageStyles as styles} from "./lib/sharedStyles";
  * @return {JSX.Element}
  * @constructor
  */
-const StationsDetailView = React.memo(({station}) => {
+const StationsDetailView = memo(({station}) => {
     const [modalsVisible, setModalsVisible] = useState({});
 
     const {contents} = station;

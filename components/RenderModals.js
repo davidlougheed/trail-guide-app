@@ -2,12 +2,12 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 
 import CustomModal from "./CustomModal";
 import {localDataProvider} from "../dataSources";
 
-const RenderModals = React.memo(({modalsVisible, setModalsVisible}) =>
+const RenderModals = memo(({modalsVisible, setModalsVisible}) =>
     <>
         {Object.entries(localDataProvider.modals.itemsByID).map(([k, d]) => {
             const closeModal = () => setModalsVisible({...modalsVisible, [k]: undefined});

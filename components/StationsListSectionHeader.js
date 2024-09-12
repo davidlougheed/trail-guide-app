@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 import {StyleSheet, Text, View} from "react-native";
 
 const styles = StyleSheet.create({
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const StationsListSectionHeader = React.memo(({title}) => (
+const StationsListSectionHeader = memo(({title}) => (
     <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
     </View>

@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 import {StyleSheet, View} from "react-native";
 import {useAssets} from "expo-asset";
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 // Supposed to work for both legacy <audio> tags and new <tgcs-audio> tags
-const LocalAudioRenderer = React.memo(({style, tnode, ...props}) => {
+const LocalAudioRenderer = memo(({style, tnode, ...props}) => {
     const {domNode} = tnode;
 
     const src = domNode.attribs["src"] ?? domNode.children?.[0]?.attribs?.["src"];

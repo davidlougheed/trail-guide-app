@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React, {useCallback, useMemo} from "react";
+import { memo, useCallback, useMemo } from "react";
 import {Linking} from "react-native";
 import {RenderHTML} from "react-native-render-html";
 import {useNavigation} from "@react-navigation/native";
@@ -17,7 +17,7 @@ import styles from "./styles";
 import {getDataFromModalURI, getDataFromPageURI, getDataFromStationURI} from "../../utils";
 import * as r from "../../routes";
 
-const CustomRenderHTML = React.memo(
+const CustomRenderHTML = memo(
     ({setModalsVisible, baseStyle, onNavigateAway, inModal, source, ...props}) => {
         const {modals, pages, stations} = localDataProvider;
 

@@ -3,7 +3,7 @@
 // See NOTICE for more information.
 // noinspection JSValidateTypes
 
-import React, {useRef} from "react";
+import { memo, useRef } from "react";
 import {Text, useWindowDimensions, View} from "react-native";
 import {useAssets} from "expo-asset";
 import {Video} from "expo-av";
@@ -11,7 +11,7 @@ import {Video} from "expo-av";
 import assetData from "../data/assets/assets";
 import {getDataFromAssetURI} from "../utils";
 
-const LocalVideoRenderer = React.memo(({style, tnode, ...props}) => {
+const LocalVideoRenderer = memo(({style, tnode, ...props}) => {
     const {width: screenWidth} = useWindowDimensions();
 
     const video = useRef(null);

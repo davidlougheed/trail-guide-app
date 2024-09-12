@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 import {Button, Modal, Text, useWindowDimensions, ScrollView, View, SafeAreaView} from "react-native";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
@@ -35,7 +35,7 @@ const modalStyles = {
     },
 };
 
-const CustomModal = React.memo(({visible, data, onRequestClose, setModalsVisible}) => {
+const CustomModal = memo(({visible, data, onRequestClose, setModalsVisible}) => {
     const {width} = useWindowDimensions();
 
     const {title, content, close_text} = data;

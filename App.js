@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React, {useCallback, useEffect, useState} from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 
 import * as Linking from "expo-linking";
 import {Ionicons} from "@expo/vector-icons";
@@ -96,7 +96,7 @@ const PAGE_SCREENS = localDataProvider.pages.items.map(page =>
     />
 );
 
-const App = React.memo(() => {
+const App = memo(() => {
     const termsModal = localDataProvider.settings.data?.terms_modal ?? null;
 
     const [termsModalVisible, setTermsModalVisible] = useState(false);

@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 import {StyleSheet, View} from "react-native";
 
 const styles = StyleSheet.create({
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const PagerViewWeb = React.memo(({children, style, ...props}) => (
+const PagerViewWeb = memo(({children, style, ...props}) => (
     <View {...props} style={[style, styles.container]}>
         {children}
     </View>

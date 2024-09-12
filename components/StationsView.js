@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React, {useCallback, useMemo, useState} from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import {TouchableOpacity} from "react-native";
 
 import Constants from "expo-constants";
@@ -38,7 +38,7 @@ const privacyPolicyScreenOptions = {
     title: "Privacy Policy",
 };
 
-const StationsView = React.memo(() => {
+const StationsView = memo(() => {
     // TODO: Tablet view
 
     const [showInfoModal, setShowInfoModal] = useState(false);

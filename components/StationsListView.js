@@ -2,7 +2,7 @@
 // Copyright (C) 2021-2023  David Lougheed
 // See NOTICE for more information.
 
-import React from "react";
+import { memo } from "react";
 import {SafeAreaView, SectionList, StyleSheet} from "react-native";
 
 import StationsListItem from "./StationsListItem";
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 });
 
 
-const StationsListView = React.memo(({navigation}) => {
+const StationsListView = memo(({navigation}) => {
     // TODO: Tablet view
 
     const onPress = id => navigation.navigate("Points of Interest", {screen: stationScreenName(id)});
