@@ -4,10 +4,13 @@
 // noinspection JSValidateTypes
 
 import React, {useCallback} from "react";
-import {Platform, PlatformColor, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
+import {Platform, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import RenderHTML from "react-native-render-html";
 
-const pc = PlatformColor ?? (() => undefined);
+const pc = Platform.select({
+    native: require("react-native").PlatformColor,
+    default: () => undefined,
+});
 
 // noinspection JSCheckFunctionSignatures
 const styles = StyleSheet.create({
