@@ -6,7 +6,7 @@ import { memo, useCallback, useEffect, useState } from "react";
 
 import * as Linking from "expo-linking";
 import {Ionicons} from "@expo/vector-icons";
-import {NavigationContainer} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -96,7 +96,7 @@ const PAGE_SCREENS = localDataProvider.pages.items.map(page =>
     />
 );
 
-const App = memo(() => {
+const TermsModalWithHandler = () => {
     const termsModal = localDataProvider.settings.data?.terms_modal ?? null;
 
     const [termsModalVisible, setTermsModalVisible] = useState(false);
@@ -126,12 +126,18 @@ const App = memo(() => {
         }
     }, []);
 
-    return <NavigationContainer linking={linking}>
+    return (
         <CustomModal
             visible={termsModalVisible}
             data={localDataProvider.modals.itemsByID[termsModal] ?? {}}
             onRequestClose={handleCloseModal}
         />
+    );
+};
+
+const App = memo(() => (
+    <NavigationContainer linking={linking}>
+        <TermsModalWithHandler />
         <Tab.Navigator screenOptions={getScreenOptions} initialRouteName={POINTS_OF_INTEREST}>
             <Tab.Screen
                 name={POINTS_OF_INTEREST}
@@ -145,8 +151,8 @@ const App = memo(() => {
             />
             {PAGE_SCREENS}
         </Tab.Navigator>
-    </NavigationContainer>;
-});
+    </NavigationContainer>
+));
 
 // noinspection JSUnusedGlobalSymbols
 export default App;
