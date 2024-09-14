@@ -6,7 +6,7 @@ import { memo, useCallback, useEffect, useState } from "react";
 
 import * as Linking from "expo-linking";
 import {Ionicons} from "@expo/vector-icons";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -97,11 +97,26 @@ const PAGE_SCREENS = localDataProvider.pages.items.map(page =>
 );
 
 const TermsModalWithHandler = () => {
+    const navigation = useNavigation();
+
     const termsModal = localDataProvider.settings.data?.terms_modal ?? null;
 
     const [termsModalVisible, setTermsModalVisible] = useState(false);
 
     useEffect(() => {
+        const navState = navigation.getState();
+
+        // Kind of hacky - beware of state object changing shape in future updates.
+        if (navState.stale && navState.routes?.[0]?.name === POINTS_OF_INTEREST) {
+            // We are on initial load; check if we're on the privacy policy
+            // We need to allow direct links to the privacy policy without showing the terms first, so we early-return
+            // in this special case.
+            const route = navState.routes[0].state;
+            if ("index" in route && "routes" in route && route.routes[route.index].name === r.PRIVACY_POLICY) {
+                return;
+            }
+        }
+
         const fn = async () => {
             try {
                 const termsSeen = await AsyncStorage.getItem(KEY_TERMS_SEEN);
@@ -114,7 +129,7 @@ const TermsModalWithHandler = () => {
             }
         };
         fn().catch(console.error);
-    }, []);
+    }, [navigation]);
 
     const handleCloseModal = useCallback(async () => {
         try {
