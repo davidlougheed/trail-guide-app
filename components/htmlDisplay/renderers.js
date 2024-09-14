@@ -1,5 +1,5 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2023  David Lougheed
+// Copyright (C) 2021-2024  David Lougheed
 // See NOTICE for more information.
 
 import LocalAudioRenderer from "../LocalAudioRenderer";

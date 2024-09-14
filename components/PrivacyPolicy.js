@@ -1,5 +1,5 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2023  David Lougheed
+// Copyright (C) 2021-2024  David Lougheed
 // See NOTICE for more information.
 
 import {SafeAreaView, ScrollView, StyleSheet, useWindowDimensions, View} from "react-native";
@@ -10,6 +10,7 @@ import { pageStyles } from "./lib/sharedStyles";
 import PageHeader from "./PageHeader";
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import { localDataProvider } from "../dataSources";
+import { useRoute } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     content: {
@@ -32,6 +33,8 @@ const privacyPolicy = {
 };
 
 const PrivacyPolicy = () => {
+    const route = useRoute();
+    console.log(route);
     const {width} = useWindowDimensions();
 
     return <SafeAreaView style={pageStyles.container}>
