@@ -62,9 +62,10 @@ const STATION_ICONS = {
 
 const StationsListItem = memo(({title, subtitle, onPress, trail, category}) => {
     // TODO: Format content for list item
+    const icon = STATION_ICONS[category]?.[trail];
     return <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
-            <Image source={STATION_ICONS[category][trail]} style={styles.icon} />
+            {icon ? <Image source={icon} style={styles.icon} /> : null}
             <View style={styles.textContainer}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.subtitle}>{subtitle}</Text>
