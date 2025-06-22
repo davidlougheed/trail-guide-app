@@ -107,7 +107,7 @@ const TermsModalWithHandler = () => {
         const navState = navigation.getState();
 
         // Kind of hacky - beware of state object changing shape in future updates.
-        if (navState.stale && navState.routes?.[0]?.name === POINTS_OF_INTEREST) {
+        if (navState && navState.stale && navState.routes?.[0]?.name === POINTS_OF_INTEREST) {
             // We are on initial load; check if we're on the privacy policy
             // We need to allow direct links to the privacy policy without showing the terms first, so we early-return
             // in this special case.
