@@ -1,3 +1,4 @@
+import categoryData from "./data/categories.json";
 import layerData from "./data/layers.json";
 import modalData from "./data/modals.json";
 import pageData from "./data/pages.json";
@@ -11,6 +12,7 @@ const enabledStations = stationData
     .filter(s => s.enabled);
 
 export const localDataProvider = {
+    categories: categoryData,
     config: {
         data: config,
     },
@@ -25,6 +27,11 @@ export const localDataProvider = {
         items: pageData,
         itemsByID: Object.fromEntries(pageData.map(page => [page.id, page])),
     },
+    sections: Object.fromEntries(
+        stationData.map(
+            (s) => [s.id, Object.fromEntries(Object.entries(s).filter((e) => e[0] !== "data"))]
+        )
+    ),
     settings: {
         data: settings,
     },

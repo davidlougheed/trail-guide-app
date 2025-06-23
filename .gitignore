@@ -14,6 +14,7 @@ web-build/
 *.zip
 
 /data/about/
+/data/categories.json
 /data/config.json
 /data/layers.json
 /data/metadata.json

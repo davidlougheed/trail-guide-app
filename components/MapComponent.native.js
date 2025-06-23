@@ -1,5 +1,5 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2024  David Lougheed
+// Copyright (C) 2021-2025  David Lougheed
 // See NOTICE for more information.
 
 import React, {useCallback, useRef} from "react";
@@ -9,7 +9,6 @@ import Svg, {Circle, Defs, LinearGradient, Stop, Path} from "react-native-svg";
 
 import {localDataProvider} from "../dataSources";
 import {transformCoords} from "../gis";
-import iconSvgPaths from "./lib/iconSvgPaths";
 
 const stationCoordinates = localDataProvider.stations.enabled.map(
     ({coordinates_utm}) => transformCoords(coordinates_utm));
@@ -71,7 +70,7 @@ const MapComponent = ({navigation, ...props}) => {
                             </Defs>
                             <Circle cx="50" cy="50" r="50" fill="url(#grad)" />
                             <Svg height="90" width="90" viewBox="-4 -3 29 28">
-                                <Path fill="white" d={iconSvgPaths[category]} />
+                                <Path fill="white" d={localDataProvider[category]["icon_svg"]} />
                             </Svg>
                         </Svg>
                     </View>

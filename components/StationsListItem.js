@@ -1,10 +1,13 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2024  David Lougheed
+// Copyright (C) 2021-2025  David Lougheed
 // See NOTICE for more information.
 
-import { memo } from "react";
+import React, { memo } from "react";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import Svg, {Path} from "react-native-svg";
 import {Ionicons} from "@expo/vector-icons";
+
+import {localDataProvider} from "../dataSources";
 
 const styles = StyleSheet.create({
     container: {
@@ -33,7 +36,8 @@ const styles = StyleSheet.create({
     subtitle: {},
 });
 
-const STATION_ICONS = {
+// Old, ELEEC-specific icons - kept as a fallback.
+const LEGACY_STATION_ICONS = {
     "culture": {
         "blue": require("../assets/culture-blue.png"),
         "green": require("../assets/culture-green.png"),
@@ -62,10 +66,18 @@ const STATION_ICONS = {
 
 const StationsListItem = memo(({title, subtitle, onPress, trail, category}) => {
     // TODO: Format content for list item
-    const icon = STATION_ICONS[category]?.[trail];
+    const svgIcon = localDataProvider.categories[category]?.["icon_svg"];
+    const legacyIcon = LEGACY_STATION_ICONS[category]?.[trail];
     return <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
-            {icon ? <Image source={icon} style={styles.icon} /> : null}
+            {svgIcon ? (
+                <Svg height="25" width="25" viewBox="-4 -3 29 28">
+                    <Path
+                        fill={localDataProvider.sections[trail].color ?? "black"}
+                        d={localDataProvider[category]["icon_svg"]}
+                    />
+                </Svg>
+            ) : legacyIcon ? <Image source={legacyIcon} style={styles.icon} /> : null}
             <View style={styles.textContainer}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.subtitle}>{subtitle}</Text>
