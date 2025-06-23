@@ -75,7 +75,7 @@ const StationsListItem = memo(({title, subtitle, onPress, trail, category}) => {
     return <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
             {svgIcon ? (
-                <Svg height="25" width="25" viewBox="3 3 20 20" style={styles.icon}>
+                <Svg height="25" width="25" viewBox="1 1 23 24" style={styles.icon}>
                     <Path fill={color} d={svgIcon} />
                 </Svg>
             ) : legacyIcon ? <Image source={legacyIcon} style={styles.icon} /> : null}
