@@ -72,10 +72,7 @@ const StationsListItem = memo(({title, subtitle, onPress, trail, category}) => {
         <View style={styles.container}>
             {svgIcon ? (
                 <Svg height="25" width="25" viewBox="-4 -3 29 28">
-                    <Path
-                        fill={localDataProvider.sections[trail].color ?? "black"}
-                        d={localDataProvider[category]["icon_svg"]}
-                    />
+                    <Path fill={localDataProvider.sections[trail].color ?? "black"} d={svgIcon} />
                 </Svg>
             ) : legacyIcon ? <Image source={legacyIcon} style={styles.icon} /> : null}
             <View style={styles.textContainer}>
