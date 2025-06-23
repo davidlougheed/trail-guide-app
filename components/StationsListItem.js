@@ -66,13 +66,17 @@ const LEGACY_STATION_ICONS = {
 
 const StationsListItem = memo(({title, subtitle, onPress, trail, category}) => {
     // TODO: Format content for list item
+
     const svgIcon = localDataProvider.categories[category]?.["icon_svg"];
     const legacyIcon = LEGACY_STATION_ICONS[category]?.[trail];
+    const colorHex = localDataProvider.sections[trail].color;
+    const color = colorHex ? `#${colorHex}` : "black";
+
     return <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
             {svgIcon ? (
-                <Svg height="25" width="25" viewBox="-4 -3 29 28">
-                    <Path fill={localDataProvider.sections[trail].color ?? "black"} d={svgIcon} />
+                <Svg height="25" width="25" viewBox="3 3 20 20" style={styles.icon}>
+                    <Path fill={color} d={svgIcon} />
                 </Svg>
             ) : legacyIcon ? <Image source={legacyIcon} style={styles.icon} /> : null}
             <View style={styles.textContainer}>
