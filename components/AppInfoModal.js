@@ -1,3 +1,7 @@
+// A mobile app to display interactive trail guide content.
+// Copyright (C) 2021-2025  David Lougheed
+// See NOTICE for more information.
+
 import { memo } from "react";
 
 import {APP_GITHUB_URL} from "../constants";
