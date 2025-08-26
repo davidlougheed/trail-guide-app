@@ -93,4 +93,19 @@ export default ({config}) => ({
     "web": {
         "favicon": "./assets/favicon.png"
     },
+
+    "plugins": [
+        [
+            "expo-build-properties",
+            {
+                // Need to target Android SDK 35+ for Google Play, but (as of time of writing) updating Expo isn't
+                // feasible, so we manually specify the SDK version here: https://stackoverflow.com/a/79687086
+                "android": {
+                    "compileSdkVersion": 35,
+                    "targetSdkVersion": 35,
+                    "buildToolsVersion": "35.0.0"
+                },
+            },
+        ],
+    ],
 });
