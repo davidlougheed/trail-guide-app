@@ -11,16 +11,18 @@ import {localDataProvider} from "../dataSources";
 import {transformCoords} from "../gis";
 
 import "leaflet/dist/leaflet.css";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
+// import icon from "leaflet/dist/images/marker-icon.png";
+// import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
+// import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 // Fix issue with marker PNG; see https://stackoverflow.com/questions/49441600/react-leaflet-marker-files-not-found
 // Defaults from https://github.com/Leaflet/Leaflet/blob/main/src/layer/marker/Icon.Default.js
+// Not ideal to rely on a CDN for this, but local image loading doesn't seem to work in Expo 51+ / with Metro bundler.
+// This is only for the web version anyway.
 L.Marker.prototype.options.icon = L.icon({
-    iconUrl: icon,
-    iconRetinaUrl: iconRetina,
-    shadowUrl: iconShadow,
+    iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+    iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
     iconSize:    [25, 41],
     iconAnchor:  [12, 41],
     popupAnchor: [1, -34],
@@ -73,7 +75,7 @@ const MapComponent = ({navigation, ...props}) => {
                     </Popup>
                 </Marker>
             )}
-        </MapContainer>;
+        </MapContainer>
     </View>;
 };
 

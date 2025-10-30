@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     },
     headerBackground: {
         padding: 16,
+        width: '100vw',
     },
     headerTitle: {
         fontSize: 32,
