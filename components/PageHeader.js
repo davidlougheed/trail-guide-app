@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     headerBackground: {
         padding: 16,
         width: '100vw',
+        height: 'auto',
     },
     headerTitle: {
         fontSize: 32,
