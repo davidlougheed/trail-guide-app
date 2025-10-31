@@ -7,6 +7,7 @@ import { memo, useRef } from "react";
 import {Text, useWindowDimensions, View} from "react-native";
 import {useAssets} from "expo-asset";
 import {Video} from "expo-av";
+import {useVideoPlayer, VideoView} from "expo-video";
 
 import assetData from "../data/assets/assets";
 import {getDataFromAssetURI} from "../utils";
@@ -52,31 +53,40 @@ const LocalVideoRenderer = memo(({style, tnode, ...props}) => {
 
     const blankShell = <View {...props} style={{height, width}}><Text>Loading...</Text></View>;
 
-    if (!videoAssetId) return blankShell;
-
     const [assets, error] = useAssets([
         ...(hasPoster ? [posterAssetId] : []),
         ...(hasVideo ? [videoAssetId] : [])
     ]);
+
+    const player = useVideoPlayer(assets ? (hasPoster ? assets[1] : assets[0]) : null);
+
+    if (!videoAssetId) return blankShell;
     if (error) console.error(error);
     if (!assets) return blankShell;
 
-    const videoProps = {};
-    if (hasPoster) {
-        videoProps.posterSource = assets[0];
-        if (hasVideo) videoProps.source = assets[1];
-    } else if (hasVideo) {
-        videoProps.source = assets[0];
-    }
+    // TODO: expo-video doesn't support poster (yet?)
 
-    // TODO: videoStyle prop for next version
+    // const videoProps = {};
+    // if (hasPoster) {
+    //     videoProps.posterSource = assets[0];
+    //     if (hasVideo) videoProps.source = assets[1];
+    // } else if (hasVideo) {
+    //     videoProps.source = assets[0];
+    // }
+
     return <View {...props} style={{height, width}}>
-        <Video ref={video}
-               style={{height, width}}
-               {...videoProps}
-               usePoster={hasPoster}
-               resizeMode="contain"
-               useNativeControls={true} />
+        <VideoView
+            style={{height, width}}
+            player={player}
+            allowsFullscreen={true}
+            allowsPictureInPicture={true}
+        />
+        {/*<Video ref={video}*/}
+        {/*       style={{height, width}}*/}
+        {/*       {...videoProps}*/}
+        {/*       usePoster={hasPoster}*/}
+        {/*       resizeMode="contain"*/}
+        {/*       useNativeControls={true} />*/}
     </View>;
 });
 

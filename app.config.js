@@ -97,5 +97,9 @@ export default ({config}) => ({
     "plugins": [
         "expo-asset",
         "expo-font",
+        ["expo-video", {
+            "supportsBackgroundPlayback": false,
+            "supportsPictureInPicture": true
+        }],
     ],
 });
