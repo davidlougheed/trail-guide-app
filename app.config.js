@@ -102,4 +102,6 @@ export default ({config}) => ({
             "supportsPictureInPicture": true
         }],
     ],
+
+    "newArchEnabled": true,
 });
