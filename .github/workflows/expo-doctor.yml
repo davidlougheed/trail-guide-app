@@ -1,3 +1,5 @@
+name: Expo Doctor
+
 on:
   push:
     branches:
@@ -6,6 +8,7 @@ on:
 
 jobs:
   expo-doctor:
+    if: false  # TODO: need test data to enable
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
