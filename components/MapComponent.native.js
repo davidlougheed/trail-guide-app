@@ -14,7 +14,7 @@ const stationCoordinates = localDataProvider.stations.enabled.map(
     ({coordinates_utm}) => transformCoords(coordinates_utm));
 
 const colourMap = {
-    "acc": ["rgb(255, 204, 0)", "rgb(227, 167, 2)"],
+    "acc": ["rgb(255, 204, 0)", "rgb(255, 45, 85)"],
     "red": ["rgb(255, 59, 48)", "rgb(255, 45, 85)"],
     "blue": ["rgb(0, 122, 255)", "rgb(88, 86, 214)"],
     "green": ["rgb(52, 199, 89)", "rgb(0, 199, 190)"],
