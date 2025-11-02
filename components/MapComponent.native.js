@@ -49,12 +49,13 @@ const MapComponent = ({navigation, ...props}) => {
         }
     }, [mapRef]);
 
-    const {layers, stations} = localDataProvider;
+    const {categories, layers, stations} = localDataProvider;
 
     return <RNMapView{...props} showsUserLocation={true} onMapReady={onMapReady} ref={mapRef}>
         {stations.categoryNested.flatMap(({id, data}, i) =>
-            data.filter(s => s.enabled).map(({id: stationId, title, category, coordinates_utm}, j) =>
-                <Marker
+            data.filter(s => s.enabled).map(({id: stationId, title, category, coordinates_utm}, j) => {
+                const iconSvg = categories[category]?.["icon_svg"];
+                return <Marker
                     key={`${i}.${j}`}
                     coordinate={transformCoords(coordinates_utm)}
                     calloutAnchor={markerCalloutAnchor}
@@ -64,23 +65,24 @@ const MapComponent = ({navigation, ...props}) => {
                             <Defs>
                                 <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
                                     <Stop offset="0" stopColor={colourMap[id][0]} stopOpacity="1" />
-                                    <Stop offset="1" stopColor={colourMap[id][1] ?? colourMap[id][0]}
-                                          stopOpacity="1" />
+                                    <Stop offset="1" stopColor={colourMap[id][1] ?? colourMap[id][0]} stopOpacity="1" />
                                 </LinearGradient>
                             </Defs>
-                            <Circle cx="50" cy="50" r="50" fill="url(#grad)" />
-                            <Svg height="90" width="90" viewBox="-4 -3 29 28">
-                                <Path fill="white" d={localDataProvider[category]["icon_svg"]} />
-                            </Svg>
+                            <Circle cx="50" cy="50" r="50" fill="url(#grad)"/>
+                            {iconSvg && (
+                                <Svg height="90" width="90" viewBox="-4 -3 29 28">
+                                    <Path fill="white" d={iconSvg} />
+                                </Svg>
+                            )}
                         </Svg>
                     </View>
-                    <Callout style={{width: 16 + title.length*6.5}} onPress={() => {
+                    <Callout style={{ width: 16 + title.length * 6.5 }} onPress={() => {
                         navigation.push(`screen.map.station.${stationId}`);
                     }}>
                         <Text style={styles.calloutText}>{title}</Text>
                     </Callout>
-                </Marker>
-            )
+                </Marker>;
+            })
         )}
         {layers.enabled.map(({id, geojson}) =>
             <Geojson key={id} geojson={geojson} strokeWidth={3} />
