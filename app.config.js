@@ -96,6 +96,11 @@ export default ({config}) => ({
 
     "plugins": [
         "expo-asset",
+        ["expo-build-properties", {
+            "android": {
+                "targetSdkVersion": 35,
+            },
+        }],
         "expo-font",
         ["expo-video", {
             "supportsBackgroundPlayback": false,
