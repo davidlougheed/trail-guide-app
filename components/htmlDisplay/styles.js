@@ -18,6 +18,9 @@ export default {
             lineHeight: 24,
             marginVertical: 8,
         },
+        ol: {
+            fontSize: 18,
+        },
         li: {
             fontSize: 18,
             marginBottom: 4,
