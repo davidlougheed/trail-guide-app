@@ -6,6 +6,7 @@ import React, {useCallback, useRef} from "react";
 import {StyleSheet, Text, View} from "react-native";
 import RNMapView, {Callout, Geojson, Marker} from "react-native-maps";
 import Svg, {Circle, Defs, LinearGradient, Stop, Path} from "react-native-svg";
+import { color } from "d3-color";
 
 import {localDataProvider} from "../dataSources";
 import {transformCoords} from "../gis";
@@ -35,6 +36,9 @@ const styles = StyleSheet.create({
 
 const markerCalloutAnchor = {x: 0.5, y: 0};
 
+const lightenForGradient = (c) => color(`#${c}`).darker(-0.5).formatHex();
+const darkenForGradient = (c) => color(`#${c}`).darker(0.25).formatHex();
+
 const MapComponent = ({navigation, ...props}) => {
     const mapRef = useRef();
 
@@ -52,7 +56,7 @@ const MapComponent = ({navigation, ...props}) => {
     const {categories, layers, stations} = localDataProvider;
 
     return <RNMapView{...props} showsUserLocation={true} onMapReady={onMapReady} ref={mapRef}>
-        {stations.categoryNested.flatMap(({id, data}, i) =>
+        {stations.categoryNested.flatMap(({id, data, color}, i) =>
             data.filter(s => s.enabled).map(({id: stationId, title, category, coordinates_utm}, j) => {
                 const iconSvg = categories[category]?.["icon_svg"];
                 return <Marker
@@ -64,8 +68,20 @@ const MapComponent = ({navigation, ...props}) => {
                         <Svg height="100%" width="100%" viewBox="0 0 100 100">
                             <Defs>
                                 <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                                    <Stop offset="0" stopColor={colourMap[id][0]} stopOpacity="1" />
-                                    <Stop offset="1" stopColor={colourMap[id][1] ?? colourMap[id][0]} stopOpacity="1" />
+                                    <Stop
+                                        offset="0"
+                                        stopColor={color ? lightenForGradient(color) : (colourMap[id][0] ?? "#000000")}
+                                        stopOpacity="1"
+                                    />
+                                    <Stop
+                                        offset="1"
+                                        stopColor={
+                                            color
+                                                ? darkenForGradient(color)
+                                                : (colourMap[id][1] ?? colourMap[id][0] ?? "#000000")
+                                        }
+                                        stopOpacity="1"
+                                    />
                                 </LinearGradient>
                             </Defs>
                             <Circle cx="50" cy="50" r="50" fill="url(#grad)"/>
