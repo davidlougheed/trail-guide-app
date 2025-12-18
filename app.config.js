@@ -108,5 +108,5 @@ export default ({config}) => ({
         }],
     ],
 
-    "newArchEnabled": true,
+    "newArchEnabled": false,
 });
