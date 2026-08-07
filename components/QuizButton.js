@@ -5,7 +5,7 @@
 
 import { memo, useCallback } from "react";
 import {Platform, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
-import RenderHTML from "react-native-render-html";
+import RenderHTML from "@native-html/render";
 
 const pc = Platform.select({
     native: require("react-native").PlatformColor,
