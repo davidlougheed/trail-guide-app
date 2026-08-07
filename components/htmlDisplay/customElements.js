@@ -1,8 +1,8 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
-import {HTMLContentModel, HTMLElementModel} from "react-native-render-html";
+import { HTMLContentModel, HTMLElementModel } from "@native-html/render";
 
 // noinspection JSUnresolvedFunction
 export default {
