@@ -14,6 +14,8 @@ import customElements from "./customElements";
 import renderers from "./renderers";
 import styles from "./styles";
 
+const PRIVACY_POLICY_URLS = ["about:///privacy-policy", "/privacy-policy"]; // At some point the about:// went away...
+
 import {getDataFromModalURI, getDataFromPageURI, getDataFromStationURI} from "../../utils";
 import * as r from "../../routes";
 
@@ -25,7 +27,7 @@ const CustomRenderHTML = memo(
 
         const anchorOnPress = useCallback(async (event, href) => {
             // Special override for local privacy policy link
-            if (href === "about:///privacy-policy") {
+            if (PRIVACY_POLICY_URLS.includes(href)) {
                 navigation.navigate({name: r.PRIVACY_POLICY});
                 if (onNavigateAway) onNavigateAway();
                 return;

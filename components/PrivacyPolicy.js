@@ -3,7 +3,6 @@
 // See NOTICE for more information.
 
 import { ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import Constants from "expo-constants";
 
@@ -11,7 +10,6 @@ import { pageStyles } from "./lib/sharedStyles";
 import PageHeader from "./PageHeader";
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import { localDataProvider } from "../dataSources";
-import { useRoute } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     content: {
@@ -34,18 +32,16 @@ const privacyPolicy = {
 };
 
 const PrivacyPolicy = () => {
-    const route = useRoute();
-    console.log(route);
     const {width} = useWindowDimensions();
 
-    return <SafeAreaView style={pageStyles.container}>
+    return <View style={pageStyles.container}>
         <ScrollView>
             <PageHeader page={page} />
             <View style={styles.content}>
                 <CustomRenderHTML source={privacyPolicy} contentWidth={width} />
             </View>
         </ScrollView>
-    </SafeAreaView>
+    </View>
 };
 
 export default PrivacyPolicy;
