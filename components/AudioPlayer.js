@@ -1,10 +1,10 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
-import React, {useCallback, useEffect, useState} from "react";
-import {StyleSheet, Text} from "react-native";
-import {Audio} from "expo-av";
+import React, { useCallback } from "react";
+import { StyleSheet, Text } from "react-native";
+import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
 
 const styles = StyleSheet.create({
     mainText: {
@@ -14,56 +14,24 @@ const styles = StyleSheet.create({
     progressText: {color: "#666"},
 });
 
-const toSeconds = s => (s / 1000).toFixed(0);
+const fmtSeconds = s => `${s.toFixed(0)}s`;
 
 const AudioPlayer = ({linkText, src}) => {
-    const [sound, setSound] = useState(null);
-    const [playing, setPlaying] = useState(false);
-    const [progress, setProgress] = useState("");
+    const player = useAudioPlayer(src);
+    const status = useAudioPlayerStatus(player);
 
-    const playSound = useCallback(async () => {
-        let sound_ = sound;
-        try {
-            if (!sound_) {
-                await Audio.setAudioModeAsync({playsInSilentModeIOS: true});
-
-                const {sound: newSound} = await Audio.Sound.createAsync(src, {shouldPlay: true});
-                newSound.setOnPlaybackStatusUpdate(status => {
-                    setPlaying(status.isPlaying);
-                    if (!status.isPlaying) {
-                        setProgress("");
-                    } else {
-                        setProgress(
-                            `${toSeconds(status.positionMillis)}s / ${toSeconds(status.durationMillis)}s`);
-                    }
-                });
-                setSound(newSound);
-                sound_ = newSound;
-            }
-            await sound_.setPositionAsync(0);
-            await sound_.playAsync();
-        } catch (err) {
-            console.error(err);
-        }
-    }, [sound]);
+    const playSound = useCallback(() => {
+        player.play();
+    }, [player]);
 
     const stopSound = useCallback(async () => {
-        try {
-            if (!sound) return;
-            await sound.stopAsync();
-            // setPlaying(false);
-        } catch (err) {
-            console.error(err);
-        }
-    }, [sound]);
+        player.pause();
+    }, [player]);
 
-    // Clean-up function to free audio memory when component is unloaded
-    useEffect(() => sound ? (() => sound.unloadAsync()) : undefined, [sound]);
+    const playing = status.playing;
+    const toggleSound = playing ? stopSound : playSound;
 
-    const toggleSound = useCallback(async () => {
-        const status = sound ? (await sound.getStatusAsync()) : ({isPlaying: false});
-        await (status.isPlaying ? stopSound : playSound)();
-    }, [sound, stopSound, playSound]);
+    const progress = playing ? `${fmtSeconds(status.currentTime)} / ${fmtSeconds(status.duration)}` : "";
 
     if (linkText) linkText = linkText.trim();
 

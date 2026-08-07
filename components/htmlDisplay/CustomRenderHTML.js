@@ -1,10 +1,10 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
 import { memo, useCallback, useMemo } from "react";
 import {Linking} from "react-native";
-import {RenderHTML} from "react-native-render-html";
+import { RenderHTML } from "@native-html/render";
 import {useNavigation} from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
 

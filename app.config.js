@@ -84,7 +84,7 @@ export default ({config}) => ({
             },
         },
         "blockedPermissions": [
-            // We don't need to record audio using expo-av, so don't request this permission.
+            // We don't need to record audio, so don't request this permission.
             "android.permission.RECORD_AUDIO",
             // Don't need to write to external storage either.
             "android.permission.WRITE_EXTERNAL_STORAGE",
@@ -96,6 +96,7 @@ export default ({config}) => ({
 
     "plugins": [
         "expo-asset",
+        "expo-audio",
         ["expo-build-properties", {
             "android": {
                 "targetSdkVersion": 35,
@@ -106,7 +107,6 @@ export default ({config}) => ({
             "supportsBackgroundPlayback": false,
             "supportsPictureInPicture": true
         }],
+        "expo-web-browser",
     ],
-
-    "newArchEnabled": false,
 });

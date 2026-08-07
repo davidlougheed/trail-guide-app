@@ -1,21 +1,18 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 // noinspection JSValidateTypes
 
-import { memo, useRef } from "react";
-import {Text, useWindowDimensions, View} from "react-native";
-import {useAssets} from "expo-asset";
-import {Video} from "expo-av";
-import {useVideoPlayer, VideoView} from "expo-video";
+import { memo } from "react";
+import { Text, useWindowDimensions, View } from "react-native";
+import { useAssets } from "expo-asset";
+import { useVideoPlayer, VideoView } from "expo-video";
 
 import assetData from "../data/assets/assets";
 import {getDataFromAssetURI} from "../utils";
 
 const LocalVideoRenderer = memo(({style, tnode, ...props}) => {
     const {width: screenWidth} = useWindowDimensions();
-
-    const video = useRef(null);
 
     const {
         attributes: {width: widthAttr, height: heightAttr},
@@ -78,15 +75,9 @@ const LocalVideoRenderer = memo(({style, tnode, ...props}) => {
         <VideoView
             style={{height, width}}
             player={player}
-            allowsFullscreen={true}
+            fullscreenOptions={{ enable: true }}
             allowsPictureInPicture={true}
         />
-        {/*<Video ref={video}*/}
-        {/*       style={{height, width}}*/}
-        {/*       {...videoProps}*/}
-        {/*       usePoster={hasPoster}*/}
-        {/*       resizeMode="contain"*/}
-        {/*       useNativeControls={true} />*/}
     </View>;
 });
 
