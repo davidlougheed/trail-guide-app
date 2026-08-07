@@ -1,14 +1,15 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
-import {Image, Modal, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View} from "react-native";
-import {ReactNativeZoomableView} from "@openspacelabs/react-native-zoomable-view";
-import {useAssets} from "expo-asset";
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
+import { useAssets } from "expo-asset";
 
 import assetData from "../data/assets/assets";
-import {getDataFromAssetURI} from "../utils";
+import { getDataFromAssetURI } from "../utils";
 
 const styles = StyleSheet.create({
     dneStyle: {
@@ -28,19 +29,19 @@ const styles = StyleSheet.create({
 
     modalContainer: {
         flex: 1,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
     },
     closeButton: {
         position: "absolute",
-        top: 20,
-        right: 16,
+        // top: 64,
+        right: 32,
         zIndex: 99,
     },
     closeButtonText: {
         color: "white",
         fontSize: 28,
         textShadowColor: "rgba(0, 0, 0, 0.7)",
-        textShadowOffset: {width: 0, height: 0},
+        textShadowOffset: { width: 0, height: 0 },
         textShadowRadius: 3,
     },
 
@@ -50,8 +51,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const LocalImageRenderer = memo(({style, tnode: {attributes: {src, width, height}}, ...props}) => {
-    const {width: screenWidth} = useWindowDimensions();
+const LocalImageRenderer = memo(({ style, tnode: { attributes: { src, width, height } }, ...props }) => {
+    const insets = useSafeAreaInsets();
+    const { width: screenWidth } = useWindowDimensions();
 
     const [modalVisible, setModalVisible] = useState(false);
     const openModal = useCallback(() => setModalVisible(true), []);
@@ -114,23 +116,30 @@ const LocalImageRenderer = memo(({style, tnode: {attributes: {src, width, height
         };
     }, [screenWidth, viewDimensions, width, height]);
 
-    if (!assets || !viewDimensions) return <View style={styles.dneStyle} />;
+    if (!assets || !viewDimensions) return <View style={styles.dneStyle}/>;
 
-    return <View style={styles.container} {...props}>
-        <Modal visible={modalVisible} animationType="fade" transparent={true} onRequestClose={closeModal}>
-            <View style={styles.modalContainer}>
-                <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
-                    <Text style={styles.closeButtonText}>&#10005;</Text>
-                </TouchableOpacity>
-                <ReactNativeZoomableView minZoom={1} maxZoom={2} onSingleTap={zoomViewTap} onShiftingEnd={swipeClose}>
-                    <Image source={assetId} style={modalImageStyle}/>
-                </ReactNativeZoomableView>
-            </View>
-        </Modal>
-        <TouchableOpacity onPress={openModal} style={displayImageStyle}>
-            <Image source={assetId} style={styles.innerImageStyle} />
-        </TouchableOpacity>
-    </View>
+    return (
+        <View style={styles.container} {...props}>
+            <Modal visible={modalVisible} animationType="fade" transparent={true} onRequestClose={closeModal}>
+                <View style={styles.modalContainer}>
+                    <TouchableOpacity
+                        onPress={closeModal}
+                        style={StyleSheet.compose(styles.closeButton, { top: Math.max(insets.top, 32) })}
+                    >
+                        <Text style={styles.closeButtonText}>&#10005;</Text>
+                    </TouchableOpacity>
+                    <ReactNativeZoomableView
+                        minZoom={1} maxZoom={2} onSingleTap={zoomViewTap} onShiftingEnd={swipeClose}
+                    >
+                        <Image source={assetId} style={modalImageStyle}/>
+                    </ReactNativeZoomableView>
+                </View>
+            </Modal>
+            <TouchableOpacity onPress={openModal} style={displayImageStyle}>
+                <Image source={assetId} style={styles.innerImageStyle}/>
+            </TouchableOpacity>
+        </View>
+    );
 });
 
 export default LocalImageRenderer;

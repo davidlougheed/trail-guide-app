@@ -1,5 +1,5 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
 import { memo, useCallback, useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import PageView from "./components/PageView";
 import MapView from "./components/MapView";
@@ -151,22 +152,24 @@ const TermsModalWithHandler = () => {
 };
 
 const App = memo(() => (
-    <NavigationContainer linking={linking}>
-        <TermsModalWithHandler />
-        <Tab.Navigator screenOptions={getScreenOptions} initialRouteName={POINTS_OF_INTEREST}>
-            <Tab.Screen
-                name={POINTS_OF_INTEREST}
-                options={SCREEN_OPTIONS[POINTS_OF_INTEREST]}
-                component={StationsView}
-            />
-            <Tab.Screen
-                name={MAP}
-                options={SCREEN_OPTIONS[MAP]}
-                component={MapView}
-            />
-            {PAGE_SCREENS}
-        </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+        <NavigationContainer linking={linking}>
+            <TermsModalWithHandler />
+            <Tab.Navigator screenOptions={getScreenOptions} initialRouteName={POINTS_OF_INTEREST}>
+                <Tab.Screen
+                    name={POINTS_OF_INTEREST}
+                    options={SCREEN_OPTIONS[POINTS_OF_INTEREST]}
+                    component={StationsView}
+                />
+                <Tab.Screen
+                    name={MAP}
+                    options={SCREEN_OPTIONS[MAP]}
+                    component={MapView}
+                />
+                {PAGE_SCREENS}
+            </Tab.Navigator>
+        </NavigationContainer>
+    </SafeAreaProvider>
 ));
 
 // noinspection JSUnusedGlobalSymbols

@@ -1,13 +1,9 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
 import { memo, useState } from "react";
-import {
-    SafeAreaView,
-    ScrollView,
-    View,
-} from "react-native";
+import { ScrollView, View } from "react-native";
 
 import Gallery from "./Gallery";
 import HTMLContent from "./HTMLContent";
@@ -38,7 +34,7 @@ const StationsDetailView = memo(({station}) => {
     const {contents} = station;
 
     return <>
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <ScrollView>
                 {station ? <>
                     <PageHeader station={station} />
@@ -56,7 +52,7 @@ const StationsDetailView = memo(({station}) => {
                     })}
                 </> : null}
             </ScrollView>
-        </SafeAreaView>
+        </View>
         <RenderModals modalsVisible={modalsVisible} setModalsVisible={setModalsVisible} />
     </>;
 });

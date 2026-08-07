@@ -1,16 +1,16 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
-import React, {useMemo, useState} from "react";
-import {SafeAreaView, ScrollView, StyleSheet, useWindowDimensions, View} from "react-native";
+import React, { useMemo, useState } from "react";
+import { ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 import PageHeader from "./PageHeader";
 import RenderModals from "./RenderModals";
 
-import {localDataProvider} from "../dataSources";
-import {pageStyles} from "./lib/sharedStyles";
+import { localDataProvider } from "../dataSources";
+import { pageStyles } from "./lib/sharedStyles";
 
 const styles = StyleSheet.create({
     pageContent: {
@@ -31,7 +31,7 @@ const PageView = ({route}) => {
     const [modalsVisible, setModalsVisible] = useState({});
 
     return <>
-        <SafeAreaView style={pageStyles.container}>
+        <View style={pageStyles.container}>
             <ScrollView>
                 <PageHeader page={pageHeaderData} />
                 <View style={styles.pageContent}>
@@ -42,7 +42,7 @@ const PageView = ({route}) => {
                     />
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
         <RenderModals modalsVisible={modalsVisible} setModalsVisible={setModalsVisible} />
     </>;
 }

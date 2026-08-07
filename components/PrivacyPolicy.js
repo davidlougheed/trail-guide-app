@@ -1,8 +1,9 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
-import {SafeAreaView, ScrollView, StyleSheet, useWindowDimensions, View} from "react-native";
+import { ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import Constants from "expo-constants";
 

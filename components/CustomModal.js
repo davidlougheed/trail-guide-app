@@ -1,9 +1,10 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
 import { memo } from "react";
-import {Button, Modal, Text, useWindowDimensions, ScrollView, View, SafeAreaView} from "react-native";
+import { Button, Modal, Text, useWindowDimensions, ScrollView, View } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import CustomRenderHTML from "./htmlDisplay/CustomRenderHTML";
 
@@ -41,22 +42,24 @@ const CustomModal = memo(({visible, data, onRequestClose, setModalsVisible}) => 
     const {title, content, close_text} = data;
 
     return <Modal animationType="slide" transparent={false} visible={visible} onRequestClose={onRequestClose}>
-        <SafeAreaView style={modalStyles.safeArea}>
-            <ScrollView style={modalStyles.container}>
-                {title ? <Text style={modalStyles.title}>{title}</Text> : null}
-                <CustomRenderHTML
-                    source={{html: content ?? ""}}
-                    baseStyle={modalStyles.htmlBase}
-                    contentWidth={width}
-                    setModalsVisible={setModalsVisible}
-                    onNavigateAway={onRequestClose}
-                    inModal={true}
-                />
-            </ScrollView>
-            <View style={modalStyles.buttonContainer}>
-                <Button onPress={onRequestClose} title={(close_text ?? "Close").toLocaleUpperCase()} />
-            </View>
-        </SafeAreaView>
+        <SafeAreaProvider>
+            <SafeAreaView style={modalStyles.safeArea}>
+                <ScrollView style={modalStyles.container}>
+                    {title ? <Text style={modalStyles.title}>{title}</Text> : null}
+                    <CustomRenderHTML
+                        source={{html: content ?? ""}}
+                        baseStyle={modalStyles.htmlBase}
+                        contentWidth={width}
+                        setModalsVisible={setModalsVisible}
+                        onNavigateAway={onRequestClose}
+                        inModal={true}
+                    />
+                </ScrollView>
+                <View style={modalStyles.buttonContainer}>
+                    <Button onPress={onRequestClose} title={(close_text ?? "Close").toLocaleUpperCase()} />
+                </View>
+            </SafeAreaView>
+        </SafeAreaProvider>
     </Modal>;
 });
 

@@ -1,18 +1,18 @@
 // A mobile app to display interactive trail guide content.
-// Copyright (C) 2021-2025  David Lougheed
+// Copyright (C) 2021-2026  David Lougheed
 // See NOTICE for more information.
 
 import { memo } from "react";
-import {SafeAreaView, SectionList, StyleSheet} from "react-native";
+import { SectionList, StyleSheet, View } from "react-native";
 
 import StationsListItem from "./StationsListItem";
 import StationsListSectionHeader from "./StationsListSectionHeader";
 
-import {localDataProvider} from "../dataSources";
-import {stationScreenName} from "../routes";
+import { localDataProvider } from "../dataSources";
+import { stationScreenName } from "../routes";
 
 const styles = StyleSheet.create({
-    safeView: {flex: 1},
+    view: { flex: 1 },
 });
 
 
@@ -21,7 +21,7 @@ const StationsListView = memo(({navigation}) => {
 
     const onPress = id => navigation.navigate("Points of Interest", {screen: stationScreenName(id)});
 
-    return <SafeAreaView style={styles.safeView}>
+    return <View style={styles.view}>
         <SectionList
             sections={localDataProvider.stations.categoryNested}
             keyExtractor={(item, index) => `${item.title}.${index}`}
@@ -33,7 +33,7 @@ const StationsListView = memo(({navigation}) => {
                  />
             )}
             renderSectionHeader={({section: {title}}) => <StationsListSectionHeader title={title} />} />
-    </SafeAreaView>;
+    </View>;
 });
 
 export default StationsListView;
